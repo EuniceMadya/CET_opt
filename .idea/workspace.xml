@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bef09597-3fb6-40cf-b7d9-4567f64a92ce" name="Default Changelist" comment="" />
+    <list default="true" id="bef09597-3fb6-40cf-b7d9-4567f64a92ce" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CET/src/DAG/dagGen/src/edu/siu/cs/dagGen/DAGFileNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/CET/src/DAG/dagGen/javadoc/DAGFileNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CET/src/DAG/dagGen/src/edu/siu/cs/dagGen/DAGFileParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/CET/src/DAG/dagGen/DAGFileParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CET/src/DAG/dagGen/src/edu/siu/cs/dagGen/DAGFunctions.java" beforeDir="false" afterPath="$PROJECT_DIR$/CET/src/DAG/dagGen/DAGFunctions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CET/src/DAG/dagGen/src/edu/siu/cs/dagGen/DAGOutOfBounds.java" beforeDir="false" afterPath="$PROJECT_DIR$/CET/src/DAG/dagGen/DAGOutOfBounds.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CET/src/DAG/dagGen/src/edu/siu/cs/dagGen/DAGParse.java" beforeDir="false" afterPath="$PROJECT_DIR$/CET/src/DAG/dagGen/DAGParse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CET/src/DAG/dagGen/src/edu/siu/cs/dagGen/DAGSelfDependent.java" beforeDir="false" afterPath="$PROJECT_DIR$/CET/src/DAG/dagGen/DAGSelfDependent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CET/src/DAG/dagGen/src/edu/siu/cs/dagGen/DAGSmith.java" beforeDir="false" afterPath="$PROJECT_DIR$/CET/src/DAG/dagGen/DAGSmith.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CET/src/DAG/dagGen/src/edu/siu/cs/dagGen/DAGTools.java" beforeDir="false" afterPath="$PROJECT_DIR$/CET/src/DAG/dagGen/DAGTools.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CET/src/DAG/dagGen/src/edu/siu/cs/dagGen/TreeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/CET/src/DAG/dagGen/TreeNode.java" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -50,9 +61,31 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CET/src/DAG/dagGen/.gitignore">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="126">
+              <caret line="7" column="4" lean-forward="true" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CET/src/DAG/dagGen/javadoc/DAGFileNotFoundException.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/CET/src/DAG/dagGen/DAGFileParser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-26">
+              <caret line="7" column="14" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -85,7 +118,7 @@
     </replaceStrings>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/CET/src/DAG/dagGen" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -96,6 +129,7 @@
         <option value="$PROJECT_DIR$/CET/src/DAG/Bag.java" />
         <option value="$PROJECT_DIR$/CET/src/DAG/Digraph.java" />
         <option value="$PROJECT_DIR$/CET/src/event/EventDriver.java" />
+        <option value="$PROJECT_DIR$/CET/src/DAG/dagGen/javadoc/DAGFileNotFoundException.java" />
       </list>
     </option>
   </component>
@@ -188,6 +222,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -219,15 +254,16 @@
       <workItem from="1583660493143" duration="4060000" />
       <workItem from="1583984584696" duration="1112000" />
       <workItem from="1584026254115" duration="1211000" />
-      <workItem from="1584339484223" duration="5487000" />
+      <workItem from="1584339484223" duration="5933000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11870000" />
+    <option name="totallyTimeSpent" value="12316000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="811" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2607143" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -237,7 +273,7 @@
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.32998565" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -519,7 +555,25 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CET/src/DAG/dagGen/.gitignore">
-      <provider selected="true" editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" column="4" lean-forward="true" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CET/src/DAG/dagGen/javadoc/DAGFileNotFoundException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CET/src/DAG/dagGen/DAGFileParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-26">
+          <caret line="7" column="14" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
+        </state>
+      </provider>
     </entry>
   </component>
   <component name="masterDetails">

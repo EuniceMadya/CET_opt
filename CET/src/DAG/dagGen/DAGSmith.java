@@ -1,4 +1,4 @@
-package edu.siu.cs.dagGen;
+package DAG.dagGen;
 
 /**
  * DAGSmith is a class used for generating NxN Directed Acyclic Graphs (DAGs).

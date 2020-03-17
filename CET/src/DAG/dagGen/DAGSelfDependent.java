@@ -1,4 +1,4 @@
-package edu.siu.cs.dagGen;
+package DAG.dagGen;
 
 public class DAGSelfDependent extends Exception {
 

@@ -1,4 +1,4 @@
-package edu.siu.cs.dagGen;
+package DAG.dagGen;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
