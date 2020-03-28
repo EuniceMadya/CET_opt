@@ -19,7 +19,9 @@ public class StockEvent extends Event {
 	
 	public static Event parse (String line) {
 		
-		String[] values = line.split(", ");
+		String[] values = line.split(",");
+		System.out.println("Parsing: "+ line);
+
 		
 		int i = Integer.parseInt(values[0]);
 		int sec = Integer.parseInt(values[1]);

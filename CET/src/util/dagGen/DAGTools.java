@@ -1,4 +1,4 @@
-package DAG.dagGen;
+package util.dagGen;
 
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;

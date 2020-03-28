@@ -1,8 +1,10 @@
 package iogenerator;
 
+import event.EventDriver;
+import event.EventQueue;
+import scheduler.Scheduler;
+
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.CountDownLatch;
@@ -10,8 +12,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
-import event.*;
-import scheduler.*;
  
 public class Main {
 	
@@ -36,7 +36,7 @@ public class Main {
 	    
 	    /*** Input and output ***/
 	    // Set default values
-	    String path = "iofiles/";
+	    String path = "CET/src/iofiles/";
 		String inputfile = "stream1.txt";
 		String outputfile = "sequences.txt";		
 		String type = "stock";
@@ -69,7 +69,7 @@ public class Main {
 			if (args[i].equals("-search")) 		search_algorithm = Integer.parseInt(args[++i]);
 		}
 	    String input = path + inputfile;
-	    OutputFileGenerator output = new OutputFileGenerator(path+outputfile); 
+	    OutputFileGenerator output = new OutputFileGenerator(path+outputfile);
 	    if (window_length == 0 && window_slide == 0) {
 	    	window_length = lastsec+1;
 	    	window_slide = lastsec+1;

@@ -1,4 +1,4 @@
-package DAG.dagGen;
+package util.dagGen;
 
 import java.util.Iterator;
 import java.util.Stack;

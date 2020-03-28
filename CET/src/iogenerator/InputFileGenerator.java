@@ -1,5 +1,9 @@
 package iogenerator;
 
+import event.CheckEvent;
+import event.Event;
+import event.Window;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -8,15 +12,15 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
-import event.*;
 
 public class InputFileGenerator {
 	
 	static int total_sequence_number; 
 	
 	public static void main (String[] args) {
-		
-		int action = Integer.parseInt(args[0]);
+
+		//TODO: change it later
+		int action = 0;
 		
 		// Parameters to vary
 		int event_number_per_window = 10;
@@ -28,51 +32,54 @@ public class InputFileGenerator {
 		
 		try {
 			
-		/*** Generate input event stream ***/
-		if (action == 0) {		
-			
-			// Open the output file
-			String output_file_name = "CET\\src\\iofiles\\rate" + event_number_per_window + ".txt"; 
-			//String output_file_name = "CET\\src\\iofiles\\comp" + max_comp + ".txt";
-			//String output_file_name = "CET\\src\\iofiles\\stream.txt";
-			File output_file = new File(output_file_name);
-			BufferedWriter output = new BufferedWriter(new FileWriter(output_file));
-		
-			// Generate the input event stream
-			//generate_batches(output);
-			generate_windows(output,event_number_per_window,max_comp,window_length,window_slide,time_progress,random_comp);
-		
-			// Close the file
-			output.close();	
-					
-		} else {
-		/*** Parse input event stream and count events per second ***/
-		if (action == 1) {
-						
-			String input_file_name = "CET\\src\\iofiles\\105.dat";
-			File input_file = new File(input_file_name);
-			Scanner input = new Scanner(input_file);   
-			countEvents(input);
-			input.close();       	
-			 
-		} else {
-		/*** Select events ***/
-			
-			// Input file
-			String input_file_name = "CET\\src\\iofiles\\114.dat";
-			File input_file = new File(input_file_name);
-	        Scanner input = new Scanner(input_file);     
-	        
-	        // Output file 
-	        String output_file_name = "CET\\src\\iofiles\\real_stream.dat";
-            File output_file = new File(output_file_name);
-            BufferedWriter output = new BufferedWriter(new FileWriter(output_file));
-            
-            selectEvents(input,output);       		
-	       	input.close();       		       		
-	       	output.close();
-            
-		}}} catch (IOException e ) { e.printStackTrace(); }			
+			/*** Generate input event stream ***/
+			if (action == 0) {
+
+				// Open the output file
+				String output_file_name = "CET\\src\\iofiles\\rate" + event_number_per_window + ".txt";
+				//String output_file_name = "CET\\src\\iofiles\\comp" + max_comp + ".txt";
+				//String output_file_name = "CET\\src\\iofiles\\stream.txt";
+				File output_file = new File(output_file_name);
+				System.out.println("out put to file: "+ output_file_name);
+				BufferedWriter output = new BufferedWriter(new FileWriter(output_file));
+
+				// Generate the input event stream
+//				generate_batches(output);
+				generate_windows(output,event_number_per_window,max_comp,window_length,window_slide,time_progress,random_comp);
+
+				// Close the file
+				output.close();
+
+			} else {
+				/*** Parse input event stream and count events per second ***/
+				if (action == 1) {
+
+					String input_file_name = "CET\\src\\iofiles\\105.dat";
+					File input_file = new File(input_file_name);
+					Scanner input = new Scanner(input_file);
+					countEvents(input);
+					input.close();
+
+				} else {
+				/*** Select events ***/
+
+					// Input file
+					String input_file_name = "CET\\src\\iofiles\\114.dat";
+					File input_file = new File(input_file_name);
+					Scanner input = new Scanner(input_file);
+
+					// Output file
+					String output_file_name = "CET\\src\\iofiles\\real_stream.dat";
+					File output_file = new File(output_file_name);
+					BufferedWriter output = new BufferedWriter(new FileWriter(output_file));
+
+					selectEvents(input,output);
+					input.close();
+					output.close();
+
+				}
+			}
+		} catch (IOException e ) { e.printStackTrace(); }
 	}
 	
 	public static void countEvents (Scanner input) {

@@ -1,4 +1,4 @@
-package DAG.dagGen.javadoc;
+package util.dagGen.javadoc;
 
 public class DAGFileNotFoundException extends Exception {
 

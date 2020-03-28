@@ -1,4 +1,4 @@
-package DAG.dagGen;
+package util.dagGen;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -46,9 +46,9 @@ public class DAGParse {
 	 * Dependency Mapping File will be imported from
 	 * @return
 	 * The array representing job dependencies.
-	 * @throws DAGFileNotFoundException
+	 * @throws Exception
 	 */
-	public boolean[][] parseDependancies(String filename) throws DAGFileNotFoundException, DAGSelfDependent, DAGOutOfBounds, IOException {
+	public boolean[][] parseDependancies(String filename) throws Exception , DAGSelfDependent, DAGOutOfBounds, IOException {
 		
 		/* 1 means the job
 		 * corresponding to the row number depends on the job
@@ -66,7 +66,12 @@ public class DAGParse {
 		 */
 		if(log)
 			System.out.println("Opening File to Parse");
-		FileReader file = DAGParse.openFile(filename);
+		FileReader file = null;
+		try {
+			file = DAGParse.openFile(filename);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		DAGFileParser parse = new DAGFileParser(file);
 		if(log)
 			System.out.println("File Opened, Parsing File");
@@ -81,11 +86,11 @@ public class DAGParse {
 	 * @param filename
 	 * @return
 	 */
-	private static FileReader openFile(String filename) throws DAGFileNotFoundException {
+	private static FileReader openFile(String filename) throws Exception {
 		try {
 			return new FileReader(filename);
 		} catch (FileNotFoundException e) {
-			throw new DAGFileNotFoundException(filename);
+			throw new Exception(filename);
 		}
 		
 	}

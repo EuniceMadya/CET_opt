@@ -1,4 +1,4 @@
-package DAG.dagGen;
+package util.dagGen;
 
 import java.io.FileReader;
 import java.io.IOException;

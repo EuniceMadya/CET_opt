@@ -1,4 +1,4 @@
-package DAG.dagGen;
+package util.dagGen;
 
 public class DAGSelfDependent extends Exception {
 
