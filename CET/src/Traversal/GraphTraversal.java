@@ -1,20 +1,21 @@
 package Traversal;
 
-import java.time.LocalDateTime;
+import java.sql.Time;
+import java.util.List;
 
 public abstract class GraphTraversal implements Runnable{
     Graph graph;
-    LocalDateTime window;
+    Time window;
 
-    public GraphTraversal(Graph graph, LocalDateTime windowSize){
+    public GraphTraversal(Graph graph, Time windowSize){
         this.graph = graph;
         this.window = windowSize;
     }
 
-    @Override
-    public void run() {
 
-    }
+    public abstract List<Integer> findPattern();
+
+    public abstract void traversal();
 
 
 

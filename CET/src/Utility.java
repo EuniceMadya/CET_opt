@@ -12,7 +12,7 @@ public class Utility {
         GraphGenerator graphGenerator = new GraphGenerator();
 
 
-        boolean[][] dag = smith.generateRandomDAG(2, 1);
+        boolean[][] dag = smith.generateRandomDAG(10, 15);
 
         Timestamp [] timestamps = randomTimeGenerator.generateTimes(dag);
         Graph graph = graphGenerator.generateGraph(dag, timestamps);

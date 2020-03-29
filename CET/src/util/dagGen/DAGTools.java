@@ -29,14 +29,14 @@ public class DAGTools {
 	public static String printDAG(boolean[][] matrix) {
 		StringBuilder result = new StringBuilder(matrix.length*(matrix[0].length*3));
 		for(int i = 0; i < matrix.length; i++) {
-			result.append("|");
+			result.append("");
 			for(int j = 0; j<matrix[0].length;j++) {
 				char c;
 				if(matrix[i][j])
 					c = '1';
 				else
 					c = '0';
-				result.append(c+"|");
+				result.append(c+",");
 			}
 			result.append("\n");
 		}

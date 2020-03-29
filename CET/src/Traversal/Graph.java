@@ -2,12 +2,18 @@ package Traversal;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Graph {
     private Map<Integer, Vertex> vertices;
     private Map<Vertex, List<Integer>> graph;
+
+    public Graph(){
+        vertices = new HashMap<>();
+        graph = new HashMap<>();
+    }
 
 
     public Vertex addVertex(int index, Timestamp time){
