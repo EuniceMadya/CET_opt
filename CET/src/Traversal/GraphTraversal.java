@@ -15,7 +15,7 @@ public abstract class GraphTraversal implements Runnable{
 
     public abstract List<Integer> findPattern();
 
-    public abstract void traversal();
+    public abstract void traversal(int i);
 
 
 

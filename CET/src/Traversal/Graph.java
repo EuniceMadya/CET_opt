@@ -8,11 +8,13 @@ import java.util.Map;
 
 public class Graph {
     private Map<Integer, Vertex> vertices;
-    private Map<Vertex, List<Integer>> graph;
+    private Map<Integer, List<Integer>> graph;
+    int numVertex;
 
     public Graph(){
         vertices = new HashMap<>();
         graph = new HashMap<>();
+        numVertex = 0;
     }
 
 
@@ -20,11 +22,10 @@ public class Graph {
 
         Vertex newVertex = new Vertex(index, time);
         vertices.put(index, newVertex);
-        graph.put(newVertex, new ArrayList<>());
+        graph.put(index, new ArrayList<>());
+        numVertex ++;
         return newVertex;
     }
-
-
 
     public void addEdges(int index, List<Integer> edges){
         Vertex vertex = vertices.get(index);
@@ -32,7 +33,7 @@ public class Graph {
             System.out.println("no existing vertex to the corresponding index");
             return;
         }
-        graph.replace(vertex, edges);
+        graph.replace(index, edges);
     }
 
     public void removeVertex(int index){
@@ -47,6 +48,14 @@ public class Graph {
 
     }
 
+    public Vertex getVertex(int i){
+        return vertices.get(i);
+    }
+
+    public List<Integer> getEdges(int i){
+        return graph.get(i);
+    }
+
 
     public class Vertex{
         int index;
@@ -55,8 +64,10 @@ public class Graph {
             this.index = index;
             this.time = time;
         }
+    }
 
-
+    public int getNumVertex(){
+        return numVertex;
     }
 
 }

@@ -17,9 +17,12 @@ public class GraphGenerator {
             graph.addVertex(i, time[i]);
             List <Integer> edges = new ArrayList<>();
             for(int j = 0; j < size; j ++){
-                System.out.println("i: " + i + "j "+ j);
+
                 if(grid[i][j]) edges.add(j);
+
             }
+            graph.addEdges(i, edges);
+            System.out.println("for "+ i + ", adding " + edges.size() + " edges");
         }
 
         return graph;

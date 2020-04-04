@@ -15,7 +15,8 @@ public class DFSGraphTraversal extends GraphTraversal{
     }
 
     @Override
-    public void traversal() {
+    public void traversal(int i) {
+
 
     }
 

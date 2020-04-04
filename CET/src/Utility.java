@@ -26,6 +26,8 @@ public class Utility {
 
 
 
+        BFSGraphTraversal bfs = new BFSGraphTraversal(graph, null);
+        bfs.traversal(0);
 
     }
 
