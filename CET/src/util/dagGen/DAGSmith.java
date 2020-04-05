@@ -69,9 +69,16 @@ public class DAGSmith {
 			System.out.println("Generating Matrix...");
 		boolean[][] result = new boolean[jobCount][jobCount];
 		for(int i = 0; i < jobCount; i++) {
-			for(int j = 0; j < jobCount; j++)
+			// try to see if it's connected to the graph at all
+			boolean connected = false;
+			for(int j = 0; j < jobCount; j++){
 				if(i!=j)
 					result[i][j] = random(frequency);
+				if(result[i][j])
+					connected = true;
+			}
+
+			if(!connected) i -=1;
 		}
 		return result;
 	}

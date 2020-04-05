@@ -62,6 +62,7 @@ public class BFSGraphTraversal extends GraphTraversal{
 
     @Override
     public void run() {
+        traversal(0);
 
     }
 }

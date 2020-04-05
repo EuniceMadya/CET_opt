@@ -11,23 +11,29 @@ public class Utility {
         RandomTimeGenerator randomTimeGenerator = new RandomTimeGenerator();
         GraphGenerator graphGenerator = new GraphGenerator();
 
-
         boolean[][] dag = smith.generateRandomDAG(10, 15);
 
         Timestamp [] timestamps = randomTimeGenerator.generateTimes(dag);
         Graph graph = graphGenerator.generateGraph(dag, timestamps);
 
-
-
         System.out.println(DAGTools.printDAG(dag));
         System.out.println("Generated a " + dag.length + "x" + dag[0].length +
                 " DAG with " + DAGTools.getEdges(dag) + " edges.");
 
-
-
-
         BFSGraphTraversal bfs = new BFSGraphTraversal(graph, null);
         bfs.traversal(0);
+
+        Thread threadBFS = new Thread(bfs);
+//        threadBFS.start();
+
+        DFSGraphTraversal dfs = new DFSGraphTraversal(graph, null);
+
+        Thread threadDFS = new Thread(dfs);
+        dfs.traversal(0);
+
+//        threadDFS.start();
+
+
 
     }
 
