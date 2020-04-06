@@ -30,35 +30,19 @@ public class BFSGraphTraversal extends GraphTraversal{
         visited[start] = true;
         queue.add(start);
 
-        while(visitNum != graph.numVertex){
-            if(queue.isEmpty()){
-                int unvisited = findUnvisit(visited) ;
-                if(unvisited ==-1){
-                    return;
-                }
-                queue.add(unvisited);
-                visited[unvisited] = true;
-                visitNum += 1;
-            }
+        while(!queue.isEmpty()){
             int current = queue.poll();
             System.out.println("visiting: " + current);
-            for(Integer toVisit: graph.getEdges(current)){
-                if(!visited[toVisit]){
-                    queue.add(toVisit);
-                    visited[toVisit] = true;
-                    visitNum += 1;
-                    System.out.println("adding: " + toVisit);
-                }
-            }
+
         }
     }
 
-    public int findUnvisit(boolean [] visited){
-        for(int i = 0; i < visited.length; i ++){
-            if(!visited[i]) return i;
-        }
-        return -1;
-    }
+
+
+
+ 
+
+
 
     @Override
     public void run() {

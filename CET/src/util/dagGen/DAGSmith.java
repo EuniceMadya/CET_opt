@@ -1,5 +1,4 @@
 package util.dagGen;
-
 /**
  * DAGSmith is a class used for generating NxN Directed Acyclic Graphs (DAGs).
  * 
@@ -70,21 +69,19 @@ public class DAGSmith {
 		boolean[][] result = new boolean[jobCount][jobCount];
 		for(int i = 0; i < jobCount; i++) {
 			// try to see if it's connected to the graph at all
-			boolean connected = false;
 			for(int j = 0; j < jobCount; j++){
 				if(i!=j)
 					result[i][j] = random(frequency);
-				if(result[i][j])
-					connected = true;
-			}
 
-			if(!connected) i -=1;
+			}
 		}
+		DAGTools dagTools = new DAGTools();
+		result = dagTools.connect(result, frequency);
 		return result;
 	}
 	
 	private boolean random(int frequency) {
-		return  ((int) (Math.random() * (frequency+1))%frequency==0)? true : false;
+		return  ((int) (Math.random() * (frequency+1))%frequency==0);
 	}
 	
 	/**

@@ -29,7 +29,7 @@ public class Utility {
         DFSGraphTraversal dfs = new DFSGraphTraversal(graph, null);
 
         Thread threadDFS = new Thread(dfs);
-        dfs.traversal(0);
+        dfs.traversal(2);
 
 //        threadDFS.start();
 

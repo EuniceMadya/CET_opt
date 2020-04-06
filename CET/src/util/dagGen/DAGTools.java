@@ -117,4 +117,35 @@ public class DAGTools {
 			e.printStackTrace();
 		}
 	}
+
+
+	public boolean[][] connect(boolean [][] graph, int frequency){
+		boolean [] visited = new boolean[graph.length];
+		int count = 0;
+		for(int i = 0; i < graph.length; i++) {
+			if(!visited[i]) {
+				System.out.println("Component: " );
+				isConnected(graph,i,visited);
+				++count;
+				if(count > 1){
+					graph[i][(int)Math.random() * (frequency+1) % graph.length] = true;
+				}
+			}
+		}
+		return graph;
+	}
+
+	public void isConnected(boolean [][] graph, int i, boolean[]visited){
+		if(!visited[i]){
+			visited[i] = true; // Mark node as "visited"
+			System.out.print(i+1 + " ");
+
+			for (int j = 0; j < graph[i].length; j++) {
+				if (graph[i][j] && !visited[j]) {
+					isConnected(graph, j, visited); // Visit node
+				}
+			}
+		}
+	}
+
 }
