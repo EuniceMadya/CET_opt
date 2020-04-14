@@ -124,7 +124,7 @@ public class DAGTools {
 		int count = 0;
 		for(int i = 0; i < graph.length; i++) {
 			if(!visited[i]) {
-				System.out.println("Component: " );
+//				System.out.println("\nConnect Component: " );
 				isConnected(graph,i,visited);
 				++count;
 				if(count > 1){
@@ -138,7 +138,7 @@ public class DAGTools {
 	public void isConnected(boolean [][] graph, int i, boolean[]visited){
 		if(!visited[i]){
 			visited[i] = true; // Mark node as "visited"
-			System.out.print(i+1 + " ");
+//			System.out.print(i+1 + " ");
 
 			for (int j = 0; j < graph[i].length; j++) {
 				if (graph[i][j] && !visited[j]) {
