@@ -1,18 +1,23 @@
 package util;
 
 import java.sql.Timestamp;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.Random;
+import java.util.*;
 
 public class RandomTimeGenerator {
     public Timestamp generateTime(long time) {
         Random generator = new Random(time);
-        long newTime = generator.nextLong();
-
-        return new Timestamp(newTime);
+        long mod = 84664510000L + generator.nextLong() % 10000L;
+        long addOn = generator.nextLong() % mod;
+        return new Timestamp( time + addOn);
     }
+
+    public Timestamp getInitialTimestamp(){
+        String str ="2000-01-01 00:00:00";
+        Timestamp timestamp= Timestamp.valueOf(str);
+        return timestamp;
+    }
+
+
 
     public Timestamp[] generateTimes(boolean[][] grid, List<Integer> startPoints) {
         Timestamp[] timestamps = new Timestamp[grid.length];
@@ -26,7 +31,7 @@ public class RandomTimeGenerator {
         for (int index = 0; index < grid.length; index++) {
 
             if (startPoints.contains(index)) {
-                timestamps[index] = generateTime(1000000);
+                timestamps[index] = generateTime(getInitialTimestamp().getTime());
                 priorityQueue.add(index);
             }
         }
@@ -40,6 +45,9 @@ public class RandomTimeGenerator {
                 }
             }
         }
+
+        System.out.println("timestamps: " + Arrays.toString(timestamps));
+
 
         return timestamps;
     }

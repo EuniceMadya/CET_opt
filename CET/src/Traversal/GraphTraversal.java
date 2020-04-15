@@ -24,7 +24,7 @@ public abstract class GraphTraversal implements Runnable {
         for (int start : graph.getStartPoints()) {
 
             traversal(start);
-            System.out.println("\n");
+            System.out.println("\n\n");
         }
         long endTime = System.nanoTime();
         long timeElapsed = endTime - startTime;

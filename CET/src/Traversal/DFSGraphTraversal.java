@@ -27,7 +27,7 @@ public class DFSGraphTraversal extends GraphTraversal {
 
     public void DFStraversal(int s, boolean[] visited) {
         visited[s] = true;
-        System.out.print(s + " ");
+        System.out.print(s + "(" + graph.getVertex(s).time + ")\n");
 
         // Recur for all the vertices adjacent to this vertex
         List<Integer> edges = graph.getEdges(s);

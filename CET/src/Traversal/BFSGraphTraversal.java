@@ -36,7 +36,7 @@ public class BFSGraphTraversal extends GraphTraversal {
         while (!queue.isEmpty()) {
             int current = queue.poll();
             visited[current] = true;
-            System.out.print(current + " ");
+            System.out.print(current + "(" + graph.getVertex(current).time + ")\n");
             for (int neighbour : graph.getEdges(current)) {
                 if (reached[neighbour] && !visited[neighbour]) queue.add(neighbour);
 
