@@ -1,6 +1,7 @@
 package Traversal;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DFSGraphTraversal extends GraphTraversal {
@@ -11,6 +12,11 @@ public class DFSGraphTraversal extends GraphTraversal {
 
     @Override
     public List<Integer> findPattern() {
+        // find pattern which:
+        // if adding the node will satisfy the constraint, keep the trend path
+        //else abandon the path
+
+
         return null;
     }
 
@@ -19,6 +25,9 @@ public class DFSGraphTraversal extends GraphTraversal {
         System.out.println("DFS");
 
         boolean[] visited = new boolean[graph.getNumVertex()];
+
+        List<Integer> path = new ArrayList<>();
+
         // Call the recursive helper function to print DFS traversal
         DFStraversal(start, visited);
 

@@ -8,11 +8,16 @@ public class BFSGraphTraversal extends GraphTraversal {
 
     public BFSGraphTraversal(Graph graph, Time windowSize) {
         super(graph, windowSize);
-
     }
 
     @Override
     public List<Integer> findPattern() {
+        // find pattern which:
+        // if adding the node will satisfy the constraint, keep the trend path
+        //else abandon the path
+
+
+
         return null;
     }
 
