@@ -1,6 +1,6 @@
 package util;
 
-import Traversal.Graph;
+import Components.Graph;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;

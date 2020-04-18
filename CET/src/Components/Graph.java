@@ -1,4 +1,4 @@
-package Traversal;
+package Components;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.Map;
 public class Graph {
     private Map<Integer, Vertex> vertices;
     private Map<Integer, List<Integer>> graph;
-    int numVertex;
+    protected int numVertex;
 
 
     private List<Integer> startPoints;
@@ -92,16 +92,6 @@ public class Graph {
         return graph.get(i);
     }
 
-
-    public class Vertex {
-        int index;
-        Timestamp time;
-
-        Vertex(int index, Timestamp time) {
-            this.index = index;
-            this.time = time;
-        }
-    }
 
     public int getNumVertex() {
         return numVertex;

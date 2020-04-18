@@ -1,19 +1,21 @@
 package Traversal;
 
-import java.sql.Time;
-import java.util.List;
+import Components.Graph;
+import Components.Path;
+
+import java.sql.Timestamp;
 
 public abstract class GraphTraversal implements Runnable {
     Graph graph;
-    Time window;
+    Timestamp window;
 
-    public GraphTraversal(Graph graph, Time windowSize) {
+    public GraphTraversal(Graph graph, Timestamp windowSize) {
         this.graph = graph;
         this.window = windowSize;
     }
 
 
-    public abstract List<Integer> findPattern();
+    public abstract boolean identifyPattern(Path path);
 
     public abstract void traversal(int i);
 

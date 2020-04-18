@@ -1,6 +1,6 @@
 import Traversal.BFSGraphTraversal;
 import Traversal.DFSGraphTraversal;
-import Traversal.Graph;
+import Components.Graph;
 import util.GraphGenerator;
 import util.GraphProcessor;
 import util.RandomTimeGenerator;
