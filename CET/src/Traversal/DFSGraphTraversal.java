@@ -2,7 +2,6 @@ package Traversal;
 
 import Components.Graph;
 import Components.Path;
-import Components.Vertex;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -11,28 +10,18 @@ public class DFSGraphTraversal extends GraphTraversal {
 
     public DFSGraphTraversal(Graph graph, Timestamp windowSize) {
         super(graph, windowSize);
-        this.window = new Timestamp(Long.MAX_VALUE);
     }
 
-    @Override
-    public boolean identifyPattern(Path path) {
+   // public boolean identifyPattern(Path path) {
         // find pattern which:
         // if adding the node will satisfy the constraint, keep the trend path
         //else abandon the path
-        Vertex start =  graph.getVertex(path.getPathNodes().get(0));
-        Vertex end = graph.getVertex(path.getPathNodes().get(path.getPathNodes().size() - 1));
-        Timestamp timeLap = new Timestamp(end.getTime().getTime() - start.getTime().getTime());
 
-
-        path.setSatisfied(timeLap.getTime()< window.getTime());
-
-
-        return path.isSatisfied();
-    }
+   // }
 
     @Override
     public void traversal(int start) {
-        System.out.println("DFS");
+
 
         boolean[] visited = new boolean[graph.getNumVertex()];
 
@@ -49,7 +38,7 @@ public class DFSGraphTraversal extends GraphTraversal {
 
         if(graph.getEndPoints().contains(s)){
             if(path.isSatisfied()){
-                System.out.println(path.getPathNodes());
+                System.out.println("DFS: "+ path.getPathNodes());
             }
             return;
         }
@@ -59,7 +48,7 @@ public class DFSGraphTraversal extends GraphTraversal {
         for (Integer edge : edges) {
             if (!visited[edge]){
                 path.addNode(edge);
-
+                identifyPattern(path);
                 DFStraversal(edge, visited, path);
                 path.removeNode(edge);
             }

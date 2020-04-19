@@ -7,10 +7,22 @@ public class Path{
     List<Integer> pathNodes;
     boolean satisfied;
 
+    public Path(){
+        satisfied = true;
+        pathNodes = new ArrayList<>();
+    }
+
     public Path(int start){
         satisfied = true;
         pathNodes = new ArrayList<>();
         pathNodes.add(start);
+    }
+
+    public Path (List<Integer> path, int end){
+        satisfied = true;
+        pathNodes = new ArrayList<>(path);
+        pathNodes.add(end);
+
     }
 
     public List<Integer> getPathNodes() {
@@ -25,12 +37,30 @@ public class Path{
         this.satisfied = satisfied;
     }
 
-    public void addNode(Integer node){
+    public List<Integer> addNode(Integer node){
         pathNodes.add(node);
+        return pathNodes;
 
     }
 
-    public void removeNode(Integer node){
+    public List<Integer> removeNode(Integer node){
         pathNodes.remove(node);
+        return pathNodes;
     }
+
+    public boolean addPathNodes(Path path){
+        if(path == null) return false;
+
+        return pathNodes.addAll(path.getPathNodes());
+    }
+
+    public boolean setPathNodes(Path path){
+        if(path == null) return false;
+
+        pathNodes = new ArrayList<>(path.getPathNodes());
+        return true;
+    }
+
+
+
 }

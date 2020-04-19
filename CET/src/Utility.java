@@ -17,7 +17,7 @@ public class Utility {
         RandomTimeGenerator randomTimeGenerator = new RandomTimeGenerator();
         GraphGenerator graphGenerator = new GraphGenerator();
 
-        boolean[][] dag = smith.generateRandomDAG(20, 15);
+        boolean[][] dag = smith.generateRandomDAG(150, 150);
 
         GraphProcessor graphProcessor = new GraphProcessor(dag);
         List<Integer> starts = graphProcessor.findStarts();
