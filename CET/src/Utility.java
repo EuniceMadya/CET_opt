@@ -1,41 +1,12 @@
-import Traversal.*;
 import Components.Graph;
-import util.*;
-
-import util.dagGen.*;
-
-import java.sql.Timestamp;
-import java.util.Arrays;
-import java.util.List;
+import Traversal.BFSGraphTraversal;
+import Traversal.DFSGraphTraversal;
+import util.GraphBuilder;
 
 public class Utility {
     public static void main(String[] args) {
-        DAGSmith smith = new DAGSmith();
-        RandomTimeGenerator randomTimeGenerator = new RandomTimeGenerator();
-        GraphGenerator graphGenerator = new GraphGenerator();
-
-        boolean[][] dag = smith.generateRandomDAG(10, 150);
-
-        GraphProcessor graphProcessor = new GraphProcessor(dag);
-        List<Integer> starts = graphProcessor.findStarts();
-        List<Integer> ends = graphProcessor.findEnds();
-
-
-        Timestamp[] timestamps = randomTimeGenerator.generateTimes(dag, starts);
-
-        Graph graph = graphGenerator.generateGraph(dag, timestamps);
-        graph.setStartPoints(starts);
-        graph.setEndPoints(ends);
-
-
-        System.out.println("start points: " + Arrays.toString(starts.toArray()));
-        System.out.println("end points: " + Arrays.toString(ends.toArray()));
-
-
-        System.out.println(DAGTools.printDAG(dag));
-        System.out.println("Generated a " + dag.length + "x" + dag[0].length +
-                " DAG with " + DAGTools.getEdges(dag) + " edges.");
-
+        GraphBuilder graphBuilder = new GraphBuilder();
+        Graph graph = graphBuilder.generateGraph("random");
         BFSGraphTraversal bfs = new BFSGraphTraversal(graph, null);
 //        bfs.traversal(0);
 

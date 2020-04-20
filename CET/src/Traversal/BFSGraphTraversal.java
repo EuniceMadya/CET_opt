@@ -13,17 +13,6 @@ public class BFSGraphTraversal extends GraphTraversal {
         super(graph, windowSize);
     }
 
-//    @Override
-//    public boolean identifyPattern(Path path) {
-//        // find pattern which:
-//        // if adding the node will satisfy the constraint, keep the trend path
-//        //else abandon the path
-//
-//
-//
-//        return true;
-//    }
-
     // BFS traversal
     @Override
     public void traversal(int start) {

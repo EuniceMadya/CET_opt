@@ -13,16 +13,8 @@ public class DFSGraphTraversal extends GraphTraversal {
         super(graph, windowSize);
     }
 
-   // public boolean identifyPattern(Path path) {
-        // find pattern which:
-        // if adding the node will satisfy the constraint, keep the trend path
-        //else abandon the path
-
-   // }
-
     @Override
     public void traversal(int start) {
-
 
         boolean[] visited = new boolean[graph.getNumVertex()];
 
@@ -63,9 +55,4 @@ public class DFSGraphTraversal extends GraphTraversal {
 
     }
 
-
-
 }
-// reference
-// print all paths from one node to another
-//https://www.geeksforgeeks.org/find-paths-given-source-destination/
