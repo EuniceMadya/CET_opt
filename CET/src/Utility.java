@@ -1,11 +1,8 @@
-import Traversal.BFSGraphTraversal;
-import Traversal.DFSGraphTraversal;
+import Traversal.*;
 import Components.Graph;
-import util.GraphGenerator;
-import util.GraphProcessor;
-import util.RandomTimeGenerator;
-import util.dagGen.DAGSmith;
-import util.dagGen.DAGTools;
+import util.*;
+
+import util.dagGen.*;
 
 import java.sql.Timestamp;
 import java.util.Arrays;
@@ -17,7 +14,7 @@ public class Utility {
         RandomTimeGenerator randomTimeGenerator = new RandomTimeGenerator();
         GraphGenerator graphGenerator = new GraphGenerator();
 
-        boolean[][] dag = smith.generateRandomDAG(150, 150);
+        boolean[][] dag = smith.generateRandomDAG(10, 150);
 
         GraphProcessor graphProcessor = new GraphProcessor(dag);
         List<Integer> starts = graphProcessor.findStarts();

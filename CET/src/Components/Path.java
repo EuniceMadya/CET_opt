@@ -25,6 +25,11 @@ public class Path{
 
     }
 
+    public Path (List<Integer> path){
+        satisfied = true;
+        pathNodes = new ArrayList<>(path);
+    }
+
     public List<Integer> getPathNodes() {
         return pathNodes;
     }

@@ -4,6 +4,7 @@ import Components.Graph;
 import Components.Path;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DFSGraphTraversal extends GraphTraversal {
@@ -27,18 +28,24 @@ public class DFSGraphTraversal extends GraphTraversal {
 
         Path path = new Path(start);
 
+        ArrayList<Path> validPaths = new ArrayList<>();
+
         // Call the recursive helper function to print DFS traversal
-        DFStraversal(start, visited, path);
+        DFStraversal(start, visited, path, validPaths);
+
+        for(Path singlePath : validPaths){
+            System.out.println("DFS: "+ singlePath.getPathNodes());
+        }
 
     }
 
 
-    public void DFStraversal(int s, boolean[] visited, Path path) {
+    public void DFStraversal(int s, boolean[] visited, Path path, ArrayList<Path>validPaths) {
         visited[s] = true;
 
         if(graph.getEndPoints().contains(s)){
             if(path.isSatisfied()){
-                System.out.println("DFS: "+ path.getPathNodes());
+                validPaths.add(new Path(path.getPathNodes()));
             }
             return;
         }
@@ -49,7 +56,7 @@ public class DFSGraphTraversal extends GraphTraversal {
             if (!visited[edge]){
                 path.addNode(edge);
                 identifyPattern(path);
-                DFStraversal(edge, visited, path);
+                DFStraversal(edge, visited, path, validPaths);
                 path.removeNode(edge);
             }
         }
