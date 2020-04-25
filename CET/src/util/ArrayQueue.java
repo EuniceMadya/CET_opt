@@ -1,6 +1,9 @@
 package util;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Collection;
+import java.util.NoSuchElementException;
 
 public class ArrayQueue<E> {
 
@@ -96,6 +99,8 @@ public class ArrayQueue<E> {
      */
     public void clear() {
         queue.clear();
+        startPos = 0;
+        size = 0;
     }
 
     /**
@@ -132,7 +137,7 @@ public class ArrayQueue<E> {
      * @return Element at head of queue.
      */
     public E remove() {
-        if (queue.get(startPos) == null) throw new NoSuchElementException();
+        if (startPos >= queue.size() || queue.get(startPos) == null) throw new NoSuchElementException();
         size--;
         return queue.get(startPos++);
     }
@@ -142,7 +147,7 @@ public class ArrayQueue<E> {
      * @return Element at head of queue.
      */
     public E poll() {
-        if (queue.get(startPos) == null) return null;
+        if (startPos >= queue.size() || queue.get(startPos) == null) return null;
         size--;
         return queue.get(startPos++);
     }
@@ -152,7 +157,7 @@ public class ArrayQueue<E> {
      * @return Element at head of queue.
      */
     public E element() {
-        if (queue.get(startPos) == null) throw new NoSuchElementException();
+        if (startPos >= queue.size() || queue.get(startPos) == null) throw new NoSuchElementException();
         return queue.get(startPos);
     }
 
@@ -161,6 +166,6 @@ public class ArrayQueue<E> {
      * @return Element at head of queue.
      */
     public E peek() {
-        return queue.get(startPos);
+        return startPos < queue.size() ? queue.get(startPos) : null;
     }
 }
