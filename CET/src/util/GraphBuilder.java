@@ -59,7 +59,7 @@ public class GraphBuilder {
 
 
         if (type.equalsIgnoreCase("random")) {
-            graph = generateRandomGraph(200);
+            graph = generateRandomGraph(20);
         } else {
             graph = generateGraphFileFile(type);
         }

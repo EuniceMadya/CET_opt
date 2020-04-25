@@ -2,10 +2,10 @@ package Traversal;
 
 import Components.Graph;
 import Components.Path;
+import util.ArrayQueue;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.PriorityQueue;
 
 public class BFSGraphTraversal extends GraphTraversal {
 
@@ -21,7 +21,7 @@ public class BFSGraphTraversal extends GraphTraversal {
 
         ArrayList<Path>[] paths = new ArrayList[graph.getNumVertex()];
 
-        PriorityQueue<Integer> queue = new PriorityQueue<>();
+        ArrayQueue<Integer> queue = new ArrayQueue(graph.getNumVertex());
 
         for (int i = 0; i < reached.length; i++) {
             reached[i] = false;
@@ -29,7 +29,7 @@ public class BFSGraphTraversal extends GraphTraversal {
         }
 
         reached[start] = true;
-        queue.add(start);
+        queue.offer(start);
         paths[start].add(new Path(start));
 
         ArrayList<Path> finalPaths = new ArrayList<>();
@@ -50,7 +50,7 @@ public class BFSGraphTraversal extends GraphTraversal {
                 }
                 if (!reached[neighbour]) {
                     reached[neighbour] = true;
-                    queue.add(neighbour);
+                    queue.offer(neighbour);
                 }
 
             }
@@ -60,8 +60,6 @@ public class BFSGraphTraversal extends GraphTraversal {
             if (identifyPattern(path)) {
                 System.out.println("BFS " + path.getPathNodes());
             }
-
-
         }
     }
 

@@ -1,4 +1,5 @@
 import Components.Graph;
+import Traversal.BFSCustomTraversal;
 import Traversal.BFSGraphTraversal;
 import Traversal.DFSGraphTraversal;
 import util.GraphBuilder;
@@ -10,14 +11,19 @@ public class Utility {
         BFSGraphTraversal bfs = new BFSGraphTraversal(graph, null);
 //        bfs.traversal(0);
 
+        BFSCustomTraversal bfsCustom = new BFSCustomTraversal(graph, null);
+
         DFSGraphTraversal dfs = new DFSGraphTraversal(graph, null);
+        //        dfs.traversal(2);
+
 
         Thread threadBFS = new Thread(bfs);
         Thread threadDFS = new Thread(dfs);
-//        dfs.traversal(2);
+        Thread threadCustomBFS = new Thread(bfsCustom);
 
         threadBFS.start();
         threadDFS.start();
+        threadCustomBFS.start();
 
 
     }
