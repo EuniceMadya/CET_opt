@@ -1,0 +1,15 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+# Compiled Source Code
+bin/
+
+# General Eclipse Files
+.classpath
+.metadata
+.project
+.settings
+*.properties
