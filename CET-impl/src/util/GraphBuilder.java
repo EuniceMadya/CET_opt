@@ -13,6 +13,7 @@ public class GraphBuilder {
 
     /**
      * This method reads in the type of graph generated
+     *
      * @param type: random / file path
      * @return graph
      */
@@ -20,7 +21,7 @@ public class GraphBuilder {
         Graph graph;
         if (type.equalsIgnoreCase("random")) {
             //TODO: the number of vertex should be able to be specified in the future
-            graph = generateRandomGraph(10);
+            graph = generateRandomGraph(6);
         } else {
             graph = generateGraphFile(type);
         }
@@ -29,6 +30,7 @@ public class GraphBuilder {
 
     /**
      * Generate random graph from scratch, using online DAGSmith
+     *
      * @param num: number of vertices
      * @return graph
      */
@@ -44,6 +46,7 @@ public class GraphBuilder {
 
     /**
      * Calling a parser tool to parse the graph file
+     *
      * @param path: file path
      * @return graph generated from file
      */
@@ -51,8 +54,6 @@ public class GraphBuilder {
         FileGraphParser fileGraphParser = new FileGraphParser();
         return fileGraphParser.readGraph(path);
     }
-
-
 
 
 }

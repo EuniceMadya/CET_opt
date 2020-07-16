@@ -6,7 +6,7 @@ public class Vertex {
     int index;
     Timestamp time;
 
-    public Vertex(int index){
+    public Vertex(int index) {
         this(index, null);
     }
 
@@ -15,11 +15,11 @@ public class Vertex {
         this.time = time;
     }
 
-    public Timestamp getTime(){
+    public Timestamp getTime() {
         return this.time;
     }
 
-    public void setTime(Timestamp time){
+    public void setTime(Timestamp time) {
         this.time = time;
     }
 }

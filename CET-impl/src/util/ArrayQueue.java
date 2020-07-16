@@ -1,8 +1,8 @@
 package util;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class ArrayQueue<E> {
@@ -22,6 +22,7 @@ public class ArrayQueue<E> {
 
     /**
      * Constructs an arraylist of the specified size.
+     *
      * @param startSize
      */
     public ArrayQueue(int startSize) {
@@ -33,6 +34,7 @@ public class ArrayQueue<E> {
     /**
      * Returns size of the queue after startPos.
      * Note: Can't use ArrayList.size because it may contain elements before startPos.
+     *
      * @return Size of queue.
      */
     public int size() {
@@ -41,6 +43,7 @@ public class ArrayQueue<E> {
 
     /**
      * Checks if the queue is empty.
+     *
      * @return true if empty, false if else.
      */
     public boolean isEmpty() {
@@ -50,6 +53,7 @@ public class ArrayQueue<E> {
     /**
      * Checks if the queue contains an element.
      * NOTE: Can't use ArrayList.contains because the element may exist before the startPos.
+     *
      * @param e Element to check.
      * @return true if element exists in queue, false if else.
      */
@@ -63,6 +67,7 @@ public class ArrayQueue<E> {
 
     /**
      * Returns an iterator of the queue starting at startPos.
+     *
      * @return An iterator for the queue.
      */
     public Iterator<? extends E> iterator() {
@@ -71,6 +76,7 @@ public class ArrayQueue<E> {
 
     /**
      * Converts queue to array.
+     *
      * @return Queue in array form.
      */
     public E[] toArray() {
@@ -80,6 +86,7 @@ public class ArrayQueue<E> {
     /**
      * Removes an element from the queue.
      * NOTE: Can't use ArrayList.remove because the element may exist before the startPos.
+     *
      * @param e Element to remove.
      * @return True if successfully removed, false if else.
      */
@@ -106,6 +113,7 @@ public class ArrayQueue<E> {
     /**
      * Removes all elements within the collection.
      * NOTE: Can't use ArrayList.removeAll because the element may exist before the startPos.
+     *
      * @param collection Collection of elements to be removed.
      * @return True if all elements are removed. False if else.
      */
@@ -124,6 +132,7 @@ public class ArrayQueue<E> {
 
     /**
      * Adds the object to the end of the queue. Throws NullPointerException if element is null.
+     *
      * @param e Object to be added.
      */
     public void offer(E e) {
@@ -134,6 +143,7 @@ public class ArrayQueue<E> {
 
     /**
      * Retrieves and removes the object at the head of this queue. Throws NoSuchElementException if queue is empty.
+     *
      * @return Element at head of queue.
      */
     public E remove() {
@@ -144,6 +154,7 @@ public class ArrayQueue<E> {
 
     /**
      * Retrieves and removes the object at the head of this queue.
+     *
      * @return Element at head of queue.
      */
     public E poll() {
@@ -154,6 +165,7 @@ public class ArrayQueue<E> {
 
     /**
      * Retrieves, but does not remove, the head of this queue. Throws NoSuchElementException if queue is empty.
+     *
      * @return Element at head of queue.
      */
     public E element() {
@@ -163,6 +175,7 @@ public class ArrayQueue<E> {
 
     /**
      * Retrieves, but does not remove, the head of this queue.
+     *
      * @return Element at head of queue.
      */
     public E peek() {

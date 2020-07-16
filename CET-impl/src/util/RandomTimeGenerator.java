@@ -8,19 +8,20 @@ public class RandomTimeGenerator {
         Random generator = new Random(time);
         long mod = 84664510000L + generator.nextLong() % 10000L;
         long addOn = generator.nextLong() % mod;
-        return new Timestamp( time + addOn);
+        return new Timestamp(time + addOn);
     }
 
-    public Timestamp getInitialTimestamp(){
-        String str ="2000-01-01 00:00:00";
-        Timestamp timestamp= Timestamp.valueOf(str);
+    public Timestamp getInitialTimestamp() {
+        String str = "2000-01-01 00:00:00";
+        Timestamp timestamp = Timestamp.valueOf(str);
         return timestamp;
     }
 
 
     /**
      * Generate time sequence based on the vertices order
-     * @param grid: adjacency matrix
+     *
+     * @param grid:        adjacency matrix
      * @param startPoints: all the start points in the graph
      * @return array of timestamps
      */

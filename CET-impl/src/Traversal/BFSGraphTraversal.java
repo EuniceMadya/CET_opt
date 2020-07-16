@@ -51,12 +51,8 @@ public class BFSGraphTraversal extends GraphTraversal {
                     reached[neighbour] = true;
                     queue.offer(neighbour);
                 }
-
             }
         }
-
-
     }
-
 
 }

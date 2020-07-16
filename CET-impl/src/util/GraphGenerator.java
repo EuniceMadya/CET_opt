@@ -33,7 +33,8 @@ public class GraphGenerator {
 
         return graph;
     }
-    public Graph buildGraph(boolean[][] dag, Timestamp[] timestamps){
+
+    public Graph buildGraph(boolean[][] dag, Timestamp[] timestamps) {
         GraphProcessor graphProcessor = new GraphProcessor(dag);
         List<Integer> starts = graphProcessor.findStarts();
         List<Integer> ends = graphProcessor.findEnds();

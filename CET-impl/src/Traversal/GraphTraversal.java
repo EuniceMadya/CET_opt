@@ -17,7 +17,6 @@ public abstract class GraphTraversal implements Runnable {
     TraversalType traversalType;
 
 
-
     public GraphTraversal(Graph graph, Timestamp windowSize) {
         this.graph = graph;
         this.window = windowSize;
@@ -30,11 +29,11 @@ public abstract class GraphTraversal implements Runnable {
     }
 
 
-    public boolean identifyPattern(Path path){
-        if(path == null){
+    public boolean identifyPattern(Path path) {
+        if (path == null) {
             return false;
         }
-        Vertex start =  graph.getVertex(path.getPathNodes().get(0));
+        Vertex start = graph.getVertex(path.getPathNodes().get(0));
         Vertex end = graph.getVertex(path.getPathNodes().get(path.getPathNodes().size() - 1));
 //        Timestamp timeLap = new Timestamp(end.getTime().getTime() - start.getTime().getTime());
 //
@@ -48,7 +47,7 @@ public abstract class GraphTraversal implements Runnable {
     public abstract void traversal(int i);
 
     @Override
-    public void run(){
+    public void run() {
 
         long startTime = System.nanoTime();
         for (int start : graph.getStartPoints()) {
@@ -62,22 +61,22 @@ public abstract class GraphTraversal implements Runnable {
         System.out.println(this.getClass().getName() + "Execution in nanoseconds  : " + timeElapsed);
     }
 
-    public void showResults(String algo){
-        File outputFolder = new File ("CET-impl/src/OutputFiles/");
+    public void showResults(String algo) {
+        File outputFolder = new File("CET-impl/src/OutputFiles/");
         outputFolder.mkdirs();
 
-        File outputFile = new File("CET-impl/src/OutputFiles/" +algo + "-" + new Date().toString()+".txt");
+        File outputFile = new File("CET-impl/src/OutputFiles/" + algo + "-" + new Date().toString() + ".txt");
 
         try {
             outputFile.createNewFile();
             FileWriter fileWriter = new FileWriter(outputFile);
             for (Path singlePath : validPaths) {
-                System.out.println(algo+": " + singlePath.getPathNodes());
+                System.out.println(algo + ": " + singlePath.getPathNodes());
                 fileWriter.write(singlePath.getPathNodes() + "\n");
             }
             fileWriter.close();
         } catch (Exception e) {
-            System.out.println(algo+": " + e.toString());
+            System.out.println(algo + ": " + e.toString());
         }
     }
 
