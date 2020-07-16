@@ -17,8 +17,8 @@ public class Main {
         String s = currentRelativePath.toAbsolutePath().toString();
         System.out.println("Current relative path is: " + s);
         //Read graph type: either random or a file path
-//        Graph graph = graphBuilder.generateGraph("CET-impl/src/InputFiles/inputMeeting0715.txt");
-        Graph graph = graphBuilder.generateGraph("random");
+        Graph graph = graphBuilder.generateGraph("CET-impl/src/InputFiles/inputMeeting0715.txt");
+//        Graph graph = graphBuilder.generateGraph("random");
 
         BFSGraphTraversal bfs = new BFSGraphTraversal(graph, null);
         DFSGraphTraversal dfs = new DFSGraphTraversal(graph, null);

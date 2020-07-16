@@ -38,7 +38,7 @@ public abstract class GraphTraversal implements Runnable {
 //        Timestamp timeLap = new Timestamp(end.getTime().getTime() - start.getTime().getTime());
 //
 //        path.setSatisfied(timeLap.getTime()< window.getTime());
-//
+        path.setSatisfied(true);
 //
 //        return path.isSatisfied();
         return true;

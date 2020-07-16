@@ -17,6 +17,9 @@ public class DFSGraphTraversal extends GraphTraversal {
     public void traversal(int start) {
 
         boolean[] visited = new boolean[graph.getNumVertex()];
+        for (int i = 0; i < visited.length; i++) {
+            visited[i] = false;
+        }
 
         Path path = new Path(start);
 
@@ -38,12 +41,11 @@ public class DFSGraphTraversal extends GraphTraversal {
         // Recur for all the vertices adjacent to this vertex
         List<Integer> edges = graph.getEdges(s);
         for (Integer edge : edges) {
-            if (!visited[edge]) {
-                path.addNode(edge);
-                identifyPattern(path);
-                DFStraversal(edge, visited, path);
-                path.removeNode(edge);
-            }
+            path.addNode(edge);
+            identifyPattern(path);
+            DFStraversal(edge, visited, path);
+            path.removeNode(edge);
+
         }
 
     }

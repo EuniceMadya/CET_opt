@@ -8,7 +8,6 @@ import java.util.Map;
 
 public class Graph {
     private Map<Integer, Vertex> vertices;
-    private Map<Integer, List<Integer>> graph;
     protected int numVertex;
 
 
@@ -17,21 +16,20 @@ public class Graph {
 
     public Graph() {
         vertices = new HashMap<>();
-        graph = new HashMap<>();
         numVertex = 0;
         startPoints = new ArrayList<>();
         endPoints = new ArrayList<>();
     }
 
     public boolean addStart(int index) {
-        if (graph.get(index) != null) {
+        if (vertices.get(index) != null) {
             startPoints.add(index);
         }
         return false;
     }
 
     public boolean addEnd(int index) {
-        if (graph.get(index) != null) {
+        if (vertices.get(index) != null) {
             endPoints.add(index);
         }
         return false;
@@ -41,7 +39,6 @@ public class Graph {
     public Vertex addVertex(int index, Timestamp time) {
         Vertex newVertex = new Vertex(index, time);
         vertices.put(index, newVertex);
-        graph.put(index, new ArrayList<>());
         numVertex++;
         return newVertex;
     }
@@ -49,7 +46,6 @@ public class Graph {
     public Vertex addVertex(int index) {
         Vertex newVertex = new Vertex(index);
         vertices.put(index, newVertex);
-        graph.put(index, new ArrayList<>());
         numVertex++;
         return newVertex;
     }
@@ -60,17 +56,19 @@ public class Graph {
             System.out.println("no existing vertex to the corresponding index");
             return;
         }
-        graph.replace(index, edges);
+        vertices.get(index).addNeighbours(edges);
     }
 
-    public void removeVertex(int index) {
+    public void removeVertex(Integer index) {
         Vertex vertex = vertices.get(index);
         if (vertex == null) {
             System.out.println("no existing vertex to the corresponding index");
             return;
         }
-        graph.remove(vertex);
         vertices.remove(index);
+        for(Vertex v: vertices.values()){
+            v.removeNeighbour(index);
+        }
         System.out.println("Vertex removed");
 
     }
@@ -96,7 +94,7 @@ public class Graph {
     }
 
     public List<Integer> getEdges(int i) {
-        return graph.get(i);
+        return vertices.get(i).getNeighbours();
     }
 
 
