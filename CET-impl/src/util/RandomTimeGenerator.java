@@ -18,7 +18,12 @@ public class RandomTimeGenerator {
     }
 
 
-
+    /**
+     * Generate time sequence based on the vertices order
+     * @param grid: adjacency matrix
+     * @param startPoints: all the start points in the graph
+     * @return array of timestamps
+     */
     public Timestamp[] generateTimes(boolean[][] grid, List<Integer> startPoints) {
         Timestamp[] timestamps = new Timestamp[grid.length];
 

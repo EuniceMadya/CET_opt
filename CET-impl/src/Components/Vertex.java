@@ -6,6 +6,10 @@ public class Vertex {
     int index;
     Timestamp time;
 
+    public Vertex(int index){
+        this(index, null);
+    }
+
     public Vertex(int index, Timestamp time) {
         this.index = index;
         this.time = time;

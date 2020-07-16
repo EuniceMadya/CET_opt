@@ -8,6 +8,7 @@ public class GraphProcessor {
     private List<Integer> ends;
     private boolean[][] grid;
 
+    // find graph start and end points
     public GraphProcessor(boolean[][] grid) {
         starts = new ArrayList<>();
         ends = new ArrayList<>();
@@ -43,19 +44,19 @@ public class GraphProcessor {
 
 
     public List<Integer> findStarts() {
+        //lazy load
         if (starts.size() == 0) {
             preprocessGrid();
         }
-
         return starts;
 
     }
 
     public List<Integer> findEnds() {
+        //lazy load
         if (ends.size() == 0) {
             preprocessGrid();
         }
-
         return ends;
 
     }

@@ -11,6 +11,7 @@ public class BFSGraphTraversal extends GraphTraversal {
 
     public BFSGraphTraversal(Graph graph, Timestamp windowSize) {
         super(graph, windowSize);
+        traversalType = TraversalType.BFS;
     }
 
     // BFS traversal
@@ -32,12 +33,10 @@ public class BFSGraphTraversal extends GraphTraversal {
         queue.offer(start);
         paths[start].add(new Path(start));
 
-        ArrayList<Path> finalPaths = new ArrayList<>();
 
         while (!queue.isEmpty()) {
             int current = queue.poll();
 
-//            System.out.print(current + " ");
             for (int neighbour : graph.getEdges(current)) {
                 for (Path path : paths[current]) {
 
@@ -45,7 +44,7 @@ public class BFSGraphTraversal extends GraphTraversal {
                     paths[neighbour].add(newPath);
                     identifyPattern(newPath);
                     if (graph.getEndPoints().contains(neighbour)) {
-                        if (newPath.isSatisfied()) finalPaths.add(newPath);
+                        if (newPath.isSatisfied()) validPaths.add(newPath);
                     }
                 }
                 if (!reached[neighbour]) {
@@ -56,11 +55,7 @@ public class BFSGraphTraversal extends GraphTraversal {
             }
         }
 
-        for (Path path : finalPaths) {
-            if (identifyPattern(path)) {
-                System.out.println("BFS " + path.getPathNodes());
-            }
-        }
+
     }
 
 

@@ -4,7 +4,6 @@ import Components.Graph;
 
 import java.io.File;
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.Scanner;
 
 public class FileGraphParser {
@@ -33,7 +32,7 @@ public class FileGraphParser {
             int nodeNum = Integer.parseInt(myReader.nextLine());
 
             grid = new boolean[nodeNum][nodeNum];
-            timestamps = new Timestamp[nodeNum];
+
 
             for (int i = 0; i < nodeNum; i++) {
                 String data = myReader.nextLine();
@@ -42,26 +41,23 @@ public class FileGraphParser {
                     grid[i][j] = neighbours[j].equals("1");
                 }
             }
-
-            for (int i = 0; i < nodeNum; i++) {
-                timestamps[i] = Timestamp.valueOf(myReader.nextLine());
+            if (myReader.nextLine().equals("true")) {
+                timestamps = new Timestamp[nodeNum];
+                for (int i = 0; i < nodeNum; i++) {
+                    timestamps[i] = Timestamp.valueOf(myReader.nextLine());
+                }
             }
-
-
             myReader.close();
+
         } catch (Exception e) {
             System.out.println("File parsing error.");
             e.printStackTrace();
         }
 
-        GraphProcessor graphProcessor = new GraphProcessor(grid);
-        List<Integer> starts = graphProcessor.findStarts();
-        List<Integer> ends = graphProcessor.findEnds();
 
         GraphGenerator graphGenerator = new GraphGenerator();
-        graph = graphGenerator.generateGraph(grid, timestamps);
-        graph.setStartPoints(starts);
-        graph.setEndPoints(ends);
+
+        graph = graphGenerator.buildGraph(grid, null);
 
         return graph;
     }

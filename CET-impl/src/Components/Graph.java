@@ -39,8 +39,15 @@ public class Graph {
 
 
     public Vertex addVertex(int index, Timestamp time) {
-
         Vertex newVertex = new Vertex(index, time);
+        vertices.put(index, newVertex);
+        graph.put(index, new ArrayList<>());
+        numVertex++;
+        return newVertex;
+    }
+
+    public Vertex addVertex(int index) {
+        Vertex newVertex = new Vertex(index);
         vertices.put(index, newVertex);
         graph.put(index, new ArrayList<>());
         numVertex++;
