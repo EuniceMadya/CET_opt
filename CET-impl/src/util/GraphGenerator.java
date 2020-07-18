@@ -31,20 +31,20 @@ public class GraphGenerator {
     }
 
 
-    public Graph generateGraphFromMatrix(ArrayList<int[]> matrix, Timestamp[]time, int jobCount){
+    public Graph generateGraphFromMatrix(ArrayList<int[]> matrix, Timestamp[] time, int jobCount) {
         Graph graph = new Graph();
-        for(int i = 0; i < jobCount; i ++) graph.addVertex(i);
+        for (int i = 0; i < jobCount; i++) graph.addVertex(i);
 
-        for(int i = 0; i < matrix.size(); i ++){
+        for (int i = 0; i < matrix.size(); i++) {
             int id = matrix.get(i)[0];
             int neighbour = matrix.get(i)[1];
-            if(graph.getVertex(matrix.get(i)[0]) == null) graph.addVertex(id);
+            if (graph.getVertex(matrix.get(i)[0]) == null) graph.addVertex(id);
             graph.addEdge(id, neighbour);
         }
         return graph;
     }
 
-    public Graph buildGraph(boolean[][] dag){
+    public Graph buildGraph(boolean[][] dag) {
         return buildGraph(dag, null);
     }
 
@@ -72,7 +72,7 @@ public class GraphGenerator {
         return graph;
     }
 
-    public Graph buildGraph(ArrayList<int[]> dag, int jobCount){
+    public Graph buildGraph(ArrayList<int[]> dag, int jobCount) {
         GraphProcessor graphProcessor = new GraphProcessor(dag, jobCount);
         List<Integer> starts = graphProcessor.findStarts();
         List<Integer> ends = graphProcessor.findEnds();

@@ -4,6 +4,7 @@ import Components.Graph;
 
 import java.io.File;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileGraphParser {
@@ -23,8 +24,35 @@ public class FileGraphParser {
      */
 
     public Graph readGraph(String fileName) {
+        if(fileName.contains("matrix")) return readGridGraph(fileName);
+
+        return readSparseMatrixGraph(fileName);
+    }
+
+    public Graph readSparseMatrixGraph(String fileName){
         Graph graph;
-        Timestamp[] timestamps = null;
+        int nodeNum = 0;
+        ArrayList<int[]> matrix = new ArrayList<>();
+        try{
+            File myObj = new File(fileName);
+            Scanner myReader = new Scanner(myObj);
+            nodeNum = Integer.parseInt(myReader.nextLine());
+            while(myReader.hasNext()) {
+                String[] data = myReader.nextLine().split(",");
+                matrix.add(new int[]{Integer.parseInt(data[0]), Integer.parseInt(data[1])});
+            }
+        }catch (Exception e){
+            System.out.println("File parsing error for reading sparse matrix.");
+            e.printStackTrace();
+        }
+        GraphGenerator graphGenerator = new GraphGenerator();
+        graph = graphGenerator.buildGraph(matrix, nodeNum);
+        return graph;
+    }
+
+    public Graph readGridGraph(String fileName) {
+        Graph graph;
+        Timestamp[] timestamps;
         boolean[][] grid = null;
         try {
             File myObj = new File(fileName);
@@ -53,8 +81,6 @@ public class FileGraphParser {
             System.out.println("File parsing error.");
             e.printStackTrace();
         }
-
-
         GraphGenerator graphGenerator = new GraphGenerator();
 
         graph = graphGenerator.buildGraph(grid);

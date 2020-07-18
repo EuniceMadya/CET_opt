@@ -22,7 +22,7 @@ public class DFSGraphTraversal extends GraphTraversal {
 
         Path path = new Path(start);
 
-        if(graph.getVertex(start).getNeighbours().size() != 0) DFStraversal(start, visited, path);
+        if (graph.getVertex(start).getNeighbours().size() != 0) DFStraversal(start, visited, path);
 
         else validPaths.add(path);
         // Call the recursive helper function to print DFS traversal

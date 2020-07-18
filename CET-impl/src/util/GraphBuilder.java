@@ -25,14 +25,13 @@ public class GraphBuilder {
         if (type.equalsIgnoreCase("random")) {
             //TODO: the number of vertex should be able to be specified in the future
             graph = generateRandomGraph(6);
-        }else if( type.equalsIgnoreCase("sparse random")){
+        } else if (type.equalsIgnoreCase("sparse random")) {
             graph = generateRandomSparseGraph(10);
-            System.out.println("type: "+ type);
-            for(Vertex vertex: graph.getVertices()){
+            System.out.println("type: " + type);
+            for (Vertex vertex : graph.getVertices()) {
                 System.out.println(vertex.getNeighbours());
             }
-        }
-        else {
+        } else {
             graph = generateGraphFile(type);
         }
         return graph;
@@ -54,14 +53,14 @@ public class GraphBuilder {
 
     }
 
-    public Graph generateRandomSparseGraph(int num){
+    public Graph generateRandomSparseGraph(int num) {
         DAGSmith smith = new DAGSmith();
 
         //generating sparse matrix
         ArrayList<int[]> dag = smith.generateRandomDAGSparseMatrix(num, 12);
 
         System.out.println("Generating sparse matrix, with edges:");
-        for(int[] pair: dag) System.out.print(" [" + pair[0] + ", " + pair[1] +"] ");
+        for (int[] pair : dag) System.out.println(pair[0] + "," + pair[1]);
         System.out.println("\n");
 
         return graphGenerator.buildGraph(dag, num);

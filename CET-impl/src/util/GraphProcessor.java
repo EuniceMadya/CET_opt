@@ -31,19 +31,19 @@ public class GraphProcessor {
     }
 
     public void preprocessMatrix() {
-        boolean [] isStart = new boolean[numVertices];
-        boolean [] isEnd = new boolean[numVertices];
+        boolean[] isStart = new boolean[numVertices];
+        boolean[] isEnd = new boolean[numVertices];
         Arrays.fill(isStart, true);
         Arrays.fill(isEnd, true);
 
-        for(int[] pair: matrix){
+        for (int[] pair : matrix) {
             isEnd[pair[0]] = false;
             isStart[pair[1]] = false;
         }
 
-        for(int i = 0; i < numVertices; i ++){
-            if(isStart[i]) starts.add(i);
-            if(isEnd[i]) ends.add(i);
+        for (int i = 0; i < numVertices; i++) {
+            if (isStart[i]) starts.add(i);
+            if (isEnd[i]) ends.add(i);
         }
     }
 
