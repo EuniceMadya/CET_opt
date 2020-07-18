@@ -24,9 +24,9 @@ public class GraphBuilder {
         Graph graph;
         if (type.equalsIgnoreCase("random")) {
             //TODO: the number of vertex should be able to be specified in the future
-            graph = generateRandomGraph(6);
+            graph = generateRandomGraph(106);
         } else if (type.equalsIgnoreCase("sparse random")) {
-            graph = generateRandomSparseGraph(10);
+            graph = generateRandomSparseGraph(100);
             System.out.println("type: " + type);
             for (Vertex vertex : graph.getVertices()) {
                 System.out.println(vertex.getNeighbours());
