@@ -1,7 +1,10 @@
 package util;
 
 import Components.Graph;
+import Components.Vertex;
 import util.dagGen.DAGSmith;
+
+import java.util.ArrayList;
 
 public class GraphBuilder {
 
@@ -22,7 +25,14 @@ public class GraphBuilder {
         if (type.equalsIgnoreCase("random")) {
             //TODO: the number of vertex should be able to be specified in the future
             graph = generateRandomGraph(6);
-        } else {
+        }else if( type.equalsIgnoreCase("sparse random")){
+            graph = generateRandomSparseGraph(10);
+            System.out.println("type: "+ type);
+            for(Vertex vertex: graph.getVertices()){
+                System.out.println(vertex.getNeighbours());
+            }
+        }
+        else {
             graph = generateGraphFile(type);
         }
         return graph;
@@ -38,10 +48,23 @@ public class GraphBuilder {
 
         DAGSmith smith = new DAGSmith();
         //generating adjacency matrix
-        boolean[][] dag = smith.generateRandomDAG(num, 12);
+        boolean[][] dag = smith.generateRandomDAGMatrix(num, 12);
 
-        return graphGenerator.buildGraph(dag, null);
+        return graphGenerator.buildGraph(dag);
 
+    }
+
+    public Graph generateRandomSparseGraph(int num){
+        DAGSmith smith = new DAGSmith();
+
+        //generating sparse matrix
+        ArrayList<int[]> dag = smith.generateRandomDAGSparseMatrix(num, 12);
+
+        System.out.println("Generating sparse matrix, with edges:");
+        for(int[] pair: dag) System.out.print(" [" + pair[0] + ", " + pair[1] +"] ");
+        System.out.println("\n");
+
+        return graphGenerator.buildGraph(dag, num);
     }
 
     /**

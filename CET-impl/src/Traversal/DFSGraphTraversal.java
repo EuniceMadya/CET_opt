@@ -4,6 +4,7 @@ import Components.Graph;
 import Components.Path;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.List;
 
 public class DFSGraphTraversal extends GraphTraversal {
@@ -17,14 +18,15 @@ public class DFSGraphTraversal extends GraphTraversal {
     public void traversal(int start) {
 
         boolean[] visited = new boolean[graph.getNumVertex()];
-        for (int i = 0; i < visited.length; i++) {
-            visited[i] = false;
-        }
+        Arrays.fill(visited, false);
 
         Path path = new Path(start);
 
+        if(graph.getVertex(start).getNeighbours().size() != 0) DFStraversal(start, visited, path);
+
+        else validPaths.add(path);
         // Call the recursive helper function to print DFS traversal
-        DFStraversal(start, visited, path);
+
     }
 
 

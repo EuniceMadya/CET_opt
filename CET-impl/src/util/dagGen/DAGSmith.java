@@ -1,4 +1,7 @@
 package util.dagGen;
+
+import java.util.ArrayList;
+
 /**
  * DAGSmith is a class used for generating NxN Directed Acyclic Graphs (DAGs).
  * 
@@ -41,7 +44,7 @@ public class DAGSmith {
 	 * The generated graph.
 	 */
 	public boolean[][] generateRandomFile(int jobCount, int frequency, String FileName) {
-		boolean[][] matrix = this.generateRandomDAG(jobCount, frequency);
+		boolean[][] matrix = this.generateRandomDAGMatrix(jobCount, frequency);
 		DAGTools.saveToFile(matrix,FileName);
 		return matrix;
 	}
@@ -57,13 +60,24 @@ public class DAGSmith {
 	 * @return
 	 * The generated graph.
 	 */
-	public boolean[][] generateRandomDAG(int jobCount, int frequency) {
-		boolean[][] matrix = this.generateMatrix(jobCount, frequency);
+	public boolean[][] generateRandomDAGMatrix(int jobCount, int frequency) {
+		boolean[][] matrix = this.generateRandomMatrix(jobCount, frequency);
 		matrix = DAGFunctions.removeSelfDependencies(matrix);
 		return matrix;
 	}
+
+	public ArrayList<int[]> generateRandomDAGSparseMatrix(int jobCount, int frequency) {
+		ArrayList<int[]> sparseMatrix = this.generateRandomSparseMatrix(jobCount,frequency);
+
+
+		sparseMatrix = DAGFunctions.removeSelfDependencies(sparseMatrix, jobCount);
+
+
+
+		return sparseMatrix;
+	}
 	
-	private boolean[][] generateMatrix(int jobCount, int frequency) {
+	private boolean[][] generateRandomMatrix(int jobCount, int frequency) {
 		if(log())
 			System.out.println("Generating Matrix...");
 		boolean[][] result = new boolean[jobCount][jobCount];
@@ -79,6 +93,31 @@ public class DAGSmith {
 		result = dagTools.connect(result, frequency);
 		return result;
 	}
+
+	private ArrayList<int[]> generateRandomSparseMatrix(int jobCount, int frequency){
+		if(log()) System.out.println("Generating Sparse Matrix...");
+		ArrayList<int[]> results = new ArrayList<>();
+
+		for(int i = 0; i < jobCount; i ++){
+			boolean [] edges = new boolean[jobCount];
+			for(int j = 0; j < jobCount; j++){
+				if(i!=j) edges[j] = random(frequency);
+			}
+			results.addAll(generateSparsePairs(i, edges));
+		}
+		return results;
+
+	}
+
+	private ArrayList<int[]> generateSparsePairs(int node, boolean [] edges){
+
+		ArrayList<int[]> results = new ArrayList<>();
+		for(int i = 0; i < edges.length; i ++){
+			if(edges[i]) results.add(new int[]{node, i});
+		}
+		return results;
+	}
+
 	
 	private boolean random(int frequency) {
 		return  ((int) (Math.random() * (frequency+1))%frequency==0);

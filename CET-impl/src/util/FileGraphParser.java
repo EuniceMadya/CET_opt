@@ -57,7 +57,7 @@ public class FileGraphParser {
 
         GraphGenerator graphGenerator = new GraphGenerator();
 
-        graph = graphGenerator.buildGraph(grid, null);
+        graph = graphGenerator.buildGraph(grid);
 
         return graph;
     }

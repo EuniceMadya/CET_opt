@@ -15,7 +15,7 @@ public class Graph {
     private List<Integer> endPoints;
 
     public Graph() {
-        vertices = new HashMap<>();
+        vertices = new HashMap<>(numVertex);
         numVertex = 0;
         startPoints = new ArrayList<>();
         endPoints = new ArrayList<>();
@@ -57,6 +57,15 @@ public class Graph {
             return;
         }
         vertices.get(index).addNeighbours(edges);
+    }
+
+    public void addEdge(int index, int neighbour){
+        Vertex vertex = vertices.get(index);
+        if (vertex == null) {
+            System.out.println("no existing vertex to the corresponding index");
+            return;
+        }
+        vertices.get(index).addNeighbour(neighbour);
     }
 
     public void removeVertex(Integer index) {
@@ -102,5 +111,8 @@ public class Graph {
         return numVertex;
     }
 
+    public List<Vertex> getVertices(){
+        return new ArrayList(vertices.values());
+    }
 
 }

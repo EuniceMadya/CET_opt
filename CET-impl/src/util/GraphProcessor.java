@@ -1,18 +1,50 @@
 package util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GraphProcessor {
     private List<Integer> starts;
     private List<Integer> ends;
     private boolean[][] grid;
+    private ArrayList<int[]> matrix;
+    int numVertices;
 
     // find graph start and end points
     public GraphProcessor(boolean[][] grid) {
         starts = new ArrayList<>();
         ends = new ArrayList<>();
         this.grid = grid;
+    }
+
+    public GraphProcessor(ArrayList<int[]> matrix, int jobCount) {
+        starts = new ArrayList<>();
+        ends = new ArrayList<>();
+        this.matrix = matrix;
+        numVertices = jobCount;
+    }
+
+    public void preprocess() {
+        if (grid != null) preprocessGrid();
+        if (matrix != null) preprocessMatrix();
+    }
+
+    public void preprocessMatrix() {
+        boolean [] isStart = new boolean[numVertices];
+        boolean [] isEnd = new boolean[numVertices];
+        Arrays.fill(isStart, true);
+        Arrays.fill(isEnd, true);
+
+        for(int[] pair: matrix){
+            isEnd[pair[0]] = false;
+            isStart[pair[1]] = false;
+        }
+
+        for(int i = 0; i < numVertices; i ++){
+            if(isStart[i]) starts.add(i);
+            if(isEnd[i]) ends.add(i);
+        }
     }
 
 
@@ -46,7 +78,7 @@ public class GraphProcessor {
     public List<Integer> findStarts() {
         //lazy load
         if (starts.size() == 0) {
-            preprocessGrid();
+            preprocess();
         }
         return starts;
 
@@ -55,7 +87,7 @@ public class GraphProcessor {
     public List<Integer> findEnds() {
         //lazy load
         if (ends.size() == 0) {
-            preprocessGrid();
+            preprocess();
         }
         return ends;
 

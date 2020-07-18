@@ -1,5 +1,6 @@
 package util.dagGen;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Stack;
 
@@ -87,9 +88,16 @@ class DAGFunctions {
 	public static boolean[][] removeSelfDependencies(boolean[][] matrix) {
 		TreeNode[] modules = DAGFunctions.generateTree(matrix);
 		modules = DAGFunctions.shuffleTree(modules);
-		if(modules==null)
-			return null;
+		if(modules==null) return null;
 		return cleanTree(modules,matrix);
+	}
+
+
+	public static ArrayList<int[]> removeSelfDependencies(ArrayList<int []> matrix, int jobCount){
+		TreeNode[] modules = DAGFunctions.generateSparseTree(matrix, jobCount);
+		modules = shuffleTree(modules);
+		if(modules == null) return null;
+		return cleanTree(modules, matrix);
 	}
 	
 	private static TreeNode[] shuffleTree(TreeNode[] tree) {
@@ -142,6 +150,50 @@ class DAGFunctions {
 		}
 		return matrix;
 	}
+
+	private static ArrayList<int[]> cleanTree(TreeNode[] tree, ArrayList<int[]>matrix) {
+		if(log)
+			System.out.println("Removing Self Dependencies Using Tree...");
+		//Keeps track of which nodes have been checked for circular references
+		boolean[] checked = new boolean[tree.length];
+
+		//Keeps track of the path taken to get to a node
+		Stack<TreeNode> path = new Stack<TreeNode>();
+		for(int j=0; j < checked.length; j++) {
+			if(!checked[j]) {
+				path.add(tree[j]);
+				while(path.size()!=0) {
+					//Get the next step in the path
+					TreeNode next = path.peek().getNext();
+					if(next!=null) {
+						//If the node is already in the path, sever the reference
+						//This is/else loop balances the table
+						if(path.contains(next)) {
+							System.out.print("removing: " + next.id );
+							System.out.println(" " + path.peek().id );
+							remove(matrix,  path.peek().id, next.id);
+						} else {
+							//Only do this step if node has not been checked already
+							if(checked[next.id])
+								continue;
+							//Add it to the current path
+							path.push(next);
+						}
+					} else {
+						//If we have reached the end of this branch, traverse back up
+						checked[path.pop().id] = true;
+					}
+				}
+			}
+		}
+		return matrix;
+	}
+
+	private static void remove(ArrayList<int[]>matrix, int source, int dest){
+		for(int i = 0; i < matrix.size(); i ++){
+			if(matrix.get(i)[0] == source && matrix.get(i)[1] == dest) matrix.remove(i);
+		}
+	}
 	
 	/**
 	 * Generates a tree datastructure that represents the workflow of modules
@@ -150,8 +202,7 @@ class DAGFunctions {
 	 * @return
 	 */
 	private static TreeNode[] generateTree(boolean[][] matrix) {
-		if(log)
-			System.out.println("Building Tree Data Structure...");
+		if(log) System.out.println("Building Tree Data Structure...");
 		//Get the number of nodes we will be generating
 		int size = matrix.length;
 		if(matrix.length>0)
@@ -173,8 +224,23 @@ class DAGFunctions {
 				}
 			}
 		}
-		
 		return result;
+	}
+
+	private static TreeNode[] generateSparseTree(ArrayList<int[]> matrix, int jobCount){
+
+		if(log) System.out.println("Building Tree Data Structure from sparse matrix...");
+
+		TreeNode[] treeNodes = new TreeNode[jobCount];
+		for(int i=0;i<treeNodes.length;i++){
+			treeNodes[i] = new TreeNode(i);
+		}
+		for(int i = 0 ; i < matrix.size(); i ++ ){
+			int id = matrix.get(i)[0];
+			int neighbour = matrix.get(i)[1];
+			treeNodes[id].children.add(treeNodes[neighbour]);
+		}
+		return treeNodes;
 	}
 	
 	private static void buildStack(boolean[][] matrix, int row) {
