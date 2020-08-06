@@ -1,0 +1,1 @@
+javac -Xlint  CET-impl/src/Components/*.java CET-impl/src/util/dagGen/*.java CET-impl/src/util/ArrayQueue.java CET-impl/src/util/GraphProcessor.java CET-impl/src/util/GraphGenerator.java CET-impl/src/util/FileGraphParser.java CET-impl/src/util/GraphBuilder.java CET-impl/src/util/RandomTimeGenerator.java CET-impl/src/Traversal/*.java CET-impl/src/Main.java
