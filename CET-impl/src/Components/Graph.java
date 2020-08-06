@@ -132,7 +132,7 @@ public class Graph {
     }
 
     public List<Vertex> getVertices(){
-        return new ArrayList(vertices.values());
+        return new ArrayList<>(vertices.values());
     }
 
 }
