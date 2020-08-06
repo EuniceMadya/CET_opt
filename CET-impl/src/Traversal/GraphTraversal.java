@@ -6,11 +6,12 @@ import Components.Vertex;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
-public abstract class GraphTraversal implements Runnable {
+public abstract class GraphTraversal implements  Runnable {
     Graph graph;
     Timestamp window;
     ArrayList<Path> validPaths;
@@ -51,14 +52,24 @@ public abstract class GraphTraversal implements Runnable {
 
         long startTime = System.nanoTime();
         for (int start : graph.getStartPoints()) {
-
             traversal(start);
             System.out.println("\n\n");
         }
         long endTime = System.nanoTime();
         long timeElapsed = endTime - startTime;
         showResults(traversalType.toString());
+
+        File file = new File("CET-impl/src/OutputFiles/result/timeResults" + traversalType.toString() + ".txt");
+        try {
+            file.createNewFile();
+            FileWriter fw = new FileWriter(file);
+            fw.write(this.getClass().getName() + "Execution in nanoseconds  : " + timeElapsed);
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         System.out.println(this.getClass().getName() + "Execution in nanoseconds  : " + timeElapsed);
+
     }
 
     public void showResults(String algo) {

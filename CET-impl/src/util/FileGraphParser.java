@@ -24,9 +24,9 @@ public class FileGraphParser {
      */
 
     public Graph readGraph(String fileName) {
-        if(fileName.contains("matrix")) return readGridGraph(fileName);
+        if(fileName.contains("matrix")) return readSparseMatrixGraph(fileName);
 
-        return readSparseMatrixGraph(fileName);
+        return readGridGraph(fileName);
     }
 
     public Graph readSparseMatrixGraph(String fileName){

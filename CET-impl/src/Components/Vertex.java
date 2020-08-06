@@ -21,6 +21,14 @@ public class Vertex {
 
     }
 
+    public void setIndex(int index){
+        this.index = index;
+    }
+
+    public int getIndex(){
+        return this.index;
+    }
+
     public Timestamp getTime() {
         return this.time;
     }

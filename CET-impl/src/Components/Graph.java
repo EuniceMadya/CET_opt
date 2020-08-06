@@ -10,6 +10,9 @@ public class Graph {
     private Map<Integer, Vertex> vertices;
     protected int numVertex;
 
+    private List<Vertex> startVertices;
+    private List<Vertex> endVertices;
+
 
     private List<Integer> startPoints;
     private List<Integer> endPoints;
@@ -19,6 +22,8 @@ public class Graph {
         numVertex = 0;
         startPoints = new ArrayList<>();
         endPoints = new ArrayList<>();
+        startVertices = new ArrayList<>();
+        endVertices = new ArrayList<>();
     }
 
     public boolean addStart(int index) {
@@ -90,8 +95,23 @@ public class Graph {
         return startPoints;
     }
 
+    public List<Vertex> getStartVertices(){
+        if(startVertices.size() == 0){
+            for(Integer start: startPoints) startVertices.add(vertices.get(start));
+        }
+        return startVertices;
+    }
+
+
     public List<Integer> getEndPoints() {
         return endPoints;
+    }
+
+    public List<Vertex> getEndVertices(){
+        if(endVertices.size() == 0){
+            for(Integer end: endPoints) startVertices.add(vertices.get(end));
+        }
+        return endVertices;
     }
 
     public void setStartPoints(List<Integer> startPoints) {

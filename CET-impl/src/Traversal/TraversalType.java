@@ -2,5 +2,7 @@ package Traversal;
 
 public enum TraversalType {
     BFS,
-    DFS
+    DFS,
+    T_CET,
+    M_CET
 }

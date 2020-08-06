@@ -1,7 +1,6 @@
 package util;
 
 import Components.Graph;
-import Components.Vertex;
 import util.dagGen.DAGSmith;
 
 import java.util.ArrayList;
@@ -20,19 +19,19 @@ public class GraphBuilder {
      * @param type: random / file path
      * @return graph
      */
-    public Graph generateGraph(String type) {
+    public Graph generateGraph(String type, String value) {
         Graph graph;
         if (type.equalsIgnoreCase("random")) {
-            //TODO: the number of vertex should be able to be specified in the future
-            graph = generateRandomGraph(106);
+            graph = generateRandomGraph(Integer.parseInt(value));
+
         } else if (type.equalsIgnoreCase("sparse random")) {
-            graph = generateRandomSparseGraph(100);
-            System.out.println("type: " + type);
-            for (Vertex vertex : graph.getVertices()) {
-                System.out.println(vertex.getNeighbours());
-            }
+            graph = generateRandomSparseGraph(Integer.parseInt(value));
+//            System.out.println("type: " + type);
+//            for (Vertex vertex : graph.getVertices()) {
+//                System.out.println(vertex.getNeighbours());
+//            }
         } else {
-            graph = generateGraphFile(type);
+            graph = generateGraphFile(value);
         }
         return graph;
     }

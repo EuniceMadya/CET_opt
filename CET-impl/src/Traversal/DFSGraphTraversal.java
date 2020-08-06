@@ -47,9 +47,7 @@ public class DFSGraphTraversal extends GraphTraversal {
             identifyPattern(path);
             DFStraversal(edge, visited, path);
             path.removeNode(edge);
-
         }
-
     }
 
 }
