@@ -59,7 +59,7 @@ public abstract class GraphTraversal implements Runnable {
         long timeElapsed = endTime - startTime;
         showResults(traversalType.toString());
 
-        File file = new File("OutputFiles/result/timeResults" + traversalType.toString() + ".txt");
+        File file = new File("OutputFiles/result/timeResults" + traversalType.toString() +"-"+ graph.getNumVertex() + ".txt");
         try {
             file.createNewFile();
             FileWriter fw = new FileWriter(file);

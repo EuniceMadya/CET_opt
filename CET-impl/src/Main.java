@@ -61,7 +61,6 @@ public class Main {
 
 
 //        Graph graph = graphBuilder.generateGraph("random");
-//        Graph graph = graphBuilder.generateGraph("random");
 
         BFSGraphTraversal bfs = new BFSGraphTraversal(graph, null);
         DFSGraphTraversal dfs = new DFSGraphTraversal(graph, null);
