@@ -64,7 +64,7 @@ public class Graph {
         vertices.get(index).addNeighbours(edges);
     }
 
-    public void addEdge(int index, int neighbour){
+    public void addEdge(int index, int neighbour) {
         Vertex vertex = vertices.get(index);
         if (vertex == null) {
             System.out.println("no existing vertex to the corresponding index");
@@ -80,7 +80,7 @@ public class Graph {
             return;
         }
         vertices.remove(index);
-        for(Vertex v: vertices.values()){
+        for (Vertex v : vertices.values()) {
             v.removeNeighbour(index);
         }
         System.out.println("Vertex removed");
@@ -95,9 +95,9 @@ public class Graph {
         return startPoints;
     }
 
-    public List<Vertex> getStartVertices(){
-        if(startVertices.size() == 0){
-            for(Integer start: startPoints) startVertices.add(vertices.get(start));
+    public List<Vertex> getStartVertices() {
+        if (startVertices.size() == 0) {
+            for (Integer start : startPoints) startVertices.add(vertices.get(start));
         }
         return startVertices;
     }
@@ -107,9 +107,9 @@ public class Graph {
         return endPoints;
     }
 
-    public List<Vertex> getEndVertices(){
-        if(endVertices.size() == 0){
-            for(Integer end: endPoints) startVertices.add(vertices.get(end));
+    public List<Vertex> getEndVertices() {
+        if (endVertices.size() == 0) {
+            for (Integer end : endPoints) startVertices.add(vertices.get(end));
         }
         return endVertices;
     }
@@ -131,7 +131,7 @@ public class Graph {
         return numVertex;
     }
 
-    public List<Vertex> getVertices(){
+    public List<Vertex> getVertices() {
         return new ArrayList<>(vertices.values());
     }
 

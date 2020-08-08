@@ -3,14 +3,46 @@ package util;
 import Components.Graph;
 import util.dagGen.DAGSmith;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class GraphBuilder {
 
     GraphGenerator graphGenerator;
+    boolean sparse = false;
+    boolean random = false;
+    String value = "";
 
     public GraphBuilder() {
         graphGenerator = new GraphGenerator();
+    }
+
+    public Graph readConfig(String fileName) {
+
+        File file = new File(fileName);
+        String param = "";
+
+        if (!file.exists()) return null;
+
+        try {
+            Scanner scanner = new Scanner(file);
+
+            String type = scanner.nextLine();
+            if (type.contains("Sparse")) sparse = true;
+            if (type.contains("Random")) random = true;
+
+            param = scanner.nextLine();
+            scanner.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (sparse && random) return generateGraph("sparse random", param);
+        if (random) return generateGraph("random", param);
+        return generateGraph(fileName, fileName);
     }
 
     /**
@@ -23,7 +55,6 @@ public class GraphBuilder {
         Graph graph;
         if (type.equalsIgnoreCase("random")) {
             graph = generateRandomGraph(Integer.parseInt(value));
-
         } else if (type.equalsIgnoreCase("sparse random")) {
             graph = generateRandomSparseGraph(Integer.parseInt(value));
 //            System.out.println("type: " + type);

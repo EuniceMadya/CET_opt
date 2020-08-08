@@ -21,17 +21,17 @@ public class M_CETGraphTraversal extends GraphTraversal {
     private void traversal(int curNode, Stack<Integer> currentSeq) {
         currentSeq.push(curNode);
 
-        if(graph.getEndPoints().contains(curNode)){
+        if (graph.getEndPoints().contains(curNode)) {
             Path resultPath = new Path();
             Iterator<Integer> iter = currentSeq.iterator();
-            while(iter.hasNext()){
+            while (iter.hasNext()) {
                 int node = iter.next();
                 resultPath.addNode(node);
             }
             validPaths.add(resultPath);
             currentSeq.clear();
-        }else{
-            for(int neighbour: graph.getEdges(curNode) )
+        } else {
+            for (int neighbour : graph.getEdges(curNode))
                 traversal(neighbour, currentSeq);
         }
 

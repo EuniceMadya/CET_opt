@@ -16,12 +16,12 @@ public class T_CETGraphTraversal extends GraphTraversal {
         super(graph, windowSize);
         traversalType = TraversalType.T_CET;
         paths = new ArrayList[graph.getNumVertex()];
-        for(int i = 0; i < paths.length; i ++) paths[i] = new ArrayList<>();
+        for (int i = 0; i < paths.length; i++) paths[i] = new ArrayList<>();
 
     }
 
     @Override
-    public void run(){
+    public void run() {
         long startTime = System.nanoTime();
         traversal(0);
         long endTime = System.nanoTime();
@@ -37,30 +37,30 @@ public class T_CETGraphTraversal extends GraphTraversal {
         T_CETtraversal((ArrayList<Vertex>) graph.getStartVertices());
     }
 
-    private void T_CETtraversal (ArrayList<Vertex> currentLevel){
+    private void T_CETtraversal(ArrayList<Vertex> currentLevel) {
         ArrayList<Vertex> nextLevel = new ArrayList<>();
 
         HashMap<Integer, Integer> nextLevelHash = new HashMap<>();
 
-        for(Vertex curNode: currentLevel) {
-            if(graph.getStartPoints().contains(curNode.getIndex()))
+        for (Vertex curNode : currentLevel) {
+            if (graph.getStartPoints().contains(curNode.getIndex()))
                 paths[curNode.getIndex()].add(new Path(curNode.getIndex()));
 
-            for(Integer neighbour: curNode.getNeighbours()){
-                for(Path path: paths[curNode.getIndex()]){
+            for (Integer neighbour : curNode.getNeighbours()) {
+                for (Path path : paths[curNode.getIndex()]) {
                     paths[neighbour].add(new Path(path.getPathNodes(), neighbour));
                 }
-                if(!nextLevelHash.containsKey(neighbour)){
+                if (!nextLevelHash.containsKey(neighbour)) {
                     nextLevel.add(graph.getVertex(neighbour));
                     nextLevelHash.put(neighbour, 1);
                 }
             }
 
-            if(graph.getEndPoints().contains(curNode.getIndex())){
+            if (graph.getEndPoints().contains(curNode.getIndex())) {
                 validPaths.addAll(paths[curNode.getIndex()]);
             }
             //paths[curNode.getIndex()] = null;
         }
-        if(!nextLevel.isEmpty()) T_CETtraversal(nextLevel);
+        if (!nextLevel.isEmpty()) T_CETtraversal(nextLevel);
     }
 }

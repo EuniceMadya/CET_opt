@@ -6,26 +6,41 @@ import Traversal.T_CETGraphTraversal;
 import util.GraphBuilder;
 
 import java.io.File;
-import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
+        Path currentRelativePath = Paths.get("");
+        String s = currentRelativePath.toAbsolutePath().toString();
+        System.out.println("Current relative path is: " + s);
 
         GraphBuilder graphBuilder = new GraphBuilder();
-
-
-//        Path currentRelativePath = Paths.get("");
-//        String s = currentRelativePath.toAbsolutePath().toString();
-//        System.out.println("Current relative path is: " + s);
+        String configFilePath;
 
         Graph graph;
-        //Read graph type: either random or a file path
-        if(args.length == 1){
-            graph = readConfig(args[0]);
-        }else
-            graph = graphBuilder.generateGraph("file","CET-impl/src/InputFiles/grid/inputMeeting0715.txt");
+
+        // Read graph type: either random or a file path
+        if (args.length == 1) graph = graphBuilder.readConfig(args[0]);
+            // it can be read from system input as well.
+        else {
+            System.out.println("Please specify the file path to input file!");
+            while (true) {
+                Scanner sc = new Scanner(System.in);
+                configFilePath = sc.nextLine();
+                if (new File(configFilePath).exists()) break;
+                System.out.println("File doesn't exist, try again.");
+            }
+            graph = graphBuilder.readConfig(configFilePath);
+        }
+
+        // Create output dir
+        if (!new File("OutputFiles/result/timeResults").exists())
+            new File("OutputFiles/result/timeResults").mkdirs();
+
+
 //        Graph graph = graphBuilder.generateGraph("random");
 //        Graph graph = graphBuilder.generateGraph("random");
 
@@ -46,25 +61,6 @@ public class Main {
 //        threadM_CET.start();
     }
 
-    public static Graph readConfig(String configPath) {
-        GraphBuilder graphBuilder = new GraphBuilder();
-        File file = new File(configPath);
 
-        if(!file.exists()) return null;
-
-        try {
-            Scanner scanner = new Scanner(file);
-
-            String type = scanner.nextLine();
-            String param = scanner.nextLine();
-            scanner.close();
-
-            return graphBuilder.generateGraph(type, param);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
 }
 

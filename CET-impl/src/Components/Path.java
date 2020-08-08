@@ -66,15 +66,16 @@ public class Path {
         return true;
     }
 
-    public boolean contains(Integer node){
+    public boolean contains(Integer node) {
         return pathNodes.contains(node);
     }
 
-    public Integer getFront(){
+    public Integer getFront() {
 
         return pathNodes.get(0);
     }
-    public Integer getEnd(){
-        return pathNodes.get(pathNodes.size()-1);
+
+    public Integer getEnd() {
+        return pathNodes.get(pathNodes.size() - 1);
     }
 }

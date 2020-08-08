@@ -24,24 +24,24 @@ public class FileGraphParser {
      */
 
     public Graph readGraph(String fileName) {
-        if(fileName.contains("matrix")) return readSparseMatrixGraph(fileName);
+        if (fileName.contains("Sparse")) return readSparseMatrixGraph(fileName);
 
         return readGridGraph(fileName);
     }
 
-    public Graph readSparseMatrixGraph(String fileName){
+    public Graph readSparseMatrixGraph(String fileName) {
         Graph graph;
         int nodeNum = 0;
         ArrayList<int[]> matrix = new ArrayList<>();
-        try{
+        try {
             File myObj = new File(fileName);
             Scanner myReader = new Scanner(myObj);
             nodeNum = Integer.parseInt(myReader.nextLine());
-            while(myReader.hasNext()) {
+            while (myReader.hasNext()) {
                 String[] data = myReader.nextLine().split(",");
                 matrix.add(new int[]{Integer.parseInt(data[0]), Integer.parseInt(data[1])});
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("File parsing error for reading sparse matrix.");
             e.printStackTrace();
         }

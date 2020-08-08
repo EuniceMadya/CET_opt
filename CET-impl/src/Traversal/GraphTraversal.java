@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
-public abstract class GraphTraversal implements  Runnable {
+public abstract class GraphTraversal implements Runnable {
     Graph graph;
     Timestamp window;
     ArrayList<Path> validPaths;
@@ -59,7 +59,7 @@ public abstract class GraphTraversal implements  Runnable {
         long timeElapsed = endTime - startTime;
         showResults(traversalType.toString());
 
-        File file = new File("CET-impl/src/OutputFiles/result/timeResults" + traversalType.toString() + ".txt");
+        File file = new File("OutputFiles/result/timeResults" + traversalType.toString() + ".txt");
         try {
             file.createNewFile();
             FileWriter fw = new FileWriter(file);
@@ -73,10 +73,10 @@ public abstract class GraphTraversal implements  Runnable {
     }
 
     public void showResults(String algo) {
-        File outputFolder = new File("CET-impl/src/OutputFiles/");
+        File outputFolder = new File("OutputFiles/");
         outputFolder.mkdirs();
 
-        File outputFile = new File("CET-impl/src/OutputFiles/" + algo + "-" + new Date().toString() + ".txt");
+        File outputFile = new File("OutputFiles/" + algo + "-" + new Date().toString() + ".txt");
 
         try {
             outputFile.createNewFile();

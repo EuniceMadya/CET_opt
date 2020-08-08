@@ -21,11 +21,11 @@ public class Vertex {
 
     }
 
-    public void setIndex(int index){
+    public void setIndex(int index) {
         this.index = index;
     }
 
-    public int getIndex(){
+    public int getIndex() {
         return this.index;
     }
 
@@ -37,19 +37,19 @@ public class Vertex {
         this.time = time;
     }
 
-    public void addNeighbour(Integer neighbour){
+    public void addNeighbour(Integer neighbour) {
         edges.add(neighbour);
     }
 
-    public void addNeighbours(List<Integer> neighbour){
+    public void addNeighbours(List<Integer> neighbour) {
         edges.addAll(neighbour);
     }
 
-    public void removeNeighbour(Integer neighbour){
+    public void removeNeighbour(Integer neighbour) {
         edges.remove(neighbour);
     }
 
-    public List<Integer> getNeighbours(){
+    public List<Integer> getNeighbours() {
         return edges;
     }
 }
