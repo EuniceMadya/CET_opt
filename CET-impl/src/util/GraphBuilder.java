@@ -11,8 +11,8 @@ import java.util.Scanner;
 public class GraphBuilder {
 
     GraphGenerator graphGenerator;
-    boolean sparse = false;
-    boolean random = false;
+    public boolean sparse = false;
+    public boolean random = false;
     String value = "";
 
     public GraphBuilder() {
@@ -30,8 +30,8 @@ public class GraphBuilder {
             Scanner scanner = new Scanner(file);
 
             String type = scanner.nextLine();
-            if (type.contains("Sparse")) sparse = true;
-            if (type.contains("Random")) random = true;
+            if (type.contains("sparse")) sparse = true;
+            if (type.contains("random")) random = true;
 
             param = scanner.nextLine();
             scanner.close();
@@ -40,9 +40,7 @@ public class GraphBuilder {
             e.printStackTrace();
         }
 
-        if (sparse && random) return generateGraph("sparse random", param);
-        if (random) return generateGraph("random", param);
-        return generateGraph(fileName, fileName);
+        return generateGraph(fileName, param);
     }
 
     /**
@@ -52,19 +50,17 @@ public class GraphBuilder {
      * @return graph
      */
     public Graph generateGraph(String type, String value) {
-        Graph graph;
-        if (type.equalsIgnoreCase("random")) {
-            graph = generateRandomGraph(Integer.parseInt(value));
-        } else if (type.equalsIgnoreCase("sparse random")) {
-            graph = generateRandomSparseGraph(Integer.parseInt(value));
+        if (sparse && random)  {
+            return generateRandomSparseGraph(Integer.parseInt(value));
 //            System.out.println("type: " + type);
 //            for (Vertex vertex : graph.getVertices()) {
 //                System.out.println(vertex.getNeighbours());
 //            }
-        } else {
-            graph = generateGraphFile(value);
         }
-        return graph;
+        if (random) {
+            return generateRandomGraph(Integer.parseInt(value));
+        }
+        return generateGraphFile(type);
     }
 
     /**

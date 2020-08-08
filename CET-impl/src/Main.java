@@ -18,22 +18,41 @@ public class Main {
         System.out.println("Current relative path is: " + s);
 
         GraphBuilder graphBuilder = new GraphBuilder();
-        String configFilePath;
+        String input;
 
-        Graph graph;
+        Graph graph = null;
 
         // Read graph type: either random or a file path
         if (args.length == 1) graph = graphBuilder.readConfig(args[0]);
             // it can be read from system input as well.
         else {
-            System.out.println("Please specify the file path to input file!");
-            while (true) {
-                Scanner sc = new Scanner(System.in);
-                configFilePath = sc.nextLine();
-                if (new File(configFilePath).exists()) break;
-                System.out.println("File doesn't exist, try again.");
+            System.out.println("-------------------------------\n" +
+                    "- If you want to specify an input config file, input \"y\", \n" +
+                    "- else it will enter manually input config menu\n" +
+                    "-------------------------------");
+
+            Scanner sc = new Scanner(System.in);
+            input = sc.nextLine();
+            graphBuilder.random = true;
+            if(!input.equalsIgnoreCase("y")) {
+                System.out.println("Choose graph type: \n" +
+                        "1. Random not Sparse \n" +
+                        "2. Random and Sparse");
+                String type = sc.nextLine();
+
+                if(type.equals("2")) graphBuilder.sparse = true;
+                System.out.println("Number of nodes:");
+                graph = graphBuilder.generateGraph("random or sparse", sc.nextLine());
             }
-            graph = graphBuilder.readConfig(configFilePath);
+            else{
+                while (true) {
+
+                    if (new File(input).exists()) break;
+
+                    System.out.println("File doesn't exist, try again.");
+                }
+                graph = graphBuilder.readConfig(input);
+            }
         }
 
         // Create output dir
