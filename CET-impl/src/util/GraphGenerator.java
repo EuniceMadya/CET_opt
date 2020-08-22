@@ -62,12 +62,13 @@ public class GraphGenerator {
         graph.setEndPoints(ends);
 
 
-        System.out.println("start points: " + Arrays.toString(starts.toArray()));
-        System.out.println("end points: " + Arrays.toString(ends.toArray()));
+        System.out.println("-- start points: " + Arrays.toString(starts.toArray()));
+        System.out.println("-- end points: " + Arrays.toString(ends.toArray()));
 
-        System.out.println(DAGTools.printDAG(dag));
-        System.out.println("Generated a " + dag.length + "x" + dag[0].length +
-                " DAG with " + DAGTools.getEdges(dag) + " edges.");
+//        System.out.println(DAGTools.printDAG(dag));
+        System.out.println("\n- Generated a " + dag.length + "x" + dag[0].length +
+                " DAG with " + DAGTools.getEdges(dag) + " edges.#");
+        System.out.println("--------------------------------------------------------------------------------------\n");
 
         return graph;
     }

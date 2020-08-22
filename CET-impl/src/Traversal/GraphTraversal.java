@@ -1,27 +1,27 @@
 package Traversal;
 
 import Components.Graph;
-import Components.Path;
 import Components.Vertex;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
-public abstract class GraphTraversal implements Runnable {
+public abstract class GraphTraversal {
     Graph graph;
     Timestamp window;
-    ArrayList<Path> validPaths;
-    TraversalType traversalType;
+    ArrayList<ArrayList<Integer>> validPaths;
+    public TraversalType traversalType;
+    public long timeElapsed;
 
 
     public GraphTraversal(Graph graph, Timestamp windowSize) {
         this.graph = graph;
         this.window = windowSize;
         this.validPaths = new ArrayList<>();
+        timeElapsed = 0;
 
 
         //TODO: change it later to actual window size
@@ -30,25 +30,22 @@ public abstract class GraphTraversal implements Runnable {
     }
 
 
-    public boolean identifyPattern(Path path) {
+    public boolean identifyPattern(ArrayList<Integer> path) {
         if (path == null) {
             return false;
         }
-        Vertex start = graph.getVertex(path.getPathNodes().get(0));
-        Vertex end = graph.getVertex(path.getPathNodes().get(path.getPathNodes().size() - 1));
+        Vertex start = graph.getVertex(path.get(0));
+        Vertex end = graph.getVertex(path.get(path.size()-1));
 //        Timestamp timeLap = new Timestamp(end.getTime().getTime() - start.getTime().getTime());
 //
-//        path.setSatisfied(timeLap.getTime()< window.getTime());
-        path.setSatisfied(true);
-//
+//        path.setSatisfied(timeLap.getTime()< window.getTime());//
 //        return path.isSatisfied();
         return true;
     }
 
     public abstract void traversal(int i);
 
-    @Override
-    public void run() {
+    public void execute() {
 
         long startTime = System.nanoTime();
         for (int start : graph.getStartPoints()) {
@@ -56,20 +53,8 @@ public abstract class GraphTraversal implements Runnable {
             System.out.println("\n\n");
         }
         long endTime = System.nanoTime();
-        long timeElapsed = endTime - startTime;
+        timeElapsed = endTime - startTime;
         showResults(traversalType.toString());
-
-        File file = new File("OutputFiles/result/timeResults" + traversalType.toString() +"-"+ graph.getNumVertex() + ".txt");
-        try {
-            file.createNewFile();
-            FileWriter fw = new FileWriter(file);
-            fw.write(this.getClass().getName() + "Execution in nanoseconds  : " + timeElapsed);
-            fw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println(this.getClass().getName() + "Execution in nanoseconds  : " + timeElapsed);
-
     }
 
     public void showResults(String algo) {
@@ -81,9 +66,9 @@ public abstract class GraphTraversal implements Runnable {
         try {
             outputFile.createNewFile();
             FileWriter fileWriter = new FileWriter(outputFile);
-            for (Path singlePath : validPaths) {
-                System.out.println(algo + ": " + singlePath.getPathNodes());
-                fileWriter.write(singlePath.getPathNodes() + "\n");
+            for (ArrayList<Integer> singlePath : validPaths) {
+                System.out.println(algo + ": " + singlePath);
+                fileWriter.write(singlePath + "\n");
             }
             fileWriter.close();
         } catch (Exception e) {

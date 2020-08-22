@@ -1,8 +1,4 @@
 import Components.Graph;
-import Traversal.BFSGraphTraversal;
-import Traversal.DFSGraphTraversal;
-import Traversal.M_CETGraphTraversal;
-import Traversal.T_CETGraphTraversal;
 import util.GraphBuilder;
 
 import java.io.File;
@@ -18,34 +14,36 @@ public class Main {
         System.out.println("Current relative path is: " + s);
 
         GraphBuilder graphBuilder = new GraphBuilder();
-        String input;
+        String input = "";
 
         Graph graph = null;
+        Scanner sc = new Scanner(System.in);
 
         // Read graph type: either random or a file path
         if (args.length == 1) graph = graphBuilder.readConfig(args[0]);
             // it can be read from system input as well.
         else {
-            System.out.println("-------------------------------\n" +
-                    "- If you want to specify an input config file, input \"y\", \n" +
-                    "- else it will enter manually input config menu\n" +
-                    "-------------------------------");
-
-            Scanner sc = new Scanner(System.in);
+            System.out.println("------------------------------------------------------------\n" +
+                    "- Do you want to enter an existing config file path? (y/n) -\n" +
+                    "-     Enter \"exit\" if you want to terminate program.       -\n" +
+                    "------------------------------------------------------------");
             input = sc.nextLine();
-            graphBuilder.random = true;
-            if(!input.equalsIgnoreCase("y")) {
+            if (!input.equalsIgnoreCase("y")) {
                 System.out.println("Choose graph type: \n" +
-                        "1. Random not Sparse \n" +
-                        "2. Random and Sparse");
+                        "  1. Random not Sparse \n" +
+                        "  2. Random and Sparse");
                 String type = sc.nextLine();
+                graphBuilder.random = true;
 
-                if(type.equals("2")) graphBuilder.sparse = true;
+
+                if (type.equals("2")) graphBuilder.sparse = true;
                 System.out.println("Number of nodes:");
                 graph = graphBuilder.generateGraph("random or sparse", sc.nextLine());
-            }
-            else{
+            } else if (input.equalsIgnoreCase("exit")) return;
+            else {
                 while (true) {
+                    System.out.println("Please specify file path: ");
+                    input = sc.nextLine();
 
                     if (new File(input).exists()) break;
 
@@ -59,24 +57,29 @@ public class Main {
         if (!new File("OutputFiles/result/timeResults").exists())
             new File("OutputFiles/result/timeResults").mkdirs();
 
+        AlgoExecutor executor = new AlgoExecutor(graph);
 
-//        Graph graph = graphBuilder.generateGraph("random");
+        System.out.println("- Output folders created\n" +
+                "      ...\n" +
+                "\n\n");
 
-        BFSGraphTraversal bfs = new BFSGraphTraversal(graph, null);
-        DFSGraphTraversal dfs = new DFSGraphTraversal(graph, null);
-        T_CETGraphTraversal t_cet = new T_CETGraphTraversal(graph, null);
-        M_CETGraphTraversal m_cet = new M_CETGraphTraversal(graph, null);
+        while (!input.equals("0")) {
+            System.out.println("               -------------\n" +
+                    "Please add the algorithm to process the graph:\n" +
+                            " 0. Finish choosing\n" +
+                            " 1. Normal BFS\n" +
+                            " 2. Normal DFS\n" +
+                            " 3. Sequential Hybrid\n" +
+                            " 4. M_CET\n" +
+                            " 5. T_CET\n" );
+            input = sc.nextLine();
+            if(input == "" ) continue;
+            executor.addAlgo(Integer.parseInt(input));
+        }
 
-        Thread threadBFS = new Thread(bfs);
-        Thread threadDFS = new Thread(dfs);
-        Thread threadT_CET = new Thread(t_cet);
-        Thread threadM_CET = new Thread(m_cet);
+        System.out.println("Start executing...");
 
-
-        threadBFS.start();
-        threadDFS.start();
-//        threadT_CET.start();
-//        threadM_CET.start();
+        executor.runAlgos();
     }
 
 

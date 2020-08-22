@@ -13,6 +13,7 @@ public class FileGraphParser {
     /**
      * Example:
      * <p>
+     * Grid
      * 3
      * 1,0,0
      * 0,0,0
@@ -23,8 +24,8 @@ public class FileGraphParser {
      * 2000-03-01 12:00:00
      */
 
-    public Graph readGraph(String fileName) {
-        if (fileName.contains("Sparse")) return readSparseMatrixGraph(fileName);
+    public Graph readGraph(String fileName, boolean sparse) {
+        if (sparse) return readSparseMatrixGraph(fileName);
 
         return readGridGraph(fileName);
     }
@@ -36,6 +37,11 @@ public class FileGraphParser {
         try {
             File myObj = new File(fileName);
             Scanner myReader = new Scanner(myObj);
+            String type = myReader.nextLine();
+            if(type.contains("Random") || !type.contains("Sparse")) {
+                System.out.println("ERROR: Read wrong type of graph! Should be Sparse matrix!");
+            }
+
             nodeNum = Integer.parseInt(myReader.nextLine());
             while (myReader.hasNext()) {
                 String[] data = myReader.nextLine().split(",");
@@ -57,6 +63,11 @@ public class FileGraphParser {
         try {
             File myObj = new File(fileName);
             Scanner myReader = new Scanner(myObj);
+            String type = myReader.nextLine();
+            if(type.contains("Random") || type.contains("Sparse")) {
+                System.out.println("ERROR: Read wrong type of graph! Should be grid!");
+            }
+
             int nodeNum = Integer.parseInt(myReader.nextLine());
 
             grid = new boolean[nodeNum][nodeNum];
@@ -69,7 +80,7 @@ public class FileGraphParser {
                     grid[i][j] = neighbours[j].equals("1");
                 }
             }
-            if (myReader.nextLine().equals("true")) {
+            if (myReader.nextLine().equals("timestamp")) {
                 timestamps = new Timestamp[nodeNum];
                 for (int i = 0; i < nodeNum; i++) {
                     timestamps[i] = Timestamp.valueOf(myReader.nextLine());

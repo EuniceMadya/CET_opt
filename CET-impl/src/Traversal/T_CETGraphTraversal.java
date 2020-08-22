@@ -1,7 +1,6 @@
 package Traversal;
 
 import Components.Graph;
-import Components.Path;
 import Components.Vertex;
 
 import java.sql.Timestamp;
@@ -10,7 +9,7 @@ import java.util.HashMap;
 
 public class T_CETGraphTraversal extends GraphTraversal {
 
-    public ArrayList<Path>[] paths;
+    public ArrayList<ArrayList<Integer>>[] paths;
 
     public T_CETGraphTraversal(Graph graph, Timestamp windowSize) {
         super(graph, windowSize);
@@ -21,7 +20,7 @@ public class T_CETGraphTraversal extends GraphTraversal {
     }
 
     @Override
-    public void run() {
+    public void execute() {
         long startTime = System.nanoTime();
         traversal(0);
         long endTime = System.nanoTime();
@@ -43,12 +42,17 @@ public class T_CETGraphTraversal extends GraphTraversal {
         HashMap<Integer, Integer> nextLevelHash = new HashMap<>();
 
         for (Vertex curNode : currentLevel) {
-            if (graph.getStartPoints().contains(curNode.getIndex()))
-                paths[curNode.getIndex()].add(new Path(curNode.getIndex()));
+            if (graph.getStartPoints().contains(curNode.getIndex())){
+                ArrayList<Integer> list = new ArrayList<>();
+                list.add(curNode.getIndex());
+                paths[curNode.getIndex()].add(list);
+            }
 
             for (Integer neighbour : curNode.getNeighbours()) {
-                for (Path path : paths[curNode.getIndex()]) {
-                    paths[neighbour].add(new Path(path.getPathNodes(), neighbour));
+                for (ArrayList<Integer> path : paths[curNode.getIndex()]) {
+                    ArrayList<Integer> list = new ArrayList<>(path);
+                    list.add(neighbour);
+                    paths[neighbour].add(list);
                 }
                 if (!nextLevelHash.containsKey(neighbour)) {
                     nextLevel.add(graph.getVertex(neighbour));

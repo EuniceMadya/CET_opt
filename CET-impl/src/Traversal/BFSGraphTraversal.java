@@ -1,10 +1,11 @@
 package Traversal;
 
 import Components.Graph;
-import Components.Path;
 import util.ArrayQueue;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Stack;
 
 public class BFSGraphTraversal extends GraphTraversal {
 
@@ -14,21 +15,25 @@ public class BFSGraphTraversal extends GraphTraversal {
     }
 
     // BFS traversal
-    @Override
     public void traversal(int start) {
 
-        ArrayQueue<Path> queue = new ArrayQueue();
+        ArrayQueue<Stack<Integer>> queue = new ArrayQueue();
 
-        queue.offer(new Path(start));
+        Stack<Integer> path = new Stack<>();
+        path.add(start);
+        queue.offer(path);
 
         while (!queue.isEmpty()) {
-            Path currentPath = queue.poll();
-            for (int neighbour : graph.getEdges(currentPath.getEnd())) {
-                Path newPath = new Path(currentPath.getPathNodes(), neighbour);
+            Stack<Integer> currentPath = queue.poll();
+            for (int neighbour : graph.getEdges(currentPath.peek())) {
+                Stack <Integer> newStack = new Stack<>();
+                newStack.addAll(currentPath);
+                newStack.push(neighbour);
+
                 if (graph.getVertex(neighbour).getNeighbours().size() == 0) {
-                    identifyPattern(newPath);
-                    validPaths.add(newPath);
-                } else queue.offer(newPath);
+                    identifyPattern(new ArrayList<>(newStack));
+                    validPaths.add(new ArrayList<>(newStack));
+                } else queue.offer(newStack);
             }
         }
     }

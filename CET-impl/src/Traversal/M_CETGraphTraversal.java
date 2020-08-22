@@ -1,9 +1,9 @@
 package Traversal;
 
 import Components.Graph;
-import Components.Path;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Stack;
 
@@ -22,13 +22,13 @@ public class M_CETGraphTraversal extends GraphTraversal {
         currentSeq.push(curNode);
 
         if (graph.getEndPoints().contains(curNode)) {
-            Path resultPath = new Path();
+            Stack<Integer> resultPath = new Stack<>();
             Iterator<Integer> iter = currentSeq.iterator();
             while (iter.hasNext()) {
                 int node = iter.next();
-                resultPath.addNode(node);
+                resultPath.push(node);
             }
-            validPaths.add(resultPath);
+            validPaths.add(new ArrayList<>(resultPath));
             currentSeq.clear();
         } else {
             for (int neighbour : graph.getEdges(curNode))

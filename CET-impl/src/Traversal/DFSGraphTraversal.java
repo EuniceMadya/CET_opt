@@ -1,11 +1,12 @@
 package Traversal;
 
 import Components.Graph;
-import Components.Path;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 
 public class DFSGraphTraversal extends GraphTraversal {
 
@@ -20,22 +21,23 @@ public class DFSGraphTraversal extends GraphTraversal {
         boolean[] visited = new boolean[graph.getNumVertex()];
         Arrays.fill(visited, false);
 
-        Path path = new Path(start);
+        Stack<Integer> path = new Stack();
+        path.push(start);
 
         if (graph.getVertex(start).getNeighbours().size() != 0) DFStraversal(start, visited, path);
 
-        else validPaths.add(path);
+        else validPaths.add(new ArrayList<>(path));
         // Call the recursive helper function to print DFS traversal
 
     }
 
 
-    public void DFStraversal(int s, boolean[] visited, Path path) {
+    public void DFStraversal(int s, boolean[] visited, Stack path) {
         visited[s] = true;
 
         if (graph.getEndPoints().contains(s)) {
-            if (path.isSatisfied()) {
-                validPaths.add(new Path(path.getPathNodes()));
+            if (true) {
+                validPaths.add(new ArrayList<>(path));
             }
             return;
         }
@@ -43,11 +45,12 @@ public class DFSGraphTraversal extends GraphTraversal {
         // Recur for all the vertices adjacent to this vertex
         List<Integer> edges = graph.getEdges(s);
         for (Integer edge : edges) {
-            path.addNode(edge);
-            identifyPattern(path);
+            path.push(edge);
+            identifyPattern(new ArrayList<>(path));
             DFStraversal(edge, visited, path);
-            path.removeNode(edge);
+            path.pop();
         }
     }
+
 
 }

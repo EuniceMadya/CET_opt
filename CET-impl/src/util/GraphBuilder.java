@@ -11,12 +11,13 @@ import java.util.Scanner;
 public class GraphBuilder {
 
     GraphGenerator graphGenerator;
-    public boolean sparse = false;
-    public boolean random = false;
-    String value = "";
+    public boolean sparse;
+    public boolean random;
 
     public GraphBuilder() {
         graphGenerator = new GraphGenerator();
+        sparse = false;
+        random = false;
     }
 
     public Graph readConfig(String fileName) {
@@ -30,8 +31,10 @@ public class GraphBuilder {
             Scanner scanner = new Scanner(file);
 
             String type = scanner.nextLine();
-            if (type.contains("sparse")) sparse = true;
-            if (type.contains("random")) random = true;
+            System.out.println("-- type: " + type);
+            if (type.contains("Sparse")) sparse = true;
+
+            if (type.contains("Random")) random = true;
 
             param = scanner.nextLine();
             scanner.close();
@@ -39,6 +42,9 @@ public class GraphBuilder {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println(
+                "-- sparse: " + sparse + "\n" +
+                "-- random: " + random + "\n");
 
         return generateGraph(fileName, param);
     }
@@ -52,10 +58,6 @@ public class GraphBuilder {
     public Graph generateGraph(String type, String value) {
         if (sparse && random)  {
             return generateRandomSparseGraph(Integer.parseInt(value));
-//            System.out.println("type: " + type);
-//            for (Vertex vertex : graph.getVertices()) {
-//                System.out.println(vertex.getNeighbours());
-//            }
         }
         if (random) {
             return generateRandomGraph(Integer.parseInt(value));
@@ -100,7 +102,7 @@ public class GraphBuilder {
      */
     public Graph generateGraphFile(String path) {
         FileGraphParser fileGraphParser = new FileGraphParser();
-        return fileGraphParser.readGraph(path);
+        return fileGraphParser.readGraph(path, sparse);
     }
 
 

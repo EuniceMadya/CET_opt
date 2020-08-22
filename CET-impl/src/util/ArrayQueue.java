@@ -31,6 +31,18 @@ public class ArrayQueue<E> {
         this.startPos = 0;
     }
 
+
+    /**
+     * Constructs an arraylist with existing elements.
+     *
+     * @param elements
+     */
+    public ArrayQueue(ArrayList<E> elements) {
+        this.queue = new ArrayList<>(elements);
+        this.size = elements.size();
+        this.startPos = elements.size()-1;
+    }
+
     /**
      * Returns size of the queue after startPos.
      * Note: Can't use ArrayList.size because it may contain elements before startPos.
@@ -180,5 +192,14 @@ public class ArrayQueue<E> {
      */
     public E peek() {
         return startPos < queue.size() ? queue.get(startPos) : null;
+    }
+
+    /**
+     * Get all elements in the queue
+     *
+     * @return The whole list
+     */
+    public ArrayList<E> elements(){
+        return queue;
     }
 }

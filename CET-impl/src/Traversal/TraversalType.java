@@ -4,5 +4,7 @@ public enum TraversalType {
     BFS,
     DFS,
     T_CET,
-    M_CET
+    M_CET,
+    SeqHybrid
+
 }
