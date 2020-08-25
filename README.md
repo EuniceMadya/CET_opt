@@ -41,3 +41,10 @@ The graph to traverse can either be random or read from existing file. The progr
 | Sparse matrix<br />Each pair is in the form of:<br />  `< Source Node, Dest Node>` | Sparse <br />10 <br />0,4 <br />2,5 <br />3,1 <br />4,2 <br />6,1 <br />6,2 <br />7,4 <br />7,6 <br />7,8 <br />7,9 <br />9,2 <br />9,5 <br />No timestamp |
 | Random<br />It can be either sparse random or purely random, <br />therefore, two format are shown on the right. | Sparse Random <br />10<br /><br />Random<br />5              |
 
+For file naming, in order to be able to easily recognize which type it belongs to, it is strongly suggested to use the form of: \<type\>\<num of nodes\>.txt
+
+- Grid7.txt
+- Sparse7.txt
+- Random10.txt
+- SparseRandom20.txt
+- ...  
