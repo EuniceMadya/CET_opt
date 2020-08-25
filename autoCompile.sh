@@ -22,3 +22,6 @@ Main=CET-impl/src/Main.java
 
 
 javac $Components $Util $TraversalAlgos $Executor $Main -d out/
+
+cd out/
+java Main
