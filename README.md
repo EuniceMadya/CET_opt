@@ -1,24 +1,15 @@
-#CET
+# CET
 
-##Implementation
+## Implementation
 
-Right now, it is only implementing the T_CET and M_CET.
+Right now, it has implemented BFS and DFS traversal using stack. Furthermore, the hybrid one is almost done.
 
 
 ##Usage
-Run file Utility.java by:
+Compile and run the project by executing below:
 
 ````jshelllanguage
-javac Utility.java 
-java  Utility
-````
-
-It is now not yet susceptible to change the graph generate method dymanically.
-In *Utility.java* file:
-
-````java
-// the argument takes in is to specify whether the graph is randomly generated or read from file.
-graphBuilder.generateGraph("random");
+./autoCompile.sh
 ````
 
 Some sample file will be later given to prove how a graph can be read from file.
