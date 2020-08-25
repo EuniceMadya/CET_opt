@@ -2,33 +2,42 @@
 
 ## Implementation
 
-Right now, it has implemented BFS and DFS traversal using stack. Furthermore, the hybrid one is almost done.
+Right now, it has implemented BFS and DFS traversal using stack. Furthermore, the hybrid one is almost done. 
 
+## Usage
 
-##Usage
-Compile and run the project by executing below:
+1. Compile and run the project by executing below:
 
-````jshelllanguage
+````shell
 ./autoCompile.sh
 ````
 
-Some sample file will be later given to prove how a graph can be read from file.
+The graph to traverse can either be random or read from existing file. The program will ask for a specified path if there is any. *(Might be changing to reading from file for the ease of modification and running multiple times)*
 
-There are several improvement that will be made(which is in progress, will be finished by the end of next week).
-1. Utility.java will be able to take command line argument to read the graph generation method.
-2. The argument will be an xml file. For **Random** type, it will have a structure similar to the following:
+2. The program will ask for the number of times to run the algorithm, and the algorithm to run. Currently there are 5 existing ones available for experiment:
+   - BFS
+   - DFS
+   - Hybrid(Sequential) -- in develop
+   - M_CET
+   - T_CET
+   - (The concurrent one is in develop)
+3. File intake: As long as the file conform the format of a valid DAG, it would be traverse successfully, the running time of each run and the average would be recorded in file for later comparison.The file format will be discussed in the next section.
 
-    ````xml
-    <type>random</type>
-    <nodeNum>20</nodeNum>
-    ````
-    For **ReadFile** type, the xml file will look similar as following:
-    
-    ````xml
-    <type>readFile</type>
-    <path>/home/etc/data/someFile.txt</path>
-    ````
-3. Optimize the M_CET since the implementation is not really sufficient yet. 
- 
- 
- 
+
+
+## File intake format:
+
+### Input config
+
+*TODO: Intake config*
+
+
+
+### Graph format
+
+| Type                                                         | Format                                                       |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Grid<br /> (Adjacency matrix)                                | Grid <br />6 <br />0,0,1,0,1,0, <br />1,0,0,0,0,0, <br />0,0,0,0,0,0, <br />1,0,0,0,0,0, <br />0,0,1,0,0,0, <br />0,0,0,1,0,0, <br />No timestamp |
+| Sparse matrix<br />Each pair is in the form of:<br />  `< Source Node, Dest Node>` | Sparse <br />10 <br />0,4 <br />2,5 <br />3,1 <br />4,2 <br />6,1 <br />6,2 <br />7,4 <br />7,6 <br />7,8 <br />7,9 <br />9,2 <br />9,5 <br />No timestamp |
+| Random<br />It can be either sparse random or purely random, <br />therefore, two format are shown on the right. | Sparse Random <br />10<br /><br />Random<br />5              |
+
