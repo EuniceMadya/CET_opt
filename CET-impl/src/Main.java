@@ -57,25 +57,31 @@ public class Main {
         if (!new File("OutputFiles/result/timeResults").exists())
             new File("OutputFiles/result/timeResults").mkdirs();
 
-        AlgoExecutor executor = new AlgoExecutor(graph);
-
         System.out.println("- Output folders created\n" +
                 "      ...\n" +
                 "\n\n");
 
-        while (!input.equals("0")) {
-            System.out.println("               -------------\n" +
-                    "Please add the algorithm to process the graph:\n" +
-                            " 0. Finish choosing\n" +
-                            " 1. Normal BFS\n" +
-                            " 2. Normal DFS\n" +
-                            " 3. Sequential Hybrid\n" +
-                            " 4. M_CET\n" +
-                            " 5. T_CET\n" );
-            input = sc.nextLine();
-            if(input == "" ) continue;
-            executor.addAlgo(Integer.parseInt(input));
-        }
+
+        System.out.println("Please enter number of run you want for the algorithm");
+
+        AlgoExecutor executor = new AlgoExecutor(graph, Integer.parseInt(sc.nextLine()));
+
+
+            while(true) {
+                System.out.println("               -------------\n" +
+                        "Please add the algorithm to process the graph:\n" +
+                        " 0. Finish choosing\n" +
+                        " 1. Normal BFS\n" +
+                        " 2. Normal DFS\n" +
+                        " 3. Sequential Hybrid\n" +
+                        " 4. M_CET\n" +
+                        " 5. T_CET\n---");
+                input = sc.nextLine();
+                if (input == "") continue;
+                executor.useAlgo(Integer.parseInt(input));
+                break;
+            }
+
 
         System.out.println("Start executing...");
 

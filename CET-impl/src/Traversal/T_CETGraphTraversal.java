@@ -42,7 +42,7 @@ public class T_CETGraphTraversal extends GraphTraversal {
         HashMap<Integer, Integer> nextLevelHash = new HashMap<>();
 
         for (Vertex curNode : currentLevel) {
-            if (graph.getStartPoints().contains(curNode.getIndex())){
+            if (graph.getStartPoints().contains(curNode.getIndex())) {
                 ArrayList<Integer> list = new ArrayList<>();
                 list.add(curNode.getIndex());
                 paths[curNode.getIndex()].add(list);

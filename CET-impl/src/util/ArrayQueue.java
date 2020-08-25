@@ -40,7 +40,7 @@ public class ArrayQueue<E> {
     public ArrayQueue(ArrayList<E> elements) {
         this.queue = new ArrayList<>(elements);
         this.size = elements.size();
-        this.startPos = elements.size()-1;
+        this.startPos = elements.size() - 1;
     }
 
     /**
@@ -199,7 +199,7 @@ public class ArrayQueue<E> {
      *
      * @return The whole list
      */
-    public ArrayList<E> elements(){
+    public ArrayList<E> elements() {
         return queue;
     }
 }

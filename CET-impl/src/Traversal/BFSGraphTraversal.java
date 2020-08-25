@@ -26,7 +26,7 @@ public class BFSGraphTraversal extends GraphTraversal {
         while (!queue.isEmpty()) {
             Stack<Integer> currentPath = queue.poll();
             for (int neighbour : graph.getEdges(currentPath.peek())) {
-                Stack <Integer> newStack = new Stack<>();
+                Stack<Integer> newStack = new Stack<>();
                 newStack.addAll(currentPath);
                 newStack.push(neighbour);
 

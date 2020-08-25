@@ -109,7 +109,7 @@ public class Graph {
 
     public List<Vertex> getEndVertices() {
         if (endVertices.size() == 0) {
-            for (Integer end : endPoints) startVertices.add(vertices.get(end));
+            for (Integer end : endPoints) endVertices.add(vertices.get(end));
         }
         return endVertices;
     }

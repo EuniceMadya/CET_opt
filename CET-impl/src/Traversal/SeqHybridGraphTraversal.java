@@ -10,7 +10,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
     List<Integer> anchorNodes;
     HashMap<Integer, ArrayList<ArrayList<Integer>>> anchorPaths;
 
-    public SeqHybridGraphTraversal(Graph graph, Timestamp windowSize, ArrayList <Integer> anchorNodes){
+    public SeqHybridGraphTraversal(Graph graph, Timestamp windowSize, ArrayList<Integer> anchorNodes) {
         super(graph, windowSize);
         this.traversalType = TraversalType.SeqHybrid;
         this.anchorNodes = anchorNodes;
@@ -18,23 +18,22 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
         initMap();
     }
 
-    public void initMap(){
-        for(Integer anchorNode: anchorNodes){
+    public void initMap() {
+        for (Integer anchorNode : anchorNodes) {
             anchorPaths.put(anchorNode, new ArrayList<>());
         }
     }
 
     @Override
-    public void execute(){
+    public void execute() {
         long startTime = System.nanoTime();
         for (int start : anchorNodes) {
             traversal(start);
-            System.out.println( start);
+            System.out.println(start);
         }
         long endTime = System.nanoTime();
         timeElapsed = endTime - startTime;
         showResults(traversalType.toString());
-        System.out.println(this.getClass().getName() + "Execution in nanoseconds  : " + timeElapsed);
     }
 
     @Override
@@ -44,13 +43,14 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
         Stack<Integer> stack = new Stack<>();
         stack.push(start);
-        if (graph.getVertex(start).getNeighbours().size() != 0 && graph.getStartPoints().contains(start)) DFSsubTraversal(start, visited, stack);
+        if (graph.getVertex(start).getNeighbours().size() != 0 && graph.getStartPoints().contains(start))
+            DFSsubTraversal(start, visited, stack);
         else validPaths.add(new ArrayList<>(stack));
         // And then call BFS to copy & compute
 
     }
 
-    public void DFSsubTraversal(int s, boolean[] visited, Stack curStack){
+    public void DFSsubTraversal(int s, boolean[] visited, Stack curStack) {
         visited[s] = true;
 
         if (anchorNodes.contains(s) && curStack.size() > 1) {

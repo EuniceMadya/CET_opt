@@ -23,7 +23,6 @@ public abstract class GraphTraversal {
         this.validPaths = new ArrayList<>();
         timeElapsed = 0;
 
-
         //TODO: change it later to actual window size
 //        this.window = new Timestamp(Long.MAX_VALUE);
 
@@ -35,7 +34,7 @@ public abstract class GraphTraversal {
             return false;
         }
         Vertex start = graph.getVertex(path.get(0));
-        Vertex end = graph.getVertex(path.get(path.size()-1));
+        Vertex end = graph.getVertex(path.get(path.size() - 1));
 //        Timestamp timeLap = new Timestamp(end.getTime().getTime() - start.getTime().getTime());
 //
 //        path.setSatisfied(timeLap.getTime()< window.getTime());//
@@ -46,11 +45,12 @@ public abstract class GraphTraversal {
     public abstract void traversal(int i);
 
     public void execute() {
+        if(validPaths.size() > 0) validPaths.clear();
 
         long startTime = System.nanoTime();
         for (int start : graph.getStartPoints()) {
             traversal(start);
-            System.out.println("\n\n");
+//            System.out.println("\n\n");
         }
         long endTime = System.nanoTime();
         timeElapsed = endTime - startTime;

@@ -44,7 +44,7 @@ public class GraphBuilder {
         }
         System.out.println(
                 "-- sparse: " + sparse + "\n" +
-                "-- random: " + random + "\n");
+                        "-- random: " + random + "\n");
 
         return generateGraph(fileName, param);
     }
@@ -56,7 +56,7 @@ public class GraphBuilder {
      * @return graph
      */
     public Graph generateGraph(String type, String value) {
-        if (sparse && random)  {
+        if (sparse && random) {
             return generateRandomSparseGraph(Integer.parseInt(value));
         }
         if (random) {
