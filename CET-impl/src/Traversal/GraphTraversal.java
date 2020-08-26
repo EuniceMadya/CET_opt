@@ -28,7 +28,7 @@ public abstract class GraphTraversal {
 
     }
 
-
+    //TODO: identify patterns of a path
     public boolean identifyPattern(ArrayList<Integer> path) {
         if (path == null) {
             return false;

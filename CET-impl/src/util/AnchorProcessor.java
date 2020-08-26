@@ -19,7 +19,7 @@ public class AnchorProcessor {
 
     public ArrayList<Integer> findRandomAnchors(Graph graph, int anchorNum) {
         ArrayList<Integer> anchorList = new ArrayList<>(graph.getStartPoints());
-        anchorList.addAll(graph.getEndPoints());
+//        anchorList.addAll(graph.getEndPoints());
         Random random = new Random();
         while (anchorNum > 0) {
             int anchor = random.nextInt(graph.getNumVertex());
@@ -59,7 +59,7 @@ public class AnchorProcessor {
             }
             anchorNum -= entry.getValue().size();
         }
-        anchorList.addAll(graph.getEndPoints());
+//        anchorList.addAll(graph.getEndPoints());
 
         return anchorList;
     }

@@ -70,14 +70,19 @@ public class AlgoExecutor {
         System.out.println(" \n" +
                 "- As you selected hybrid type, \n" +
                 "- please specify the anchor nodes selection strategy:\n" +
-                "    1. Random" +
+                "-   1. Random" +
                 "    2. Largest degree nodes");
         Scanner sc = new Scanner(System.in);
         String selection = sc.nextLine().equalsIgnoreCase("1") ? "random" : "degrees";
+        int numAnchor;
 
-        System.out.println("\n- Please enter the number of anchors in between:");
-        int numAnchor = Integer.parseInt(sc.nextLine());
+        while (true) {
+            System.out.println("\n- Please enter the number of anchors in between:");
+            numAnchor = Integer.parseInt(sc.nextLine());
 
+            if(numAnchor + graph.getStartPoints().size() < graph.getNumVertex()) break;
+            System.out.println("WARNING: The number of anchor nodes is larger than the number of nodes in graph, try again.\n\n");
+        }
 
 
         AnchorProcessor anchorProcessor = new AnchorProcessor();
@@ -103,7 +108,7 @@ public class AlgoExecutor {
     }
 
     private void writeTimeResult(long[] runTimes) {
-        File file = new File("OutputFiles/result/timeResults/" + "graph" + graph.getNumVertex() + "-" + new Date().toString() + ".txt");
+        File file = new File("OutputFiles/result/timeResults/" + "graph" + graph.getNumVertex() + "-" + algo.traversalType + "-" + new Date().toString() + ".txt");
 
         try {
             file.createNewFile();

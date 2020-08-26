@@ -46,7 +46,6 @@ public class DFSGraphTraversal extends GraphTraversal {
         List<Integer> edges = graph.getEdges(s);
         for (Integer edge : edges) {
             path.push(edge);
-            identifyPattern(new ArrayList<>(path));
             DFStraversal(edge, visited, path);
             path.pop();
         }

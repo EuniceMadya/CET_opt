@@ -62,22 +62,24 @@ public class Main {
                 "\n\n");
 
 
-        System.out.println("Please enter number of run you want for the algorithm");
+        System.out.print("Please enter number of run you want for the algorithm: \n  ");
 
         AlgoExecutor executor = new AlgoExecutor(graph, Integer.parseInt(sc.nextLine()));
 
 
             while(true) {
-                System.out.println("               -------------\n" +
+                System.out.println("------------------------------------------------\n" +
                         "Please add the algorithm to process the graph:\n" +
-                        " 0. Finish choosing\n" +
-                        " 1. Normal BFS\n" +
-                        " 2. Normal DFS\n" +
-                        " 3. Sequential Hybrid\n" +
-                        " 4. M_CET\n" +
-                        " 5. T_CET\n---");
+                        " -   0. Finish choosing\n" +
+                        " -   1. Normal BFS\n" +
+                        " -   2. Normal DFS\n" +
+                        " -   3. Sequential Hybrid\n" +
+                        " -   4. M_CET\n" +
+                        " -   5. T_CET\n---  ");
                 input = sc.nextLine();
-                if (input == "") continue;
+                
+                if (input.equals("")) continue;
+                if(input.equals("0")) return;
                 executor.useAlgo(Integer.parseInt(input));
                 break;
             }

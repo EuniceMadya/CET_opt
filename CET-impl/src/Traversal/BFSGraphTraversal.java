@@ -31,7 +31,6 @@ public class BFSGraphTraversal extends GraphTraversal {
                 newStack.push(neighbour);
 
                 if (graph.getVertex(neighbour).getNeighbours().size() == 0) {
-                    identifyPattern(new ArrayList<>(newStack));
                     validPaths.add(new ArrayList<>(newStack));
                 } else queue.offer(newStack);
             }

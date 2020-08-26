@@ -1,6 +1,7 @@
 package Traversal;
 
 import Components.Graph;
+import util.ArrayQueue;
 
 import java.sql.Timestamp;
 import java.util.*;
@@ -15,7 +16,6 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
         this.traversalType = TraversalType.SeqHybrid;
         this.anchorNodes = anchorNodes;
         anchorPaths = new HashMap<>();
-        initMap();
     }
 
     public void initMap() {
@@ -26,14 +26,20 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
     @Override
     public void execute() {
+        validPaths.clear();
+        anchorPaths.clear();
+        initMap();
         long startTime = System.nanoTime();
         for (int start : anchorNodes) {
             traversal(start);
-            System.out.println(start);
+        }
+        for(int start: graph.getStartPoints()){
+            BFSsubConcatenate(start);
         }
         long endTime = System.nanoTime();
         timeElapsed = endTime - startTime;
         showResults(traversalType.toString());
+
     }
 
     @Override
@@ -43,9 +49,10 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
         Stack<Integer> stack = new Stack<>();
         stack.push(start);
-        if (graph.getVertex(start).getNeighbours().size() != 0 && graph.getStartPoints().contains(start))
+        if (graph.getVertex(start).getNeighbours().size() != 0)
             DFSsubTraversal(start, visited, stack);
-        else validPaths.add(new ArrayList<>(stack));
+        else if (graph.getStartPoints().contains(start)) validPaths.add(new ArrayList<>(stack));
+
         // And then call BFS to copy & compute
 
     }
@@ -53,22 +60,50 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
     public void DFSsubTraversal(int s, boolean[] visited, Stack curStack) {
         visited[s] = true;
 
-        if (anchorNodes.contains(s) && curStack.size() > 1) {
+
+        if (anchorNodes.contains(s) && curStack.size() > 1 || graph.getEndPoints().contains(s)) {
             ArrayList<Integer> listPath = new ArrayList<>(curStack);
-            if (identifyPattern(listPath)) {
-                anchorPaths.get(s).add(listPath);
-                validPaths.add(new ArrayList<>(curStack));
-            }
+            anchorPaths.get(curStack.firstElement()).add(listPath);
             return;
         }
 
         // Recur for all the vertices adjacent to this vertex
         List<Integer> edges = graph.getEdges(s);
+        if(edges.size() == 0) return;
+
         for (Integer edge : edges) {
             curStack.push(edge);
-            identifyPattern(new ArrayList<>(curStack));
             DFSsubTraversal(edge, visited, curStack);
             curStack.pop();
         }
     }
+
+
+    public void BFSsubConcatenate(int start){
+        ArrayQueue<Stack<ArrayList<ArrayList<Integer>>>> queue = new ArrayQueue();
+        Stack<ArrayList<ArrayList<Integer>>> superPaths = new Stack<>();
+        superPaths.add(anchorPaths.get(start));
+        queue.offer(superPaths);
+
+        while(!queue.isEmpty()){
+            Stack<ArrayList<ArrayList<Integer>>> currentPaths = queue.poll();
+            for(List<Integer> subPath: currentPaths.peek()){
+                Stack<ArrayList<ArrayList<Integer>>> newPathStack = new Stack<>();
+                if (anchorPaths.get(subPath.get(subPath.size() - 1)) == null) {
+                    validPaths.add(new ArrayList<>(subPath));
+                    continue;
+                }
+                ArrayList<ArrayList<Integer>> combo = new ArrayList<>();
+                for (List<Integer> nextList: anchorPaths.get(subPath.get(subPath.size() - 1))){
+                    ArrayList<Integer> newPath = new ArrayList<>(subPath);
+                    newPath.remove(newPath.size()-1);
+                    newPath.addAll(nextList);
+                    combo.add(newPath);
+                }
+                newPathStack.push(combo);
+                queue.offer(newPathStack);
+            }
+        }
+    }
+
 }
