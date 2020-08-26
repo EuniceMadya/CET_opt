@@ -38,7 +38,12 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
         }
         long endTime = System.nanoTime();
         timeElapsed = endTime - startTime;
-        showResults(traversalType.toString());
+        
+        String fileName = String.format("%s-anchor%d",
+                traversalType.toString(),
+                anchorNodes.size()-graph.getStartPoints().size());
+
+        showResults(fileName);
 
     }
 
