@@ -18,7 +18,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
         anchorPaths = new HashMap<>();
     }
 
-    public void initMap() {
+    private void initMap() {
         for (Integer anchorNode : anchorNodes) {
             anchorPaths.put(anchorNode, new ArrayList<>());
         }
@@ -38,7 +38,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
         }
         long endTime = System.nanoTime();
         timeElapsed = endTime - startTime;
-        
+
         String fileName = String.format("%s-anchor%d",
                 traversalType.toString(),
                 anchorNodes.size()-graph.getStartPoints().size());
@@ -62,7 +62,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
     }
 
-    public void DFSsubTraversal(int s, boolean[] visited, Stack curStack) {
+    private void DFSsubTraversal(int s, boolean[] visited, Stack curStack) {
         visited[s] = true;
 
 
@@ -84,7 +84,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
     }
 
 
-    public void BFSsubConcatenate(int start){
+    private void BFSsubConcatenate(int start){
         ArrayQueue<Stack<ArrayList<ArrayList<Integer>>>> queue = new ArrayQueue();
         Stack<ArrayList<ArrayList<Integer>>> superPaths = new Stack<>();
         superPaths.add(anchorPaths.get(start));
