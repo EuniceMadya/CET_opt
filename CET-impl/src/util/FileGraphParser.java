@@ -45,6 +45,7 @@ public class FileGraphParser {
             nodeNum = Integer.parseInt(myReader.nextLine());
             while (myReader.hasNext()) {
                 String[] data = myReader.nextLine().split(",");
+                if(data.length != 2) break;
                 matrix.add(new int[]{Integer.parseInt(data[0]), Integer.parseInt(data[1])});
             }
         } catch (Exception e) {
