@@ -9,3 +9,6 @@
 #result files
 OutputFiles/*
 out/*
+
+#class file
+*.class
