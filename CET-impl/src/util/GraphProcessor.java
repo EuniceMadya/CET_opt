@@ -69,7 +69,6 @@ public class GraphProcessor {
             for (Integer j : lists[i]) isStart[j] = false;
         }
         for (int i = 0; i < lists.length; i++) {
-            System.out.println(i + "start: " + isStart[i]);
 
             if (isStart[i]) starts.add(i);
             if (isEnd[i]) ends.add(i);

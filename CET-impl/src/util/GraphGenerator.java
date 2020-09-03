@@ -78,7 +78,6 @@ public class GraphGenerator {
 
     public Graph buildGraph(ArrayList<int[]> dag, int jobCount) {
         GraphProcessor graphProcessor = new GraphProcessor();
-        graphProcessor.numVertices = jobCount;
         Graph graph;
         graph = generateGraphFromPairs(dag, null, jobCount);
 
