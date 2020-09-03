@@ -61,7 +61,7 @@ public abstract class GraphTraversal {
         File outputFolder = new File("OutputFiles/");
         outputFolder.mkdirs();
 
-        File outputFile = new File("OutputFiles/" + algo + "-" + new Date().toString() + ".txt");
+        File outputFile = new File("OutputFiles/" + algo + "-" +graph.getNumVertex() + "V-"+ new Date().toString() + ".txt");
 
         try {
             outputFile.createNewFile();
