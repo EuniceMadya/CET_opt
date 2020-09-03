@@ -75,7 +75,7 @@ public class GraphBuilder {
 
         DAGSmith smith = new DAGSmith();
         //generating adjacency matrix
-        boolean[][] dag = smith.generateRandomDAGMatrix(num, 12);
+        boolean[][] dag = smith.generateRandomDAGMatrix(num, num-10);
 
         return graphGenerator.buildGraph(dag);
 
@@ -85,7 +85,7 @@ public class GraphBuilder {
         DAGSmith smith = new DAGSmith();
 
         //generating sparse matrix
-        ArrayList<int[]> dag = smith.generateRandomDAGSparseMatrix(num, 12);
+        ArrayList<int[]> dag = smith.generateRandomDAGSparseMatrix(num, num-10);
 
         System.out.println("Generating sparse matrix, with edges:");
         for (int[] pair : dag) System.out.println(pair[0] + "," + pair[1]);
