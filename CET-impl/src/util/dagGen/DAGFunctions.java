@@ -208,7 +208,7 @@ class DAGFunctions {
                         //If the node is already in the path, sever the reference
                         //This is/else loop balances the table
                         if (path.contains(next)) {
-                            lists[path.peek().id].remove((Integer) next.id);
+                            lists[path.peek().id].remove((Integer)next.id);
                         } else {
                             //Only do this step if node has not been checked already
                             if (checked[next.id])

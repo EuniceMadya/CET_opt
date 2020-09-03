@@ -80,7 +80,6 @@ public class GraphBuilder {
             saveToFile(sb.toString().trim(), num);
         }
 
-
         return graphGenerator.buildGraph(dag, num);
     }
 
@@ -88,12 +87,12 @@ public class GraphBuilder {
         DAGSmith smith = new DAGSmith();
 
         //generating sparse matrix
-        ArrayList<Integer>[] dag = smith.generateDAGLists(num, num > 50 ? num - 10 : 10);
+        ArrayList<Integer>[] dag = smith.generateDAGLists(num, num > 50 ? num - 10 : 20);
         StringBuilder sb = new StringBuilder("List\n" + num + "\n");
         for (ArrayList<Integer> list : dag) {
             String s = list.size() == 0? "NaN" :
                     list.toString().replace(
-                            "[", "").replace("]", "");
+                            "[", "").replace("]", "").replace(" ", "");
 
             sb.append(s);
             sb.append("\n");
@@ -103,7 +102,6 @@ public class GraphBuilder {
 
             saveToFile(sb.toString().trim(), num);
         }
-
 
         return graphGenerator.buildGraph(dag);
     }

@@ -121,8 +121,7 @@ public class DAGSmith {
             for (int j = 0; j < jobCount; j++) {
                 if (i != j)
                     if (random(frequency))
-                        lists[i].add(j);
-
+                     lists[i].add(j);
             }
 
         }

@@ -25,7 +25,7 @@ public class FileGraphParser {
 
         if (type.contains("Pair")) return readCompressedPairGraph(fileName);
         else if (type.contains("Grid")) return readGridGraph(fileName);
-        else if (type.contains("Lists")) return readCompressedListGraph(fileName);
+        else if (type.contains("List")) return readCompressedListGraph(fileName);
 
         System.out.println("WARNING: INVALID GRAPH INPUT FILE!");
         return null;
@@ -144,19 +144,18 @@ public class FileGraphParser {
             File myObj = new File(fileName);
             Scanner myReader = new Scanner(myObj);
             String type = myReader.nextLine();
-            if (type.contains("Random") || !type.contains("Sparse")) {
-                System.out.println("ERROR: Read wrong type of graph! Should be Sparse matrix!");
-            }
+
             lists = new ArrayList[Integer.parseInt(myReader.nextLine())];
 
             while (myReader.hasNext()) {
                 String data = myReader.nextLine();
+                lists[counter] = new ArrayList<>();
+
                 if (data.equalsIgnoreCase("NaN")) {
                     counter++;
                     continue;
                 }
                 String[] neighbours = data.split(",");
-                lists[counter] = new ArrayList<>();
                 for (String neighbour : neighbours) lists[counter].add(Integer.parseInt(neighbour));
                 counter ++;
             }

@@ -99,6 +99,7 @@ public class AlgoExecutor {
         long[] runTimes = new long[numRun];
 
         for (int i = 0; i < numRun; i++) {
+            System.gc();
             algo.execute();
             average += algo.timeElapsed;
             runTimes[i] = algo.timeElapsed;

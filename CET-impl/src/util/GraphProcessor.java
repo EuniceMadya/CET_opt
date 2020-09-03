@@ -63,15 +63,14 @@ public class GraphProcessor {
         Arrays.fill(isStart, true);
         Arrays.fill(isEnd, false);
         for (int i = 0; i < lists.length; i++) {
-
             if (lists[i].size() == 0) isEnd[i] = true;
             for (Integer j : lists[i]) isStart[j] = false;
         }
         for (int i = 0; i < lists.length; i++) {
-
             if (isStart[i]) starts.add(i);
             if (isEnd[i]) ends.add(i);
         }
+
     }
 
     public List<Integer> findStarts() {

@@ -76,6 +76,7 @@ public class Main {
             }
         }
 
+        System.out.println("\n\nGraph generated!\n\n");
         // Create output dir
         if (!new File("OutputFiles/result/timeResults").exists())
             new File("OutputFiles/result/timeResults").mkdirs();
@@ -85,7 +86,10 @@ public class Main {
                 "\n\n");
 
 
-        System.out.print("Please enter number of run you want for the algorithm: \n  ");
+        System.out.print("Please enter number of run you want for the algorithm: \n");
+
+        System.gc();
+
 
         AlgoExecutor executor = new AlgoExecutor(graph, Integer.parseInt(sc.nextLine()));
 
