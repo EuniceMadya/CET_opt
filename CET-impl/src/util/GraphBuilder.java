@@ -30,6 +30,8 @@ public class GraphBuilder {
      */
     public Graph generateRandomGraph(int numNodes) {
 
+        System.out.println("Random graph generating...");
+
         if (type.equals(GraphType.Grid)) return generateRandomMatrixGraph(numNodes);
 
         if (type.equals(GraphType.Pair)) return generateRandomCompressPairGraph(numNodes);
@@ -86,10 +88,14 @@ public class GraphBuilder {
         DAGSmith smith = new DAGSmith();
 
         //generating sparse matrix
-        ArrayList<Integer>[] dag = smith.generateDAGLists(num, num > 50 ? num - 10 : 20);
+        ArrayList<Integer>[] dag = smith.generateDAGLists(num, num > 50 ? num - 10 : 10);
         StringBuilder sb = new StringBuilder("List\n" + num + "\n");
         for (ArrayList<Integer> list : dag) {
-            sb.append(list.toString().replace("[", "").replace("]", ""));
+            String s = list.size() == 0? "NaN" :
+                    list.toString().replace(
+                            "[", "").replace("]", "");
+
+            sb.append(s);
             sb.append("\n");
         }
         System.out.println(sb.toString());

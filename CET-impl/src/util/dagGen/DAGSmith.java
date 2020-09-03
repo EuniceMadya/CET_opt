@@ -1,7 +1,6 @@
 package util.dagGen;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * DAGSmith is a class used for generating NxN Directed Acyclic Graphs (DAGs).
@@ -67,7 +66,6 @@ public class DAGSmith {
     public ArrayList<Integer>[] generateDAGLists(int jobCount, int frequency) {
         ArrayList<Integer>[] lists = this.generateRandomCompressedLists(jobCount, frequency);
         lists = DAGFunctions.removeSelfDependencies(lists);
-
         return lists;
     }
 
@@ -117,8 +115,8 @@ public class DAGSmith {
         if (log())
             System.out.println("Generating Compressed Lists...");
         ArrayList<Integer>[] lists = new ArrayList[jobCount];
-        Arrays.fill(lists, new ArrayList<>());
         for (int i = 0; i < jobCount; i++) {
+            lists[i] = new ArrayList<>();
             // try to see if it's connected to the graph at all
             for (int j = 0; j < jobCount; j++) {
                 if (i != j)
@@ -126,6 +124,7 @@ public class DAGSmith {
                         lists[i].add(j);
 
             }
+
         }
         return lists;
     }

@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class FileGraphParser {
@@ -149,7 +148,6 @@ public class FileGraphParser {
                 System.out.println("ERROR: Read wrong type of graph! Should be Sparse matrix!");
             }
             lists = new ArrayList[Integer.parseInt(myReader.nextLine())];
-            Arrays.fill(lists, new ArrayList<Integer>());
 
             while (myReader.hasNext()) {
                 String data = myReader.nextLine();
@@ -158,7 +156,9 @@ public class FileGraphParser {
                     continue;
                 }
                 String[] neighbours = data.split(",");
+                lists[counter] = new ArrayList<>();
                 for (String neighbour : neighbours) lists[counter].add(Integer.parseInt(neighbour));
+                counter ++;
             }
             myReader.close();
         } catch (Exception e) {
