@@ -52,9 +52,11 @@ public class GraphBuilder {
         DAGSmith smith = new DAGSmith();
         //generating adjacency matrix
         boolean[][] dag = smith.generateDAGMatrix(num, num > 50 ? num - 10 : 20);
+        StringBuilder sb = new StringBuilder("Grid\n" + num + "\n");
+        sb.append(DAGTools.printDAG(dag));
+        System.out.println(sb.toString());
         if (saveFile) {
-            StringBuilder sb = new StringBuilder("Grid\n" + num + "\n");
-            sb.append(DAGTools.printDAG(dag));
+
             saveToFile(sb.toString().trim(), num);
         }
         return graphGenerator.buildGraph(dag);
@@ -66,11 +68,13 @@ public class GraphBuilder {
 
         //generating sparse matrix
         ArrayList<int[]> dag = smith.generateDAGPairs(num, num > 50 ? num - 10 : 20);
+        StringBuilder sb = new StringBuilder("Pair\n" + num + "\n");
+        for (int[] pair : dag) {
+            sb.append(pair[0] + "," + pair[1] + "\n");
+        }
+        System.out.println(sb.toString());
         if (saveFile) {
-            StringBuilder sb = new StringBuilder("Pair\n" + num + "\n");
-            for (int[] pair : dag) {
-                sb.append(pair[0] + "," + pair[1] + "\n");
-            }
+
             saveToFile(sb.toString().trim(), num);
         }
 
@@ -83,13 +87,14 @@ public class GraphBuilder {
 
         //generating sparse matrix
         ArrayList<Integer>[] dag = smith.generateDAGLists(num, num > 50 ? num - 10 : 20);
-
+        StringBuilder sb = new StringBuilder("List\n" + num + "\n");
+        for (ArrayList<Integer> list : dag) {
+            sb.append(list.toString().replace("[", "").replace("]", ""));
+            sb.append("\n");
+        }
+        System.out.println(sb.toString());
         if (saveFile) {
-            StringBuilder sb = new StringBuilder("List\n" + num + "\n");
-            for (ArrayList<Integer> list : dag) {
-                sb.append(list.toString().replace("[", "").replace("]", ""));
-                sb.append("\n");
-            }
+
             saveToFile(sb.toString().trim(), num);
         }
 
