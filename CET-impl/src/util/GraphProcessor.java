@@ -62,7 +62,6 @@ public class GraphProcessor {
         boolean[] isEnd = new boolean[lists.length];
         Arrays.fill(isStart, true);
         Arrays.fill(isEnd, false);
-        System.out.println(isStart);
         for (int i = 0; i < lists.length; i++) {
 
             if (lists[i].size() == 0) isEnd[i] = true;

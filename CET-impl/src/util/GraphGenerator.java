@@ -103,10 +103,7 @@ public class GraphGenerator {
 
         graph.setStartPoints(starts);
         graph.setEndPoints(ends);
-        System.out.println(graph.getStartPoints());
-        System.out.println(graph.getVertex(0).getNeighbours());
-
-
+        
         return graph;
 
     }
