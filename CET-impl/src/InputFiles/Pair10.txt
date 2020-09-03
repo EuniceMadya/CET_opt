@@ -1,4 +1,4 @@
-Sparse
+Pair
 10
 0,4
 2,5

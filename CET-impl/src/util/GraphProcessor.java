@@ -7,30 +7,14 @@ import java.util.List;
 public class GraphProcessor {
     private List<Integer> starts;
     private List<Integer> ends;
-    private boolean[][] grid;
-    private ArrayList<int[]> matrix;
     int numVertices;
 
-    // find graph start and end points
-    public GraphProcessor(boolean[][] grid) {
+    public GraphProcessor() {
         starts = new ArrayList<>();
         ends = new ArrayList<>();
-        this.grid = grid;
     }
 
-    public GraphProcessor(ArrayList<int[]> matrix, int jobCount) {
-        starts = new ArrayList<>();
-        ends = new ArrayList<>();
-        this.matrix = matrix;
-        numVertices = jobCount;
-    }
-
-    public void preprocess() {
-        if (grid != null) preprocessGrid();
-        if (matrix != null) preprocessMatrix();
-    }
-
-    public void preprocessMatrix() {
+    public void preprocess(ArrayList<int[]> matrix) {
         boolean[] isStart = new boolean[numVertices];
         boolean[] isEnd = new boolean[numVertices];
         Arrays.fill(isStart, true);
@@ -48,7 +32,7 @@ public class GraphProcessor {
     }
 
 
-    public void preprocessGrid() {
+    public void preprocess(boolean[][] grid) {
         for (int index = 0; index < grid.length; index++) {
             boolean isStart = true;
             boolean isEnd = true;
@@ -74,21 +58,33 @@ public class GraphProcessor {
 
     }
 
+    public void preprocess(ArrayList<Integer>[] lists) {
+        boolean[] isStart = new boolean[lists.length];
+        boolean[] isEnd = new boolean[lists.length];
+        Arrays.fill(isStart, true);
+        Arrays.fill(isEnd, false);
+        for (int i = 0; i < lists.length; i++) {
+            if (lists[i].size() == 0) isEnd[i] = true;
+            for (Integer j : lists[i]) {
+                isStart[j] = false;
+            }
+        }
+        for (int i = 0; i < numVertices; i++) {
+            if (isStart[i]) starts.add(i);
+            if (isEnd[i]) ends.add(i);
+        }
+    }
 
     public List<Integer> findStarts() {
         //lazy load
-        if (starts.size() == 0) {
-            preprocess();
-        }
+
         return starts;
 
     }
 
     public List<Integer> findEnds() {
         //lazy load
-        if (ends.size() == 0) {
-            preprocess();
-        }
+
         return ends;
 
     }

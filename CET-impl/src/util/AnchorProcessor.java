@@ -42,7 +42,7 @@ public class AnchorProcessor {
             vertexDegrees.put(vertex.getIndex(), vertex.getNeighbours().size());
         }
 
-        TreeMap<Integer,List<Integer>> degreeVertex = sortMap(vertexDegrees);
+        TreeMap<Integer, List<Integer>> degreeVertex = sortMap(vertexDegrees);
 
         for (Map.Entry<Integer, List<Integer>> entry : degreeVertex.descendingMap().entrySet()) {
             if (anchorNum <= 0) break;
@@ -52,7 +52,7 @@ public class AnchorProcessor {
                 int remainder = entry.getValue().size() - anchorNum;
                 while (remainder > 0) {
                     anchorList.add(entry.getValue().get((entry.getValue().size() - 1) / 2));
-                    entry.getValue().remove((entry.getValue().size()-1)/2);
+                    entry.getValue().remove((entry.getValue().size() - 1) / 2);
                     remainder--;
                 }
 

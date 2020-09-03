@@ -80,7 +80,7 @@ public class AlgoExecutor {
             System.out.println("\n- Please enter the number of anchors in between:");
             numAnchor = Integer.parseInt(sc.nextLine());
 
-            if(numAnchor + graph.getStartPoints().size() < graph.getNumVertex()) break;
+            if (numAnchor + graph.getStartPoints().size() < graph.getNumVertex()) break;
             System.out.println("WARNING: The number of anchor nodes is larger than the number of nodes in graph, try again.\n\n");
         }
 
@@ -96,9 +96,9 @@ public class AlgoExecutor {
 
     void runAlgos() {
         System.out.println("Algo to execute: " + algo.getClass().getName());
-        long [] runTimes = new long[numRun];
+        long[] runTimes = new long[numRun];
 
-        for (int i = 0; i < numRun; i ++) {
+        for (int i = 0; i < numRun; i++) {
             algo.execute();
             average += algo.timeElapsed;
             runTimes[i] = algo.timeElapsed;
@@ -114,15 +114,15 @@ public class AlgoExecutor {
             file.createNewFile();
             FileWriter fw = new FileWriter(file);
             fw.write("Running: " + algo.getClass().getName());
-            for (int i = 0; i < runTimes.length; i ++) {
+            for (int i = 0; i < runTimes.length; i++) {
                 if (algo != null) {
-                    fw.write(String.format("Run %d: %d nanoseconds\n", i+1, runTimes[i]));
-                    System.out.println(String.format("Run %d: %d nanoseconds\n", i+1, runTimes[i]));
+                    fw.write(String.format("Run %d: %d nanoseconds\n", i + 1, runTimes[i]));
+                    System.out.println(String.format("Run %d: %d nanoseconds\n", i + 1, runTimes[i]));
                 }
             }
-            fw.write( "\n\nAverage execution time in nanoseconds  : " + average/numRun + "\n");
+            fw.write("\n\nAverage execution time in nanoseconds  : " + average / numRun + "\n");
             fw.close();
-            System.out.println( "\n\nAverage execution time in nanoseconds  : " + average/numRun + "\n");
+            System.out.println("\n\nAverage execution time in nanoseconds  : " + average / numRun + "\n");
         } catch (IOException e) {
             e.printStackTrace();
         }

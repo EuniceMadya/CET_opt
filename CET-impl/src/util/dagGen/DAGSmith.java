@@ -1,6 +1,7 @@
 package util.dagGen;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * DAGSmith is a class used for generating NxN Directed Acyclic Graphs (DAGs).
@@ -38,7 +39,7 @@ public class DAGSmith {
      * @return The generated graph.
      */
     public boolean[][] generateRandomFile(int jobCount, int frequency, String FileName) {
-        boolean[][] matrix = this.generateRandomDAGMatrix(jobCount, frequency);
+        boolean[][] matrix = this.generateDAGMatrix(jobCount, frequency);
         DAGTools.saveToFile(matrix, FileName);
         return matrix;
     }
@@ -51,17 +52,26 @@ public class DAGSmith {
      *                  (i.e. a value of 2 would yield a 50% chance. 3 would yield 33%. 4: 25%, 5: 20%, etc.)
      * @return The generated graph.
      */
-    public boolean[][] generateRandomDAGMatrix(int jobCount, int frequency) {
+    public boolean[][] generateDAGMatrix(int jobCount, int frequency) {
         boolean[][] matrix = this.generateRandomMatrix(jobCount, frequency);
         matrix = DAGFunctions.removeSelfDependencies(matrix);
         return matrix;
     }
 
-    public ArrayList<int[]> generateRandomDAGSparseMatrix(int jobCount, int frequency) {
-        ArrayList<int[]> sparseMatrix = this.generateRandomSparseMatrix(jobCount, frequency);
+    public ArrayList<int[]> generateDAGPairs(int jobCount, int frequency) {
+        ArrayList<int[]> sparseMatrix = this.generateRandomCompressedPair(jobCount, frequency);
         sparseMatrix = DAGFunctions.removeSelfDependencies(sparseMatrix, jobCount);
         return sparseMatrix;
     }
+
+    public ArrayList<Integer>[] generateDAGLists(int jobCount, int frequency) {
+        ArrayList<Integer>[] lists = this.generateRandomCompressedLists(jobCount, frequency);
+        lists = DAGFunctions.removeSelfDependencies(lists);
+
+        return lists;
+    }
+
+    //Actual Generate methods
 
     private boolean[][] generateRandomMatrix(int jobCount, int frequency) {
         if (log())
@@ -79,8 +89,8 @@ public class DAGSmith {
         return result;
     }
 
-    private ArrayList<int[]> generateRandomSparseMatrix(int jobCount, int frequency) {
-        if (log()) System.out.println("Generating Sparse Matrix...");
+    private ArrayList<int[]> generateRandomCompressedPair(int jobCount, int frequency) {
+        if (log()) System.out.println("Generating Compressed Pair...");
         ArrayList<int[]> results = new ArrayList<>();
 
         for (int i = 0; i < jobCount; i++) {
@@ -103,10 +113,27 @@ public class DAGSmith {
         return results;
     }
 
+    private ArrayList<Integer>[] generateRandomCompressedLists(int jobCount, int frequency) {
+        if (log())
+            System.out.println("Generating Compressed Lists...");
+        ArrayList<Integer>[] lists = new ArrayList[jobCount];
+        Arrays.fill(lists, new ArrayList<>());
+        for (int i = 0; i < jobCount; i++) {
+            // try to see if it's connected to the graph at all
+            for (int j = 0; j < jobCount; j++) {
+                if (i != j)
+                    if (random(frequency))
+                        lists[i].add(j);
+
+            }
+        }
+        return lists;
+    }
 
     private boolean random(int frequency) {
         return ((int) (Math.random() * (frequency + 1)) % frequency == 0);
     }
+
 
     /**
      * for easy access in class

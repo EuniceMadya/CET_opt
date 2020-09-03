@@ -33,7 +33,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
         for (int start : anchorNodes) {
             traversal(start);
         }
-        for(int start: graph.getStartPoints()){
+        for (int start : graph.getStartPoints()) {
             BFSsubConcatenate(start);
         }
         long endTime = System.nanoTime();
@@ -41,7 +41,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
         String fileName = String.format("%s-anchor%d",
                 traversalType.toString(),
-                anchorNodes.size()-graph.getStartPoints().size());
+                anchorNodes.size() - graph.getStartPoints().size());
 
         showResults(fileName);
 
@@ -74,7 +74,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
         // Recur for all the vertices adjacent to this vertex
         List<Integer> edges = graph.getEdges(s);
-        if(edges.size() == 0) return;
+        if (edges.size() == 0) return;
 
         for (Integer edge : edges) {
             curStack.push(edge);
@@ -84,24 +84,24 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
     }
 
 
-    private void BFSsubConcatenate(int start){
+    private void BFSsubConcatenate(int start) {
         ArrayQueue<Stack<ArrayList<ArrayList<Integer>>>> queue = new ArrayQueue();
         Stack<ArrayList<ArrayList<Integer>>> superPaths = new Stack<>();
         superPaths.add(anchorPaths.get(start));
         queue.offer(superPaths);
 
-        while(!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             Stack<ArrayList<ArrayList<Integer>>> currentPaths = queue.poll();
-            for(List<Integer> subPath: currentPaths.peek()){
+            for (List<Integer> subPath : currentPaths.peek()) {
                 Stack<ArrayList<ArrayList<Integer>>> newPathStack = new Stack<>();
                 if (anchorPaths.get(subPath.get(subPath.size() - 1)) == null) {
                     validPaths.add(new ArrayList<>(subPath));
                     continue;
                 }
                 ArrayList<ArrayList<Integer>> combo = new ArrayList<>();
-                for (List<Integer> nextList: anchorPaths.get(subPath.get(subPath.size() - 1))){
+                for (List<Integer> nextList : anchorPaths.get(subPath.get(subPath.size() - 1))) {
                     ArrayList<Integer> newPath = new ArrayList<>(subPath);
-                    newPath.remove(newPath.size()-1);
+                    newPath.remove(newPath.size() - 1);
                     newPath.addAll(nextList);
                     combo.add(newPath);
                 }

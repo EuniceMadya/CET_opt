@@ -1,11 +1,9 @@
 package util;
 
 import Components.Graph;
-import util.dagGen.DAGTools;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class GraphGenerator {
@@ -31,15 +29,27 @@ public class GraphGenerator {
     }
 
 
-    public Graph generateGraphFromMatrix(ArrayList<int[]> matrix, Timestamp[] time, int jobCount) {
+    public Graph generateGraphFromPairs(ArrayList<int[]> pairs, Timestamp[] time, int jobCount) {
         Graph graph = new Graph();
         for (int i = 0; i < jobCount; i++) graph.addVertex(i);
 
-        for (int i = 0; i < matrix.size(); i++) {
-            int id = matrix.get(i)[0];
-            int neighbour = matrix.get(i)[1];
-            if (graph.getVertex(matrix.get(i)[0]) == null) graph.addVertex(id);
+        for (int i = 0; i < pairs.size(); i++) {
+            int id = pairs.get(i)[0];
+            int neighbour = pairs.get(i)[1];
+            if (graph.getVertex(pairs.get(i)[0]) == null) graph.addVertex(id);
             graph.addEdge(id, neighbour);
+        }
+        return graph;
+    }
+
+
+    public Graph generateGraphFromLists(ArrayList<Integer>[] lists) {
+        Graph graph = new Graph();
+        for (int i = 0; i < lists.length; i++) {
+            graph.addVertex(i);
+            for (Integer j: lists[i]) {
+                graph.addEdge(i, j);
+            }
         }
         return graph;
     }
@@ -50,7 +60,8 @@ public class GraphGenerator {
 
     // legacy method, backup for when timestamps are needed
     public Graph buildGraph(boolean[][] dag, Timestamp[] timestamps) {
-        GraphProcessor graphProcessor = new GraphProcessor(dag);
+        GraphProcessor graphProcessor = new GraphProcessor();
+        graphProcessor.preprocess(dag);
         List<Integer> starts = graphProcessor.findStarts();
         List<Integer> ends = graphProcessor.findEnds();
         Graph graph;
@@ -61,30 +72,41 @@ public class GraphGenerator {
         graph.setStartPoints(starts);
         graph.setEndPoints(ends);
 
-
-        System.out.println("-- start points: " + Arrays.toString(starts.toArray()));
-        System.out.println("-- end points: " + Arrays.toString(ends.toArray()));
-
-//        System.out.println(DAGTools.printDAG(dag));
-        System.out.println("\n- Generated a " + dag.length + "x" + dag[0].length +
-                " DAG with " + DAGTools.getEdges(dag) + " edges.#");
-        System.out.println("--------------------------------------------------------------------------------------\n");
-
         return graph;
     }
 
     public Graph buildGraph(ArrayList<int[]> dag, int jobCount) {
-        GraphProcessor graphProcessor = new GraphProcessor(dag, jobCount);
+        GraphProcessor graphProcessor = new GraphProcessor();
+        graphProcessor.numVertices = jobCount;
+        Graph graph;
+        graph = generateGraphFromPairs(dag, null, jobCount);
+
+        graphProcessor.preprocess(dag);
         List<Integer> starts = graphProcessor.findStarts();
         List<Integer> ends = graphProcessor.findEnds();
-        Graph graph;
-        graph = generateGraphFromMatrix(dag, null, jobCount);
+
         graph.setStartPoints(starts);
         graph.setEndPoints(ends);
-        System.out.println("start points: " + Arrays.toString(starts.toArray()));
-        System.out.println("end points: " + Arrays.toString(ends.toArray()));
+
 
         return graph;
     }
+
+    public Graph buildGraph(ArrayList<Integer>[] dag) {
+        GraphProcessor graphProcessor = new GraphProcessor();
+        graphProcessor.preprocess(dag);
+        Graph graph;
+        graph = generateGraphFromLists(dag);
+
+        List<Integer> starts = graphProcessor.findStarts();
+        List<Integer> ends = graphProcessor.findEnds();
+
+        graph.setStartPoints(starts);
+        graph.setEndPoints(ends);
+
+        return graph;
+
+    }
+
 
 }

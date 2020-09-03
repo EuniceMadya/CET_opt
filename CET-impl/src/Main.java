@@ -1,5 +1,6 @@
 import Components.Graph;
 import util.GraphBuilder;
+import util.GraphType;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -15,12 +16,14 @@ public class Main {
 
         GraphBuilder graphBuilder = new GraphBuilder();
         String input;
+        int numNodes;
+        boolean saveResult = false;
 
         Graph graph;
         Scanner sc = new Scanner(System.in);
 
         // Read graph type: either random or a file path
-        if (args.length == 1) graph = graphBuilder.readConfig(args[0]);
+        if (args.length == 1) graph = graphBuilder.generateGraphFile(args[0]);
             // it can be read from system input as well.
         else {
             System.out.println("------------------------------------------------------------\n" +
@@ -29,27 +32,46 @@ public class Main {
                     "------------------------------------------------------------");
             input = sc.nextLine();
             if (!input.equalsIgnoreCase("y")) {
-                System.out.println("Choose graph type: \n" +
-                        "  1. Random not Sparse \n" +
-                        "  2. Random and Sparse");
-                String type = sc.nextLine();
                 graphBuilder.random = true;
 
+                System.out.println("- Number of nodes for the graph:");
+                numNodes = Integer.parseInt(sc.nextLine());
 
-                if (type.equals("2")) graphBuilder.sparse = true;
-                System.out.println("Number of nodes:");
-                graph = graphBuilder.generateGraph("random or sparse", sc.nextLine());
+                System.out.println("\n- Do you want to save the graph to file?(y/n)");
+                graphBuilder.saveFile = sc.nextLine().equals("y");
+
+                System.out.println("Choose graph output type: \n" +
+                        "  1. Grid \n" +
+                        "  2. Pairs\n" +
+                        "  3. Lists\n" +
+                        "NOTE: Other selection will go to default -- Grid format");
+
+                input = sc.nextLine();
+
+                switch (input) {
+                    case "2":
+                        graphBuilder.type = GraphType.Pair;
+                        break;
+                    case "3":
+                        graphBuilder.type = GraphType.List;
+                        break;
+                    default:
+                        graphBuilder.type = GraphType.Grid;
+                }
+
+                graph = graphBuilder.generateRandomGraph(numNodes);
             } else if (input.equalsIgnoreCase("exit")) return;
             else {
                 while (true) {
                     System.out.println("Please specify file path: ");
                     input = sc.nextLine();
 
+                    if (input.equalsIgnoreCase("exit")) return;
                     if (new File(input).exists()) break;
 
-                    System.out.println("File doesn't exist, try again.");
+                    System.out.println("File doesn't exist, try again, or type \"exit\" to exit the program");
                 }
-                graph = graphBuilder.readConfig(input);
+                graph = graphBuilder.generateGraphFile(input);
             }
         }
 
@@ -67,22 +89,22 @@ public class Main {
         AlgoExecutor executor = new AlgoExecutor(graph, Integer.parseInt(sc.nextLine()));
 
 
-            while(true) {
-                System.out.println("------------------------------------------------\n" +
-                        "Please add the algorithm to process the graph:\n" +
-                        " -   0. Finish choosing\n" +
-                        " -   1. Normal BFS\n" +
-                        " -   2. Normal DFS\n" +
-                        " -   3. Sequential Hybrid\n" +
-                        " -   4. M_CET\n" +
-                        " -   5. T_CET\n---  ");
-                input = sc.nextLine();
-                
-                if (input.equals("")) continue;
-                if(input.equals("0")) return;
-                executor.useAlgo(Integer.parseInt(input));
-                break;
-            }
+        while (true) {
+            System.out.println("------------------------------------------------\n" +
+                    "Please add the algorithm to process the graph:\n" +
+                    " -   0. Finish choosing (exit program)\n" +
+                    " -   1. Normal BFS\n" +
+                    " -   2. Normal DFS\n" +
+                    " -   3. Sequential Hybrid\n" +
+                    " -   4. M_CET\n" +
+                    " -   5. T_CET\n");
+            input = sc.nextLine();
+
+            if (input.equals("")) continue;
+            if (input.equals("0")) return;
+            executor.useAlgo(Integer.parseInt(input));
+            break;
+        }
 
 
         System.out.println("Start executing...");

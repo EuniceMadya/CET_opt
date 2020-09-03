@@ -96,7 +96,6 @@ public class Graph {
     }
 
 
-
     public void setStartPoints(List<Integer> startPoints) {
         this.startPoints = startPoints;
     }

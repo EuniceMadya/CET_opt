@@ -1,7 +1,6 @@
 package Traversal;
 
 import Components.Graph;
-import Components.Vertex;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -30,27 +29,23 @@ public abstract class GraphTraversal {
 
     //TODO: identify patterns of a path
     public boolean identifyPattern(ArrayList<Integer> path) {
-        if (path == null) {
-            return false;
-        }
-        Vertex start = graph.getVertex(path.get(0));
-        Vertex end = graph.getVertex(path.get(path.size() - 1));
+        return path != null;
+//        Vertex start = graph.getVertex(path.get(0));
+//        Vertex end = graph.getVertex(path.get(path.size() - 1));
 //        Timestamp timeLap = new Timestamp(end.getTime().getTime() - start.getTime().getTime());
 //
 //        path.setSatisfied(timeLap.getTime()< window.getTime());//
 //        return path.isSatisfied();
-        return true;
     }
 
     public abstract void traversal(int i);
 
     public void execute() {
-        if(validPaths.size() > 0) validPaths.clear();
+        if (validPaths.size() > 0) validPaths.clear();
 
         long startTime = System.nanoTime();
         for (int start : graph.getStartPoints()) {
             traversal(start);
-//            System.out.println("\n\n");
         }
         long endTime = System.nanoTime();
         timeElapsed = endTime - startTime;
@@ -61,7 +56,7 @@ public abstract class GraphTraversal {
         File outputFolder = new File("OutputFiles/");
         outputFolder.mkdirs();
 
-        File outputFile = new File("OutputFiles/" + algo + "-" +graph.getNumVertex() + "V-"+ new Date().toString() + ".txt");
+        File outputFile = new File("OutputFiles/" + algo + "-" + graph.getNumVertex() + "V-" + new Date().toString() + ".txt");
 
         try {
             outputFile.createNewFile();
@@ -72,7 +67,7 @@ public abstract class GraphTraversal {
             }
             fileWriter.close();
         } catch (Exception e) {
-            System.out.println(algo + ": " + e.toString());
+            System.out.println(algo + " has error: " + e.toString());
         }
     }
 
