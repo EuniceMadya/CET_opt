@@ -1,7 +1,6 @@
 package Traversal;
 
 import Components.Graph;
-import Components.Vertex;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -33,35 +32,35 @@ public class T_CETGraphTraversal extends GraphTraversal {
     @Override
     public void traversal(int i) {
         System.out.println(graph.getStartPoints().size());
-        T_CETtraversal((ArrayList<Vertex>) graph.getStartVertices());
+        T_CETtraversal((ArrayList<Integer>) graph.getStartPoints());
     }
 
-    private void T_CETtraversal(ArrayList<Vertex> currentLevel) {
-        ArrayList<Vertex> nextLevel = new ArrayList<>();
+    private void T_CETtraversal(ArrayList<Integer> currentLevel) {
+        ArrayList<Integer> nextLevel = new ArrayList<>();
 
         HashMap<Integer, Integer> nextLevelHash = new HashMap<>();
 
-        for (Vertex curNode : currentLevel) {
-            if (graph.getStartPoints().contains(curNode.getIndex())) {
+        for (Integer curNode : currentLevel) {
+            if (graph.getStartPoints().contains(curNode)) {
                 ArrayList<Integer> list = new ArrayList<>();
-                list.add(curNode.getIndex());
-                paths[curNode.getIndex()].add(list);
+                list.add(curNode);
+                paths[curNode].add(list);
             }
 
-            for (Integer neighbour : curNode.getNeighbours()) {
-                for (ArrayList<Integer> path : paths[curNode.getIndex()]) {
+            for (Integer neighbour : graph.getEdges(curNode)) {
+                for (ArrayList<Integer> path : paths[curNode]) {
                     ArrayList<Integer> list = new ArrayList<>(path);
                     list.add(neighbour);
                     paths[neighbour].add(list);
                 }
                 if (!nextLevelHash.containsKey(neighbour)) {
-                    nextLevel.add(graph.getVertex(neighbour));
+                    nextLevel.add(neighbour);
                     nextLevelHash.put(neighbour, 1);
                 }
             }
 
-            if (graph.getEndPoints().contains(curNode.getIndex())) {
-                validPaths.addAll(paths[curNode.getIndex()]);
+            if (graph.getEndPoints().contains(curNode)) {
+                validPaths.addAll(paths[curNode]);
             }
             //paths[curNode.getIndex()] = null;
         }

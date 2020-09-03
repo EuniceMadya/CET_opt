@@ -108,7 +108,7 @@ public class AlgoExecutor {
     }
 
     private void writeTimeResult(long[] runTimes) {
-        File file = new File("OutputFiles/result/timeResults/" + "graph" + graph.getNumVertex() + "-" + algo.traversalType + "-" + new Date().toString() + ".txt");
+        File file = new File("OutputFiles/result/timeResults/" + "graph-" + graph.getNumVertex() + "-" + algo.traversalType + "-" + new Date().toString() + ".txt");
 
         try {
             file.createNewFile();

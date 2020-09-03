@@ -14,9 +14,9 @@ public class Main {
         System.out.println("Current relative path is: " + s);
 
         GraphBuilder graphBuilder = new GraphBuilder();
-        String input = "";
+        String input;
 
-        Graph graph = null;
+        Graph graph;
         Scanner sc = new Scanner(System.in);
 
         // Read graph type: either random or a file path
