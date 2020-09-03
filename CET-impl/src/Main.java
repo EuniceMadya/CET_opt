@@ -60,6 +60,7 @@ public class Main {
                 }
 
                 graph = graphBuilder.generateRandomGraph(numNodes);
+
             } else if (input.equalsIgnoreCase("exit")) return;
             else {
                 while (true) {

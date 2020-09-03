@@ -7,14 +7,13 @@ import java.util.List;
 public class GraphProcessor {
     private List<Integer> starts;
     private List<Integer> ends;
-    int numVertices;
 
     public GraphProcessor() {
         starts = new ArrayList<>();
         ends = new ArrayList<>();
     }
 
-    public void preprocess(ArrayList<int[]> matrix) {
+    public void preprocess(ArrayList<int[]> matrix, int numVertices) {
         boolean[] isStart = new boolean[numVertices];
         boolean[] isEnd = new boolean[numVertices];
         Arrays.fill(isStart, true);
@@ -63,13 +62,15 @@ public class GraphProcessor {
         boolean[] isEnd = new boolean[lists.length];
         Arrays.fill(isStart, true);
         Arrays.fill(isEnd, false);
+        System.out.println(isStart);
         for (int i = 0; i < lists.length; i++) {
+
             if (lists[i].size() == 0) isEnd[i] = true;
-            for (Integer j : lists[i]) {
-                isStart[j] = false;
-            }
+            for (Integer j : lists[i]) isStart[j] = false;
         }
-        for (int i = 0; i < numVertices; i++) {
+        for (int i = 0; i < lists.length; i++) {
+            System.out.println(i + "start: " + isStart[i]);
+
             if (isStart[i]) starts.add(i);
             if (isEnd[i]) ends.add(i);
         }

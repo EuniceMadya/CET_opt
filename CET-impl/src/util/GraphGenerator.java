@@ -50,6 +50,7 @@ public class GraphGenerator {
             for (Integer j: lists[i]) {
                 graph.addEdge(i, j);
             }
+
         }
         return graph;
     }
@@ -81,7 +82,7 @@ public class GraphGenerator {
         Graph graph;
         graph = generateGraphFromPairs(dag, null, jobCount);
 
-        graphProcessor.preprocess(dag);
+        graphProcessor.preprocess(dag, jobCount);
         List<Integer> starts = graphProcessor.findStarts();
         List<Integer> ends = graphProcessor.findEnds();
 
@@ -103,6 +104,9 @@ public class GraphGenerator {
 
         graph.setStartPoints(starts);
         graph.setEndPoints(ends);
+        System.out.println(graph.getStartPoints());
+        System.out.println(graph.getVertex(0).getNeighbours());
+
 
         return graph;
 
