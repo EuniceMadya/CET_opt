@@ -47,7 +47,7 @@ public class T_CETGraphTraversal extends GraphTraversal {
                 paths[curNode].add(list);
             }
 
-            for (Integer neighbour : graph.getEdges(curNode)) {
+            for (Integer neighbour : graph.getNeighbours(curNode)) {
                 for (ArrayList<Integer> path : paths[curNode]) {
                     ArrayList<Integer> list = new ArrayList<>(path);
                     list.add(neighbour);

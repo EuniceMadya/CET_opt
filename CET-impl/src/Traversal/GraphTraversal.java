@@ -49,6 +49,11 @@ public abstract class GraphTraversal {
         }
         long endTime = System.nanoTime();
         timeElapsed = endTime - startTime;
+
+
+    }
+
+    public void showResults() {
         showResults(traversalType.toString());
     }
 
@@ -62,7 +67,7 @@ public abstract class GraphTraversal {
             outputFile.createNewFile();
             FileWriter fileWriter = new FileWriter(outputFile);
             for (ArrayList<Integer> singlePath : validPaths) {
-//                System.out.println(algo + ": " + singlePath);
+                System.out.println(algo + ": " + singlePath);
                 fileWriter.write(singlePath + "\n");
             }
             fileWriter.close();

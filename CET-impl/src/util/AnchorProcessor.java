@@ -1,7 +1,6 @@
 package util;
 
 import Components.Graph;
-import Components.Vertex;
 
 import java.util.*;
 
@@ -34,12 +33,12 @@ public class AnchorProcessor {
     public ArrayList<Integer> findLargestDegreeAnchors(Graph graph, int anchorNum) {
         ArrayList<Integer> anchorList = new ArrayList<>(graph.getStartPoints());
         HashMap<Integer, Integer> vertexDegrees = new HashMap<>();
-        for (Vertex vertex : graph.getVertices()) {
-            if (graph.getStartPoints().contains(vertex.getIndex())
-                    || graph.getEndPoints().contains(vertex.getIndex()))
+        for (int i = 0; i < graph.getNumVertex(); i ++) {
+            if (graph.getStartPoints().contains(i)
+                    || graph.getEndPoints().contains(i))
                 continue;
 
-            vertexDegrees.put(vertex.getIndex(), vertex.getNeighbours().size());
+            vertexDegrees.put(i, graph.getNeighbours(i).size());
         }
 
         TreeMap<Integer, List<Integer>> degreeVertex = sortMap(vertexDegrees);

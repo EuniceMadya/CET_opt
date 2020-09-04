@@ -1,6 +1,6 @@
 package util;
 
-import Components.Graph;
+import Components.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -41,8 +41,8 @@ public class FileGraphParser {
      * 1,3
      * 2,3
      */
-    private Graph readCompressedPairGraph(String fileName) {
-        Graph graph;
+    private GeneralGraph readCompressedPairGraph(String fileName) {
+        GeneralGraph graph;
         int nodeNum = 0;
         ArrayList<int[]> matrix = new ArrayList<>();
         try {
@@ -83,8 +83,8 @@ public class FileGraphParser {
      * 2000-02-01 00:00:01
      * 2000-03-01 12:00:00
      */
-    private Graph readGridGraph(String fileName) {
-        Graph graph;
+    private GeneralGraph readGridGraph(String fileName) {
+        GeneralGraph graph;
         Timestamp[] timestamps;
         boolean[][] grid = null;
         try {
@@ -136,9 +136,9 @@ public class FileGraphParser {
      * 4
      * NaN
      */
-    private Graph readCompressedListGraph(String fileName) {
+    private GeneralGraph readCompressedListGraph(String fileName) {
         ArrayList<Integer>[] lists = null;
-        Graph graph;
+        GeneralGraph graph;
         int counter = 0;
         try {
             File myObj = new File(fileName);
@@ -157,7 +157,7 @@ public class FileGraphParser {
                 }
                 String[] neighbours = data.split(",");
                 for (String neighbour : neighbours) lists[counter].add(Integer.parseInt(neighbour));
-                counter ++;
+                counter++;
             }
             myReader.close();
         } catch (Exception e) {

@@ -31,7 +31,7 @@ public class M_CETGraphTraversal extends GraphTraversal {
             validPaths.add(new ArrayList<>(resultPath));
             currentSeq.clear();
         } else {
-            for (int neighbour : graph.getEdges(curNode))
+            for (int neighbour : graph.getNeighbours(curNode))
                 traversal(neighbour, currentSeq);
         }
 

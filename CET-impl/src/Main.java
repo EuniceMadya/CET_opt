@@ -17,7 +17,6 @@ public class Main {
         GraphBuilder graphBuilder = new GraphBuilder();
         String input;
         int numNodes;
-        boolean saveResult = false;
 
         Graph graph;
         Scanner sc = new Scanner(System.in);
@@ -44,6 +43,7 @@ public class Main {
                         "  1. Grid \n" +
                         "  2. Pairs\n" +
                         "  3. Lists\n" +
+                        "  4. CSR(Compressed sparse rwo)\n" +
                         "NOTE: Other selection will go to default -- Grid format");
 
                 input = sc.nextLine();
@@ -54,6 +54,9 @@ public class Main {
                         break;
                     case "3":
                         graphBuilder.type = GraphType.List;
+                        break;
+                    case "4":
+                        graphBuilder.type = GraphType.CSR;
                         break;
                     default:
                         graphBuilder.type = GraphType.Grid;
@@ -91,7 +94,7 @@ public class Main {
         System.gc();
 
 
-        AlgoExecutor executor = new AlgoExecutor(graph, Integer.parseInt(sc.nextLine()));
+        AlgoExecutor executor = new AlgoExecutor(Integer.parseInt(sc.nextLine()));
 
 
         while (true) {
@@ -107,14 +110,26 @@ public class Main {
 
             if (input.equals("")) continue;
             if (input.equals("0")) return;
-            executor.useAlgo(Integer.parseInt(input));
+            executor.useAlgo(Integer.parseInt(input), graph);
             break;
         }
+
+        System.out.println("\n\n- Do you want to save result to files? (y/n)");
+        input = sc.nextLine();
 
 
         System.out.println("Start executing...");
 
-        executor.runAlgos();
+        executor.runAlgo();
+
+        System.gc();
+
+        if (input.equals("y")) {
+            System.out.println("Writing results...\n");
+            executor.writePathsRestult();
+            executor.writeTimeResult(graph.getNumVertex());
+        }
+
     }
 
 

@@ -1,4 +1,4 @@
-import Components.Graph;
+import Components.*;
 import Traversal.*;
 import util.AnchorProcessor;
 
@@ -11,15 +11,17 @@ import java.util.Scanner;
 
 public class AlgoExecutor {
 
-    private Graph graph;
+
     GraphTraversal algo;
     long average;
     int numRun;
+    long[] runTimes;
 
-    public AlgoExecutor(Graph graph, int numRun) {
-        this.graph = graph;
+
+    public AlgoExecutor(int numRun) {
         this.numRun = numRun;
         average = 0;
+        runTimes = new long[numRun];
     }
 
     /**
@@ -33,7 +35,7 @@ public class AlgoExecutor {
      * @param selection of algo
      * @return
      */
-    public void useAlgo(int selection) {
+    public void useAlgo(int selection, Graph graph) {
 
         switch (selection) {
             case 1:
@@ -47,7 +49,7 @@ public class AlgoExecutor {
                 break;
 
             case 3:
-                addSeqHybrid();
+                addSeqHybrid(graph);
                 break;
 
             case 4:
@@ -66,7 +68,7 @@ public class AlgoExecutor {
 
     }
 
-    private void addSeqHybrid() {
+    private void addSeqHybrid(Graph graph) {
         System.out.println(" \n" +
                 "- As you selected hybrid type, \n" +
                 "- please specify the anchor nodes selection strategy:\n" +
@@ -79,7 +81,6 @@ public class AlgoExecutor {
         while (true) {
             System.out.println("\n- Please enter the number of anchors in between:");
             numAnchor = Integer.parseInt(sc.nextLine());
-
             if (numAnchor + graph.getStartPoints().size() < graph.getNumVertex()) break;
             System.out.println("WARNING: The number of anchor nodes is larger than the number of nodes in graph, try again.\n\n");
         }
@@ -94,22 +95,21 @@ public class AlgoExecutor {
         algo = new SeqHybridGraphTraversal(graph, null, anchor);
     }
 
-    void runAlgos() {
-        System.out.println("Algo to execute: " + algo.getClass().getName());
-        long[] runTimes = new long[numRun];
+    void runAlgo() {
+        System.out.println("Algorithm to execute: " + algo.getClass().getName());
 
         for (int i = 0; i < numRun; i++) {
-            System.gc();
             algo.execute();
             average += algo.timeElapsed;
             runTimes[i] = algo.timeElapsed;
+            System.out.println("run: " + runTimes[i]);
         }
 
-        writeTimeResult(runTimes);
+
     }
 
-    private void writeTimeResult(long[] runTimes) {
-        File file = new File("OutputFiles/result/timeResults/" + "graph-" + graph.getNumVertex() + "-" + algo.traversalType + "-" + new Date().toString() + ".txt");
+    public void writeTimeResult(int nodeNum) {
+        File file = new File("OutputFiles/result/timeResults/" + "graph-" + nodeNum + "-" + algo.traversalType + "-" + new Date().toString() + ".txt");
 
         try {
             file.createNewFile();
@@ -128,5 +128,10 @@ public class AlgoExecutor {
             e.printStackTrace();
         }
     }
+
+    public void writePathsRestult() {
+        algo.showResults();
+    }
+
 
 }

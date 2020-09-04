@@ -1,6 +1,6 @@
 package util;
 
-import Components.Graph;
+import Components.GeneralGraph;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -9,8 +9,8 @@ import java.util.List;
 public class GraphGenerator {
 
 
-    public Graph generateGraphFromGrid(boolean[][] grid, Timestamp[] time) {
-        Graph graph = new Graph();
+    public GeneralGraph generateGraphFromGrid(boolean[][] grid, Timestamp[] time) {
+        GeneralGraph graph = new GeneralGraph();
         int size = grid.length;
 
         for (int i = 0; i < size; i++) {
@@ -29,8 +29,8 @@ public class GraphGenerator {
     }
 
 
-    public Graph generateGraphFromPairs(ArrayList<int[]> pairs, Timestamp[] time, int jobCount) {
-        Graph graph = new Graph();
+    public GeneralGraph generateGraphFromPairs(ArrayList<int[]> pairs, Timestamp[] time, int jobCount) {
+        GeneralGraph graph = new GeneralGraph();
         for (int i = 0; i < jobCount; i++) graph.addVertex(i);
 
         for (int i = 0; i < pairs.size(); i++) {
@@ -43,11 +43,11 @@ public class GraphGenerator {
     }
 
 
-    public Graph generateGraphFromLists(ArrayList<Integer>[] lists) {
-        Graph graph = new Graph();
+    public GeneralGraph generateGraphFromLists(ArrayList<Integer>[] lists) {
+        GeneralGraph graph = new GeneralGraph();
         for (int i = 0; i < lists.length; i++) {
             graph.addVertex(i);
-            for (Integer j: lists[i]) {
+            for (Integer j : lists[i]) {
                 graph.addEdge(i, j);
             }
 
@@ -55,17 +55,17 @@ public class GraphGenerator {
         return graph;
     }
 
-    public Graph buildGraph(boolean[][] dag) {
+    public GeneralGraph buildGraph(boolean[][] dag) {
         return buildGraph(dag, null);
     }
 
     // legacy method, backup for when timestamps are needed
-    public Graph buildGraph(boolean[][] dag, Timestamp[] timestamps) {
+    public GeneralGraph buildGraph(boolean[][] dag, Timestamp[] timestamps) {
         GraphProcessor graphProcessor = new GraphProcessor();
         graphProcessor.preprocess(dag);
         List<Integer> starts = graphProcessor.findStarts();
         List<Integer> ends = graphProcessor.findEnds();
-        Graph graph;
+        GeneralGraph graph;
 
         graph = generateGraphFromGrid(dag, timestamps);
 
@@ -76,9 +76,9 @@ public class GraphGenerator {
         return graph;
     }
 
-    public Graph buildGraph(ArrayList<int[]> dag, int jobCount) {
+    public GeneralGraph buildGraph(ArrayList<int[]> dag, int jobCount) {
         GraphProcessor graphProcessor = new GraphProcessor();
-        Graph graph;
+        GeneralGraph graph;
         graph = generateGraphFromPairs(dag, null, jobCount);
 
         graphProcessor.preprocess(dag, jobCount);
@@ -92,10 +92,10 @@ public class GraphGenerator {
         return graph;
     }
 
-    public Graph buildGraph(ArrayList<Integer>[] dag) {
+    public GeneralGraph buildGraph(ArrayList<Integer>[] dag) {
         GraphProcessor graphProcessor = new GraphProcessor();
         graphProcessor.preprocess(dag);
-        Graph graph;
+        GeneralGraph graph;
         graph = generateGraphFromLists(dag);
 
         List<Integer> starts = graphProcessor.findStarts();

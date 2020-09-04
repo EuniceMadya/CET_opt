@@ -1,5 +1,7 @@
 package util.dagGen;
 
+import Components.CompressedGraph;
+
 import java.util.ArrayList;
 
 /**
@@ -56,6 +58,35 @@ public class DAGSmith {
         matrix = DAGFunctions.removeSelfDependencies(matrix);
         return matrix;
     }
+
+    public CompressedGraph generateDAGCSR(int jobCount, int frequency){
+        boolean[][] dag = generateDAGMatrix(jobCount, frequency);
+        int edgeNum = 0;
+        for(boolean[] col : dag)
+            for(boolean b: col)
+                if(b) edgeNum ++;
+
+        System.out.println(DAGTools.printDAG(dag));
+        CompressedGraph dagGraph = new CompressedGraph(edgeNum, jobCount+1);
+
+        int [] colIndex = dagGraph.getColIndex();
+        int [] rowIndex = dagGraph.getRowIndex();
+        int colCounter = 0;
+        int rowCounter = 0;
+        rowIndex[rowCounter++] = 0;
+        for(int i = 0; i < jobCount; i ++){
+            for(int j = 0; j < jobCount; j ++){
+                if(dag[i][j]) {
+                    colIndex[colCounter++] = j;
+                }
+            }
+            rowIndex[rowCounter++] = colCounter;
+        }
+
+
+        return dagGraph;
+    }
+
 
     public ArrayList<int[]> generateDAGPairs(int jobCount, int frequency) {
         ArrayList<int[]> sparseMatrix = this.generateRandomCompressedPair(jobCount, frequency);
@@ -114,6 +145,7 @@ public class DAGSmith {
     private ArrayList<Integer>[] generateRandomCompressedLists(int jobCount, int frequency) {
         if (log())
             System.out.println("Generating Compressed Lists...");
+
         ArrayList<Integer>[] lists = new ArrayList[jobCount];
         for (int i = 0; i < jobCount; i++) {
             lists[i] = new ArrayList<>();

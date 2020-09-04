@@ -24,7 +24,7 @@ public class DFSGraphTraversal extends GraphTraversal {
         Stack<Integer> path = new Stack();
         path.push(start);
 
-        if (graph.getVertex(start).getNeighbours().size() != 0) DFStraversal(start, visited, path);
+        if (graph.getNeighbours(start).size() != 0) DFStraversal(start, visited, path);
 
         else validPaths.add(new ArrayList<>(path));
         // Call the recursive helper function to print DFS traversal
@@ -43,7 +43,7 @@ public class DFSGraphTraversal extends GraphTraversal {
         }
 
         // Recur for all the vertices adjacent to this vertex
-        List<Integer> edges = graph.getEdges(s);
+        List<Integer> edges = graph.getNeighbours(s);
         for (Integer edge : edges) {
             path.push(edge);
             DFStraversal(edge, visited, path);

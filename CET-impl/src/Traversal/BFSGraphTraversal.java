@@ -1,6 +1,6 @@
 package Traversal;
 
-import Components.Graph;
+import Components.*;
 import util.ArrayQueue;
 
 import java.sql.Timestamp;
@@ -25,12 +25,12 @@ public class BFSGraphTraversal extends GraphTraversal {
 
         while (!queue.isEmpty()) {
             Stack<Integer> currentPath = queue.poll();
-            for (int neighbour : graph.getEdges(currentPath.peek())) {
+            for (int neighbour : graph.getNeighbours(currentPath.peek())) {
                 Stack<Integer> newStack = new Stack<>();
                 newStack.addAll(currentPath);
                 newStack.push(neighbour);
 
-                if (graph.getVertex(neighbour).getNeighbours().size() == 0) {
+                if (graph.getNeighbours(neighbour).size() == 0) {
                     validPaths.add(new ArrayList<>(newStack));
                 } else queue.offer(newStack);
             }

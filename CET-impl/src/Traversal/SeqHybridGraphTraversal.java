@@ -39,12 +39,14 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
         long endTime = System.nanoTime();
         timeElapsed = endTime - startTime;
 
+    }
+
+    @Override
+    public void showResults() {
         String fileName = String.format("%s-anchor%d",
                 traversalType.toString(),
                 anchorNodes.size() - graph.getStartPoints().size());
-
         showResults(fileName);
-
     }
 
     @Override
@@ -54,7 +56,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
         Stack<Integer> stack = new Stack<>();
         stack.push(start);
-        if (graph.getVertex(start).getNeighbours().size() != 0)
+        if (graph.getNeighbours(start).size() != 0)
             DFSsubTraversal(start, visited, stack);
         else if (graph.getStartPoints().contains(start)) validPaths.add(new ArrayList<>(stack));
 
@@ -73,7 +75,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
         }
 
         // Recur for all the vertices adjacent to this vertex
-        List<Integer> edges = graph.getEdges(s);
+        List<Integer> edges = graph.getNeighbours(s);
         if (edges.size() == 0) return;
 
         for (Integer edge : edges) {

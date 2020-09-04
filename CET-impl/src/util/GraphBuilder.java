@@ -1,5 +1,7 @@
 package util;
 
+import Components.CompressedGraph;
+import Components.GeneralGraph;
 import Components.Graph;
 import util.dagGen.DAGSmith;
 import util.dagGen.DAGTools;
@@ -38,6 +40,8 @@ public class GraphBuilder {
 
         if (type.equals(GraphType.List)) return generateRandomCompressListGraph(numNodes);
 
+        if (type.equals(GraphType.CSR)) return generateRandomCSRGraph(numNodes);
+
 
         return null;
 
@@ -49,11 +53,11 @@ public class GraphBuilder {
      * @param num: number of vertices
      * @return graph
      */
-    private Graph generateRandomMatrixGraph(int num) {
+    private GeneralGraph generateRandomMatrixGraph(int num) {
 
         DAGSmith smith = new DAGSmith();
         //generating adjacency matrix
-        boolean[][] dag = smith.generateDAGMatrix(num, num > 50 ? num - 10 : 20);
+        boolean[][] dag = smith.generateDAGMatrix(num, num + 20);
         StringBuilder sb = new StringBuilder("Grid\n" + num + "\n");
         sb.append(DAGTools.printDAG(dag));
         System.out.println(sb.toString());
@@ -69,7 +73,7 @@ public class GraphBuilder {
         DAGSmith smith = new DAGSmith();
 
         //generating sparse matrix
-        ArrayList<int[]> dag = smith.generateDAGPairs(num, num > 50 ? num - 10 : 20);
+        ArrayList<int[]> dag = smith.generateDAGPairs(num, num > 50 ? num : 20);
         StringBuilder sb = new StringBuilder("Pair\n" + num + "\n");
         for (int[] pair : dag) {
             sb.append(pair[0] + "," + pair[1] + "\n");
@@ -83,14 +87,14 @@ public class GraphBuilder {
         return graphGenerator.buildGraph(dag, num);
     }
 
-    private Graph generateRandomCompressListGraph(int num) {
+    private GeneralGraph generateRandomCompressListGraph(int num) {
         DAGSmith smith = new DAGSmith();
 
         //generating sparse matrix
-        ArrayList<Integer>[] dag = smith.generateDAGLists(num, num > 50 ? num - 10 : 20);
+        ArrayList<Integer>[] dag = smith.generateDAGLists(num, num > 50 ? num : 20);
         StringBuilder sb = new StringBuilder("List\n" + num + "\n");
         for (ArrayList<Integer> list : dag) {
-            String s = list.size() == 0? "NaN" :
+            String s = list.size() == 0 ? "NaN" :
                     list.toString().replace(
                             "[", "").replace("]", "").replace(" ", "");
 
@@ -104,6 +108,27 @@ public class GraphBuilder {
         }
 
         return graphGenerator.buildGraph(dag);
+    }
+
+    public CompressedGraph generateRandomCSRGraph(int num) {
+        DAGSmith smith = new DAGSmith();
+
+        //generating CSR form graph
+        CompressedGraph dag = smith.generateDAGCSR(num, num > 50 ? num : 20);
+        StringBuilder sb = new StringBuilder("CSR\n" + num + "\ncol:");
+        for (int i : dag.getColIndex()) {
+            sb.append(" " + i);
+        }
+        sb.append("\nrow:");
+        for (int i : dag.getRowIndex()) {
+            sb.append(" " + i);
+        }
+        System.out.println(sb.toString());
+        if (saveFile) {
+            saveToFile(sb.toString(), num);
+        }
+        return dag;
+
     }
 
 

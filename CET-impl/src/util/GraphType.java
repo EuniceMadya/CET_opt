@@ -3,5 +3,6 @@ package util;
 public enum GraphType {
     Grid,
     Pair,
-    List
+    List,
+    CSR
 }
