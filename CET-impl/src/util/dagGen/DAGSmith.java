@@ -66,7 +66,6 @@ public class DAGSmith {
             for(boolean b: col)
                 if(b) edgeNum ++;
 
-        System.out.println(DAGTools.printDAG(dag));
         CompressedGraph dagGraph = new CompressedGraph(edgeNum, jobCount+1);
 
         int [] colIndex = dagGraph.getColIndex();
