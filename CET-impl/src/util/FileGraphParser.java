@@ -106,7 +106,8 @@ public class FileGraphParser {
                     grid[i][j] = neighbours[j].equals("1");
                 }
             }
-            if (myReader.nextLine().equals("timestamp")) {
+
+            if (myReader.hasNextLine() && myReader.nextLine().equals("timestamp")) {
                 timestamps = new Timestamp[nodeNum];
                 for (int i = 0; i < nodeNum; i++) {
                     timestamps[i] = Timestamp.valueOf(myReader.nextLine());
