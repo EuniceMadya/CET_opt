@@ -74,7 +74,7 @@ public class GraphGenerator {
 
         for(ArrayList<Integer> list: dag)
             edgeNum += list.size();
-        CompressedGraph graph = new CompressedGraph(edgeNum, dag.length);
+        CompressedGraph graph = new CompressedGraph(edgeNum, dag.length + 1);
 
         int rowCount = 0;
         int colCount = 0;

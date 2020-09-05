@@ -30,12 +30,7 @@ public abstract class GraphTraversal {
     //TODO: identify patterns of a path
     public boolean identifyPattern(ArrayList<Integer> path) {
         return path != null;
-//        Vertex start = graph.getVertex(path.get(0));
-//        Vertex end = graph.getVertex(path.get(path.size() - 1));
-//        Timestamp timeLap = new Timestamp(end.getTime().getTime() - start.getTime().getTime());
-//
-//        path.setSatisfied(timeLap.getTime()< window.getTime());//
-//        return path.isSatisfied();
+
     }
 
     public abstract void traversal(int i);
