@@ -13,7 +13,8 @@ public class GraphGenerator {
         int colCounter = 0;
         int rowCounter = 0;
 
-        graph.getRowIndex()[rowCounter++]= colCounter;
+        graph.getColIndex()[colCounter++]= pairs.get(0)[1];
+        graph.getRowIndex()[rowCounter++] = colCounter;
         if(pairs.get(0)[0] != 0) graph.getRowIndex()[rowCounter++] = colCounter;
 
         for(int i = 1; i < pairs.size(); i ++){
