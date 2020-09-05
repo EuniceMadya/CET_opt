@@ -1,7 +1,6 @@
 package util;
 
 import Components.CompressedGraph;
-import Components.GeneralGraph;
 import Components.Graph;
 import util.dagGen.DAGSmith;
 import util.dagGen.DAGTools;
@@ -53,7 +52,7 @@ public class GraphBuilder {
      * @param num: number of vertices
      * @return graph
      */
-    private GeneralGraph generateRandomMatrixGraph(int num) {
+    private Graph generateRandomMatrixGraph(int num) {
 
         DAGSmith smith = new DAGSmith();
         //generating adjacency matrix
@@ -87,7 +86,7 @@ public class GraphBuilder {
         return graphGenerator.buildGraph(dag, num);
     }
 
-    private GeneralGraph generateRandomCompressListGraph(int num) {
+    private Graph generateRandomCompressListGraph(int num) {
         DAGSmith smith = new DAGSmith();
 
         //generating sparse matrix

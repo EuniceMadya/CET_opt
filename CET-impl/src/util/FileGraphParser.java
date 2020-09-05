@@ -41,8 +41,8 @@ public class FileGraphParser {
      * 1,3
      * 2,3
      */
-    private GeneralGraph readCompressedPairGraph(String fileName) {
-        GeneralGraph graph;
+    private Graph readCompressedPairGraph(String fileName) {
+        Graph graph;
         int nodeNum = 0;
         ArrayList<int[]> matrix = new ArrayList<>();
         try {
@@ -83,8 +83,8 @@ public class FileGraphParser {
      * 2000-02-01 00:00:01
      * 2000-03-01 12:00:00
      */
-    private GeneralGraph readGridGraph(String fileName) {
-        GeneralGraph graph;
+    private Graph readGridGraph(String fileName) {
+        Graph graph;
         Timestamp[] timestamps;
         boolean[][] grid = null;
         try {
@@ -136,9 +136,9 @@ public class FileGraphParser {
      * 4
      * NaN
      */
-    private GeneralGraph readCompressedListGraph(String fileName) {
+    private Graph readCompressedListGraph(String fileName) {
         ArrayList<Integer>[] lists = null;
-        GeneralGraph graph;
+        Graph graph;
         int counter = 0;
         try {
             File myObj = new File(fileName);

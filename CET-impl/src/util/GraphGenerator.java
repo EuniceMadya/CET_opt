@@ -1,108 +1,91 @@
 package util;
 
-import Components.GeneralGraph;
+import Components.CompressedGraph;
+import Components.Graph;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.List;
 
 public class GraphGenerator {
 
+    public Graph generateGraphFromPairs(ArrayList<int[]> pairs, Timestamp[] time, int jobCount) {
+        CompressedGraph graph = new CompressedGraph(pairs.size(), jobCount + 1);
+        int colCounter = 0;
+        int rowCounter = 0;
 
-    public GeneralGraph generateGraphFromGrid(boolean[][] grid, Timestamp[] time) {
-        GeneralGraph graph = new GeneralGraph();
-        int size = grid.length;
+        graph.getRowIndex()[rowCounter++]= colCounter;
+        if(pairs.get(0)[0] != 0) graph.getRowIndex()[rowCounter++] = colCounter;
 
-        for (int i = 0; i < size; i++) {
+        for(int i = 1; i < pairs.size(); i ++){
+            int source = pairs.get(i)[0];
+            int prevSource = pairs.get(i-1)[0];
+            int dest = pairs.get(i)[1];
 
-            if (time == null) graph.addVertex(i);
-            else graph.addVertex(i, time[i]);
-
-            List<Integer> edges = new ArrayList<>();
-            for (int j = 0; j < size; j++)
-                if (grid[i][j]) edges.add(j);
-
-            graph.addEdges(i, edges);
+            graph.getRowIndex()[colCounter ++] = dest;
+            if(source > prevSource)
+                for(int j = 0; j < source - prevSource; j++)
+                    graph.getRowIndex()[rowCounter ++ ] = colCounter -1;
         }
-
+        while(rowCounter < jobCount + 1){
+            graph.getRowIndex()[rowCounter ++ ] = colCounter;
+        }
         return graph;
+
     }
 
 
-    public GeneralGraph generateGraphFromPairs(ArrayList<int[]> pairs, Timestamp[] time, int jobCount) {
-        GeneralGraph graph = new GeneralGraph();
-        for (int i = 0; i < jobCount; i++) graph.addVertex(i);
-
-        for (int i = 0; i < pairs.size(); i++) {
-            int id = pairs.get(i)[0];
-            int neighbour = pairs.get(i)[1];
-            if (graph.getVertex(pairs.get(i)[0]) == null) graph.addVertex(id);
-            graph.addEdge(id, neighbour);
-        }
-        return graph;
-    }
-
-
-    public GeneralGraph generateGraphFromLists(ArrayList<Integer>[] lists) {
-        GeneralGraph graph = new GeneralGraph();
-        for (int i = 0; i < lists.length; i++) {
-            graph.addVertex(i);
-            for (Integer j : lists[i]) {
-                graph.addEdge(i, j);
-            }
-
-        }
-        return graph;
-    }
-
-    public GeneralGraph buildGraph(boolean[][] dag) {
+    public Graph buildGraph(boolean[][] dag) {
         return buildGraph(dag, null);
     }
 
     // legacy method, backup for when timestamps are needed
-    public GeneralGraph buildGraph(boolean[][] dag, Timestamp[] timestamps) {
-        GraphProcessor graphProcessor = new GraphProcessor();
-        graphProcessor.preprocess(dag);
-        List<Integer> starts = graphProcessor.findStarts();
-        List<Integer> ends = graphProcessor.findEnds();
-        GeneralGraph graph;
+    public Graph buildGraph(boolean[][] dag, Timestamp[] timestamps) {
+        int edgeNum = 0;
+        for(boolean[] col : dag)
+            for(boolean b: col)
+                if(b) edgeNum ++;
 
-        graph = generateGraphFromGrid(dag, timestamps);
+        CompressedGraph dagGraph = new CompressedGraph(edgeNum, dag.length+1);
+        int [] colIndex = dagGraph.getColIndex();
+        int [] rowIndex = dagGraph.getRowIndex();
+        int colCounter = 0;
+        int rowCounter = 0;
+        rowIndex[rowCounter++] = 0;
+        for(int i = 0; i < dag.length; i ++){
+            for(int j = 0; j < dag.length; j ++){
+                if(dag[i][j]) {
+                    colIndex[colCounter++] = j;
+                }
+            }
+            rowIndex[rowCounter++] = colCounter;
+        }
 
-        //Find all start and end points
-        graph.setStartPoints(starts);
-        graph.setEndPoints(ends);
-
-        return graph;
+        return dagGraph;
     }
 
-    public GeneralGraph buildGraph(ArrayList<int[]> dag, int jobCount) {
-        GraphProcessor graphProcessor = new GraphProcessor();
-        GeneralGraph graph;
+    public Graph buildGraph(ArrayList<int[]> dag, int jobCount) {
+        Graph graph;
         graph = generateGraphFromPairs(dag, null, jobCount);
-
-        graphProcessor.preprocess(dag, jobCount);
-        List<Integer> starts = graphProcessor.findStarts();
-        List<Integer> ends = graphProcessor.findEnds();
-
-        graph.setStartPoints(starts);
-        graph.setEndPoints(ends);
-
-
         return graph;
     }
 
-    public GeneralGraph buildGraph(ArrayList<Integer>[] dag) {
-        GraphProcessor graphProcessor = new GraphProcessor();
-        graphProcessor.preprocess(dag);
-        GeneralGraph graph;
-        graph = generateGraphFromLists(dag);
+    public Graph buildGraph(ArrayList<Integer>[] dag) {
+        int edgeNum = 0;
 
-        List<Integer> starts = graphProcessor.findStarts();
-        List<Integer> ends = graphProcessor.findEnds();
+        for(ArrayList<Integer> list: dag)
+            edgeNum += list.size();
+        CompressedGraph graph = new CompressedGraph(edgeNum, dag.length);
 
-        graph.setStartPoints(starts);
-        graph.setEndPoints(ends);
+        int rowCount = 0;
+        int colCount = 0;
+        graph.getRowIndex()[rowCount++] = 0;
+
+
+        for(ArrayList<Integer> list: dag){
+            graph.getRowIndex()[rowCount++] = colCount + list.size();
+            for(int i : list)
+                graph.getColIndex()[colCount++] = i;
+        }
 
         return graph;
 
