@@ -49,7 +49,7 @@ public class FileGraphParser {
             File myObj = new File(fileName);
             Scanner myReader = new Scanner(myObj);
             String type = myReader.nextLine();
-            if (type.contains("Random") || !type.contains("Sparse")) {
+            if (type.contains("Random") || !type.contains("Pair")) {
                 System.out.println("ERROR: Read wrong type of graph! Should be Compressed Pair!");
             }
 

@@ -21,7 +21,7 @@ public class GraphGenerator {
             int prevSource = pairs.get(i-1)[0];
             int dest = pairs.get(i)[1];
 
-            graph.getRowIndex()[colCounter ++] = dest;
+            graph.getColIndex()[colCounter ++] = dest;
             if(source > prevSource)
                 for(int j = 0; j < source - prevSource; j++)
                     graph.getRowIndex()[rowCounter ++ ] = colCounter -1;
