@@ -139,6 +139,7 @@ public class GraphBuilder {
             file.createNewFile();
             FileWriter fw = new FileWriter(file);
             fw.write(string);
+            fw.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
