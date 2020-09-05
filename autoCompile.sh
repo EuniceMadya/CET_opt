@@ -12,7 +12,7 @@ RandomTimeGen=CET-impl/src/util/RandomTimeGenerator.java
 AnchorProcessor=CET-impl/src/util/AnchorProcessor.java
 GraphType=CET-impl/src/util/GraphType.java
 
-Util="$DagGenTool $ArrayQueue $Processor $Generator $FileParser $GraphType $GraphBuilder $RandomTimeGen $AnchorProcessor"
+Util="$DagGenTool $ArrayQueue $Generator $FileParser $GraphType $GraphBuilder $RandomTimeGen $AnchorProcessor"
 
 #Algos
 TraversalAlgos=CET-impl/src/Traversal/*.java
