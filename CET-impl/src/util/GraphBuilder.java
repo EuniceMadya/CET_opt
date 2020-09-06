@@ -136,9 +136,13 @@ public class GraphBuilder {
         File file = new File(type.toString().replace("GraphType.", "") + num + ".txt");
 
         try {
-            file.createNewFile();
-            FileWriter fw = new FileWriter(file);
-            fw.write(string);
+            if(! file.exists())
+                file.createNewFile();
+
+
+            FileWriter fw = new FileWriter(file, true);
+            fw.write(string.substring(0, string.length()/2));
+            fw.write(string.substring(string.length()/2));
             fw.close();
         } catch (IOException e) {
             e.printStackTrace();

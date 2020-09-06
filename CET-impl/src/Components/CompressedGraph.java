@@ -31,7 +31,6 @@ public class CompressedGraph implements Graph {
     @Override
     public List<Integer> getStartPoints() {
         if(startPoints.size() == 0) loadStartPoints();
-
         return startPoints;
     }
 
