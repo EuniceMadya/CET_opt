@@ -26,8 +26,48 @@ public class FileGraphParser {
         if (type.contains("Pair")) return readCompressedPairGraph(fileName);
         else if (type.contains("Grid")) return readGridGraph(fileName);
         else if (type.contains("List")) return readCompressedListGraph(fileName);
+        else if (type.contains("CSR")) return readCSRGraph(fileName);
 
         System.out.println("WARNING: INVALID GRAPH INPUT FILE!");
+        return null;
+    }
+
+    private Graph readCSRGraph(String fileName){
+        File file = new File(fileName);
+        Scanner myReader;
+        CompressedGraph graph;
+        String [] colNums = null;
+        String [] rowNums = null;
+        try{
+            myReader = new Scanner(file);
+            String type = myReader.nextLine();
+            int nodeNum = Integer.parseInt(myReader.nextLine());
+            int colNum = 0;
+            while(myReader.hasNextLine()){
+                String str = myReader.nextLine();
+                if(str.contains("col")){
+                    str = str.replace("col: ", "");
+                    colNums = str.split(" ");
+                    colNum = colNums.length;
+                }
+                if(str.contains("row")){
+                    str.replace("row: ", "");
+                    rowNums = str.split(" ");
+                }
+            }
+            graph = new CompressedGraph(colNum, nodeNum+ 1);
+
+            for(int i = 0; i < colNum; i ++) graph.getColIndex()[i] = Integer.parseInt(colNums[i]);
+
+            for(int i = 0; i < nodeNum; i ++) graph.getRowIndex()[i] = Integer.parseInt(rowNums[i]);
+
+            myReader.close();
+
+            return graph;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         return null;
     }
 
