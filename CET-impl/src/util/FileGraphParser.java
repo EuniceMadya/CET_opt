@@ -1,11 +1,13 @@
 package util;
 
-import Components.*;
+import Components.CompressedGraph;
+import Components.Graph;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class FileGraphParser {
@@ -55,11 +57,14 @@ public class FileGraphParser {
                     rowNums = str.split(" ");
                 }
             }
-            graph = new CompressedGraph(colNum, nodeNum+ 1);
+            graph = new CompressedGraph(colNum, nodeNum + 1);
 
             for(int i = 0; i < colNum; i ++) graph.getColIndex()[i] = Integer.parseInt(colNums[i]);
 
-            for(int i = 0; i < nodeNum; i ++) graph.getRowIndex()[i] = Integer.parseInt(rowNums[i]);
+            for(int i = 0; i < nodeNum + 1; i ++) graph.getRowIndex()[i] = Integer.parseInt(rowNums[i]);
+
+            System.out.println("col: " + Arrays.toString(graph.getColIndex()));
+            System.out.println("row: " + Arrays.toString(graph.getRowIndex()));
 
             myReader.close();
 
