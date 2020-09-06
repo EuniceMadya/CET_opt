@@ -51,7 +51,7 @@ public class FileGraphParser {
                     colNum = colNums.length;
                 }
                 if(str.contains("row")){
-                    str.replace("row: ", "");
+                    str = str.replace("row: ", "");
                     rowNums = str.split(" ");
                 }
             }
