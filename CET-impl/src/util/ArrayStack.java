@@ -17,10 +17,10 @@ public class ArrayStack  {
     }
 
     public ArrayStack(){
-        stack = new int[Integer.MAX_VALUE];
+        stack = new int[1000];
         Arrays.fill(stack, -1);
         top = -1;
-        this.capacity = Integer.MAX_VALUE;
+        this.capacity = 1000;
     }
 
 
