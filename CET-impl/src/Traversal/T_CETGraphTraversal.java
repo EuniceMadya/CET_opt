@@ -47,7 +47,7 @@ public class T_CETGraphTraversal extends GraphTraversal {
                 paths[curNode].add(list);
             }
 
-            for(int i = graph.getRowIndex()[curNode]; i < graph.getRowIndex()[curNode + 1]; i ++) {
+            for(int i = graph.rowIndex[curNode]; i < graph.rowIndex[curNode + 1]; i ++) {
                 int neighbour = graph.getColIndex()[i];
                 for (ArrayList<Integer> path : paths[curNode]) {
                     ArrayList<Integer> list = new ArrayList<>(path);

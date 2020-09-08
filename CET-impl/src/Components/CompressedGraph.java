@@ -5,8 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CompressedGraph{
-    int[] colIndex;
-    int[] rowIndex;
+    public int[] colIndex;
+    public int[] rowIndex;
     ArrayList<Integer> startPoints;
     ArrayList<Integer> endPoints;
 
