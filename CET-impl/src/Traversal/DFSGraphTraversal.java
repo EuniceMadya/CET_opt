@@ -19,7 +19,7 @@ public class DFSGraphTraversal extends GraphTraversal {
         boolean[] visited = new boolean[graph.getNumVertex()];
         Arrays.fill(visited, false);
 
-        ArrayStack path = new ArrayStack();
+        ArrayStack path = new ArrayStack(stackNum);
         path.push(start);
 
         if (graph.getNumDegree(start) != 0) DFStraversal(start, visited, path);
