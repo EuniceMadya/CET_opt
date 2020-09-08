@@ -1,12 +1,12 @@
 package util;
 
-import Components.Graph;
+import Components.CompressedGraph;
 
 import java.util.*;
 
 public class AnchorProcessor {
 
-    public ArrayList<Integer> findAnchors(Graph graph, String type, int anchorNum) {
+    public ArrayList<Integer> findAnchors(CompressedGraph graph, String type, int anchorNum) {
         System.out.println("  - Find anchor points for this graph...");
 
         if (type.equalsIgnoreCase("random")) return findRandomAnchors(graph, anchorNum);
@@ -16,7 +16,7 @@ public class AnchorProcessor {
         return null;
     }
 
-    public ArrayList<Integer> findRandomAnchors(Graph graph, int anchorNum) {
+    public ArrayList<Integer> findRandomAnchors(CompressedGraph graph, int anchorNum) {
         ArrayList<Integer> anchorList = new ArrayList<>(graph.getStartPoints());
 //        anchorList.addAll(graph.getEndPoints());
         Random random = new Random();
@@ -30,7 +30,7 @@ public class AnchorProcessor {
         return anchorList;
     }
 
-    public ArrayList<Integer> findLargestDegreeAnchors(Graph graph, int anchorNum) {
+    public ArrayList<Integer> findLargestDegreeAnchors(CompressedGraph graph, int anchorNum) {
         ArrayList<Integer> anchorList = new ArrayList<>(graph.getStartPoints());
         HashMap<Integer, Integer> vertexDegrees = new HashMap<>();
         for (int i = 0; i < graph.getNumVertex(); i ++) {
@@ -38,7 +38,8 @@ public class AnchorProcessor {
                     || graph.getEndPoints().contains(i))
                 continue;
 
-            vertexDegrees.put(i, graph.getNeighbours(i).size());
+            //put degree with node num
+            vertexDegrees.put(i, graph.getRowIndex()[i + 1] - graph.getRowIndex()[i]);
         }
 
         TreeMap<Integer, List<Integer>> degreeVertex = sortMap(vertexDegrees);

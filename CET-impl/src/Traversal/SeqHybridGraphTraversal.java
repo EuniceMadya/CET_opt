@@ -1,6 +1,6 @@
 package Traversal;
 
-import Components.Graph;
+import Components.CompressedGraph;
 import util.ArrayQueue;
 
 import java.sql.Timestamp;
@@ -11,7 +11,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
     List<Integer> anchorNodes;
     HashMap<Integer, ArrayList<ArrayList<Integer>>> anchorPaths;
 
-    public SeqHybridGraphTraversal(Graph graph, Timestamp windowSize, ArrayList<Integer> anchorNodes) {
+    public SeqHybridGraphTraversal(CompressedGraph graph, Timestamp windowSize, ArrayList<Integer> anchorNodes) {
         super(graph, windowSize);
         this.traversalType = TraversalType.SeqHybrid;
         this.anchorNodes = anchorNodes;
@@ -56,7 +56,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
         Stack<Integer> stack = new Stack<>();
         stack.push(start);
-        if (graph.getNeighbours(start).size() != 0)
+        if (graph.getNumDegree(start) != 0)
             DFSsubTraversal(start, visited, stack);
         else if (graph.getStartPoints().contains(start)) validPaths.add(new ArrayList<>(stack));
 
@@ -75,10 +75,10 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
         }
 
         // Recur for all the vertices adjacent to this vertex
-        List<Integer> edges = graph.getNeighbours(s);
-        if (edges.size() == 0) return;
+        if (graph.getRowIndex()[s + 1] - graph.getRowIndex()[s] == 0) return;
 
-        for (Integer edge : edges) {
+        for(int i = graph.getRowIndex()[s]; i < graph.getRowIndex()[s + 1]; i ++){
+            int edge = graph.getColIndex()[i];
             curStack.push(edge);
             DFSsubTraversal(edge, visited, curStack);
             curStack.pop();

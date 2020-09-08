@@ -1,6 +1,6 @@
 package Traversal;
 
-import Components.Graph;
+import Components.CompressedGraph;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -9,14 +9,14 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public abstract class GraphTraversal {
-    Graph graph;
+    CompressedGraph graph;
     Timestamp window;
     ArrayList<ArrayList<Integer>> validPaths;
     public TraversalType traversalType;
     public long timeElapsed;
 
 
-    public GraphTraversal(Graph graph, Timestamp windowSize) {
+    public GraphTraversal(CompressedGraph graph, Timestamp windowSize) {
         this.graph = graph;
         this.window = windowSize;
         this.validPaths = new ArrayList<>();
@@ -53,6 +53,9 @@ public abstract class GraphTraversal {
     }
 
     public void showResults(String algo) {
+        System.out.println("Write to file...");
+        System.out.println(validPaths.size() + "paths to be written.");
+
         File outputFolder = new File("OutputFiles/");
         outputFolder.mkdirs();
 

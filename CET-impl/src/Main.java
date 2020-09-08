@@ -1,4 +1,4 @@
-import Components.Graph;
+import Components.CompressedGraph;
 import util.GraphBuilder;
 import util.GraphType;
 
@@ -18,7 +18,7 @@ public class Main {
         String input;
         int numNodes;
 
-        Graph graph;
+        CompressedGraph graph;
         Scanner sc = new Scanner(System.in);
 
         // Read graph type: either random or a file path

@@ -1,7 +1,6 @@
 package util;
 
 import Components.CompressedGraph;
-import Components.Graph;
 import util.dagGen.DAGSmith;
 import util.dagGen.DAGTools;
 
@@ -29,7 +28,7 @@ public class GraphBuilder {
      * @param numNodes: random / file path
      * @return graph
      */
-    public Graph generateRandomGraph(int numNodes) {
+    public CompressedGraph generateRandomGraph(int numNodes) {
 
         System.out.println("Random graph generating...");
 
@@ -52,7 +51,7 @@ public class GraphBuilder {
      * @param num: number of vertices
      * @return graph
      */
-    private Graph generateRandomMatrixGraph(int num) {
+    private CompressedGraph generateRandomMatrixGraph(int num) {
 
         DAGSmith smith = new DAGSmith();
         //generating adjacency matrix
@@ -68,7 +67,7 @@ public class GraphBuilder {
 
     }
 
-    private Graph generateRandomCompressPairGraph(int num) {
+    private CompressedGraph generateRandomCompressPairGraph(int num) {
         DAGSmith smith = new DAGSmith();
 
         //generating sparse matrix
@@ -86,7 +85,7 @@ public class GraphBuilder {
         return graphGenerator.buildGraph(dag, num);
     }
 
-    private Graph generateRandomCompressListGraph(int num) {
+    private CompressedGraph generateRandomCompressListGraph(int num) {
         DAGSmith smith = new DAGSmith();
 
         //generating sparse matrix
@@ -156,7 +155,7 @@ public class GraphBuilder {
      * @param path: file path
      * @return graph generated from file
      */
-    public Graph generateGraphFile(String path) {
+    public CompressedGraph generateGraphFile(String path) {
         FileGraphParser fileGraphParser = new FileGraphParser();
         return fileGraphParser.readGraph(path);
     }

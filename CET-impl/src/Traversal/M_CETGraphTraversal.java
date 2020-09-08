@@ -1,6 +1,6 @@
 package Traversal;
 
-import Components.Graph;
+import Components.CompressedGraph;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.Stack;
 
 public class M_CETGraphTraversal extends GraphTraversal {
-    public M_CETGraphTraversal(Graph graph, Timestamp windowSize) {
+    public M_CETGraphTraversal(CompressedGraph graph, Timestamp windowSize) {
         super(graph, windowSize);
         traversalType = TraversalType.M_CET;
     }
@@ -31,8 +31,10 @@ public class M_CETGraphTraversal extends GraphTraversal {
             validPaths.add(new ArrayList<>(resultPath));
             currentSeq.clear();
         } else {
-            for (int neighbour : graph.getNeighbours(curNode))
+            for(int i = graph.getRowIndex()[curNode]; i < graph.getRowIndex()[curNode + 1]; i ++) {
+                int neighbour = graph.getColIndex()[i];
                 traversal(neighbour, currentSeq);
+            }
         }
 
 

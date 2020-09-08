@@ -9,7 +9,7 @@ import java.util.Stack;
 
 public class BFSGraphTraversal extends GraphTraversal {
 
-    public BFSGraphTraversal(Graph graph, Timestamp windowSize) {
+    public BFSGraphTraversal(CompressedGraph graph, Timestamp windowSize) {
         super(graph, windowSize);
         traversalType = TraversalType.BFS;
     }
@@ -24,12 +24,14 @@ public class BFSGraphTraversal extends GraphTraversal {
         queue.offer(path);
         while (!queue.isEmpty()) {
             Stack<Integer> currentPath = queue.poll();
-            for (int neighbour : graph.getNeighbours(currentPath.peek())) {
+            int cur = currentPath.peek();
+            for(int i = graph.getRowIndex()[cur]; i < graph.getRowIndex()[cur + 1]; i ++){
+                int neighbour = graph.getColIndex()[i];
+
                 Stack<Integer> newStack = new Stack<>();
                 newStack.addAll(currentPath);
                 newStack.push(neighbour);
-
-                if (graph.getNeighbours(neighbour).size() == 0) {
+                if (graph.getNumDegree(neighbour) == 0) {
                     validPaths.add(new ArrayList<>(newStack));
                 } else queue.offer(newStack);
             }

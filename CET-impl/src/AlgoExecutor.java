@@ -35,7 +35,7 @@ public class AlgoExecutor {
      * @param selection of algo
      * @return
      */
-    public void useAlgo(int selection, Graph graph) {
+    public void useAlgo(int selection, CompressedGraph graph) {
 
         switch (selection) {
             case 1:
@@ -68,7 +68,7 @@ public class AlgoExecutor {
 
     }
 
-    private void addSeqHybrid(Graph graph) {
+    private void addSeqHybrid(CompressedGraph graph) {
         System.out.println(" \n" +
                 "- As you selected hybrid type, \n" +
                 "- please specify the anchor nodes selection strategy:\n" +

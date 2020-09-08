@@ -1,14 +1,13 @@
 package util;
 
 import Components.CompressedGraph;
-import Components.Graph;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class GraphGenerator {
 
-    public Graph generateGraphFromPairs(ArrayList<int[]> pairs, Timestamp[] time, int jobCount) {
+    public CompressedGraph generateGraphFromPairs(ArrayList<int[]> pairs, Timestamp[] time, int jobCount) {
         CompressedGraph graph = new CompressedGraph(pairs.size(), jobCount + 1);
         int colCounter = 0;
         int rowCounter = 0;
@@ -35,12 +34,12 @@ public class GraphGenerator {
     }
 
 
-    public Graph buildGraph(boolean[][] dag) {
+    public CompressedGraph buildGraph(boolean[][] dag) {
         return buildGraph(dag, null);
     }
 
     // legacy method, backup for when timestamps are needed
-    public Graph buildGraph(boolean[][] dag, Timestamp[] timestamps) {
+    public CompressedGraph buildGraph(boolean[][] dag, Timestamp[] timestamps) {
         int edgeNum = 0;
         for(boolean[] col : dag)
             for(boolean b: col)
@@ -64,13 +63,13 @@ public class GraphGenerator {
         return dagGraph;
     }
 
-    public Graph buildGraph(ArrayList<int[]> dag, int jobCount) {
-        Graph graph;
+    public CompressedGraph buildGraph(ArrayList<int[]> dag, int jobCount) {
+        CompressedGraph graph;
         graph = generateGraphFromPairs(dag, null, jobCount);
         return graph;
     }
 
-    public Graph buildGraph(ArrayList<Integer>[] dag) {
+    public CompressedGraph buildGraph(ArrayList<Integer>[] dag) {
         int edgeNum = 0;
 
         for(ArrayList<Integer> list: dag)

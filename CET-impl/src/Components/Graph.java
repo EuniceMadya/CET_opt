@@ -8,8 +8,6 @@ public interface Graph {
 
     List<Integer> getEndPoints();
 
-    List<Integer> getNeighbours(int i);
-
     int getNumVertex();
 
 }

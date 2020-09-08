@@ -1,7 +1,6 @@
 package util;
 
 import Components.CompressedGraph;
-import Components.Graph;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,7 +12,7 @@ public class FileGraphParser {
     // graph are read from a text file, with the format of adjacency matrix representation
 
 
-    public Graph readGraph(String fileName) {
+    public CompressedGraph readGraph(String fileName) {
         File myObj = new File(fileName);
         Scanner myReader = null;
         try {
@@ -33,7 +32,7 @@ public class FileGraphParser {
         return null;
     }
 
-    private Graph readCSRGraph(String fileName){
+    private CompressedGraph readCSRGraph(String fileName){
         File file = new File(fileName);
         Scanner myReader;
         CompressedGraph graph;
@@ -82,8 +81,8 @@ public class FileGraphParser {
      * 1,3
      * 2,3
      */
-    private Graph readCompressedPairGraph(String fileName) {
-        Graph graph;
+    private CompressedGraph readCompressedPairGraph(String fileName) {
+        CompressedGraph graph;
         int nodeNum = 0;
         ArrayList<int[]> matrix = new ArrayList<>();
         try {
@@ -124,8 +123,8 @@ public class FileGraphParser {
      * 2000-02-01 00:00:01
      * 2000-03-01 12:00:00
      */
-    private Graph readGridGraph(String fileName) {
-        Graph graph;
+    private CompressedGraph readGridGraph(String fileName) {
+        CompressedGraph graph;
         Timestamp[] timestamps;
         boolean[][] grid = null;
         try {
@@ -178,9 +177,9 @@ public class FileGraphParser {
      * 4
      * NaN
      */
-    private Graph readCompressedListGraph(String fileName) {
+    private CompressedGraph readCompressedListGraph(String fileName) {
         ArrayList<Integer>[] lists = null;
-        Graph graph;
+        CompressedGraph graph;
         int counter = 0;
         try {
             File myObj = new File(fileName);

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CompressedGraph implements Graph {
+public class CompressedGraph{
     int[] colIndex;
     int[] rowIndex;
     ArrayList<Integer> startPoints;
@@ -28,7 +28,6 @@ public class CompressedGraph implements Graph {
         return rowIndex;
     }
 
-    @Override
     public List<Integer> getStartPoints() {
         if(startPoints.size() == 0) loadStartPoints();
         return startPoints;
@@ -44,7 +43,6 @@ public class CompressedGraph implements Graph {
             if(isStart[i]) startPoints.add(i);
     }
 
-    @Override
     public List<Integer> getEndPoints() {
         if(endPoints.size() == 0) loadEndPoints();
 
@@ -62,17 +60,10 @@ public class CompressedGraph implements Graph {
             if(isEnd[i]) endPoints.add(i);
     }
 
-    @Override
-    public List<Integer> getNeighbours(int index) {
-        if(getEndPoints().contains(index)) return new ArrayList<>();
-        List<Integer> list = new ArrayList<>(rowIndex[index+1] - rowIndex[index]);
-        for(int i = rowIndex[index]; i < rowIndex[index+1]; i ++){
-            list.add(colIndex[i]);
-        }
-        return list;
+    public int getNumDegree(int i){
+        return rowIndex[i + 1] - rowIndex[i];
     }
 
-    @Override
     public int getNumVertex() {
         return rowIndex.length - 1;
     }
