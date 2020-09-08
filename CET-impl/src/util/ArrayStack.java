@@ -37,7 +37,6 @@ public class ArrayStack  {
         }
         else {
             stack[++top] = x;
-            System.out.println(x + " pushed into stack");
             return true;
         }
     }
