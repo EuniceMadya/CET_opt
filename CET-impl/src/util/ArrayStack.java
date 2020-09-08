@@ -71,7 +71,9 @@ public class ArrayStack  {
     }
 
     public void addAll(ArrayStack stack){
-        for(int i: stack.getStack()) push(i);
+        for(int i: stack.getStack()) {
+            if(i != -1) push(i);
+        }
     }
 
     public void clear(){
