@@ -11,7 +11,7 @@ import java.util.Date;
 public abstract class GraphTraversal {
     CompressedGraph graph;
     Timestamp window;
-    ArrayList<ArrayList<Integer>> validPaths;
+    ArrayList< ArrayList<Integer> > validPaths;
     public TraversalType traversalType;
     public long timeElapsed;
 
