@@ -14,7 +14,7 @@ public abstract class GraphTraversal {
     ArrayList<ArrayList<Integer>> validPaths;
     public TraversalType traversalType;
     public long timeElapsed;
-    int stackNum;
+    public int pathNum;
 
 
     public GraphTraversal(CompressedGraph graph, Timestamp windowSize) {
@@ -22,7 +22,7 @@ public abstract class GraphTraversal {
         this.window = windowSize;
         this.validPaths = new ArrayList<>();
         timeElapsed = 0;
-        stackNum = graph.getNumVertex() < 100? graph.getNumVertex() : graph.getNumVertex() / 2;
+        pathNum = 0;
 
         //TODO: change it later to actual window size
 //        this.window = new Timestamp(Long.MAX_VALUE);

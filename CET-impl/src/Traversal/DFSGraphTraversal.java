@@ -38,7 +38,8 @@ public class DFSGraphTraversal extends GraphTraversal {
 
         if (graph.getEndPoints().contains(s)) {
             if (true) {
-                validPaths.add(new ArrayList<>(path));
+//                validPaths.add(new ArrayList<>(path));
+                pathNum ++;
             }
             return;
         }

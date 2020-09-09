@@ -119,6 +119,7 @@ public class AlgoExecutor {
                 if (algo != null) {
                     fw.write(String.format("Run %d: %d nanoseconds\n", i + 1, runTimes[i]));
                     System.out.println(String.format("Run %d: %d nanoseconds\n", i + 1, runTimes[i]));
+                    System.out.println("Path num: "+ algo.pathNum);
                 }
             }
             fw.write("\n\nAverage execution time in nanoseconds  : " + average / numRun + "\n");

@@ -58,7 +58,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
         stack.push(start);
         if (graph.getNumDegree(start) != 0)
             DFSsubTraversal(start, visited, stack);
-        else if (graph.getStartPoints().contains(start)) validPaths.add(new ArrayList<>(stack));
+        else if (graph.getStartPoints().contains(start)) pathNum ++ ; //validPaths.add(new ArrayList<>(stack));
 
         // And then call BFS to copy & compute
 
@@ -97,7 +97,8 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
             for (List<Integer> subPath : currentPaths.peek()) {
                 Stack<ArrayList<ArrayList<Integer>>> newPathStack = new Stack<>();
                 if (anchorPaths.get(subPath.get(subPath.size() - 1)) == null) {
-                    validPaths.add(new ArrayList<>(subPath));
+//                    validPaths.add(new ArrayList<>(subPath));
+                    pathNum ++;
                     continue;
                 }
                 ArrayList<ArrayList<Integer>> combo = new ArrayList<>();
