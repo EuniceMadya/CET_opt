@@ -41,7 +41,7 @@ public class DFSGraphTraversal extends GraphTraversal {
         }
 
         // Recur for all the vertices adjacent to this vertex
-        for(int i = graph.rowIndex[s]; i < graph.rowIndex[s + 1]; i ++){
+        for (int i = graph.rowIndex[s]; i < graph.rowIndex[s + 1]; i++) {
             int edge = graph.colIndex[i];
             path.push(edge);
             DFStraversal(edge, visited, path);

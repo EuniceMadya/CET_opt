@@ -77,7 +77,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
         // Recur for all the vertices adjacent to this vertex
         if (graph.getRowIndex()[s + 1] - graph.getRowIndex()[s] == 0) return;
 
-        for(int i = graph.rowIndex[s]; i < graph.rowIndex[s + 1]; i ++){
+        for (int i = graph.rowIndex[s]; i < graph.rowIndex[s + 1]; i++) {
             int edge = graph.getColIndex()[i];
             curStack.push(edge);
             DFSsubTraversal(edge, visited, curStack);

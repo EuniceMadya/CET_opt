@@ -24,7 +24,7 @@ public class BFSGraphTraversal extends GraphTraversal {
         while (!queue.isEmpty()) {
             ArrayStack currentPath = queue.poll();
             int cur = currentPath.peek();
-            for(int i = graph.rowIndex[cur]; i < graph.rowIndex[cur + 1]; i ++){
+            for (int i = graph.rowIndex[cur]; i < graph.rowIndex[cur + 1]; i++) {
                 int neighbour = graph.colIndex[i];
 
                 ArrayStack newStack = new ArrayStack(stackNum);
