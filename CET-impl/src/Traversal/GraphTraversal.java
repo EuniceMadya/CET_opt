@@ -6,14 +6,16 @@ import java.io.File;
 import java.io.FileWriter;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 public abstract class GraphTraversal {
     CompressedGraph graph;
     Timestamp window;
-    ArrayList<ArrayList<Integer>> validPaths;
+    ArrayList<int[]> validPaths;
     public TraversalType traversalType;
     public long timeElapsed;
+    int stackNum;
 
 
     public GraphTraversal(CompressedGraph graph, Timestamp windowSize) {
@@ -21,6 +23,7 @@ public abstract class GraphTraversal {
         this.window = windowSize;
         this.validPaths = new ArrayList<>();
         timeElapsed = 0;
+        stackNum = graph.getNumVertex() < 100? graph.getNumVertex() : graph.getNumVertex() / 2;
 
         //TODO: change it later to actual window size
 //        this.window = new Timestamp(Long.MAX_VALUE);
@@ -64,14 +67,30 @@ public abstract class GraphTraversal {
         try {
             outputFile.createNewFile();
             FileWriter fileWriter = new FileWriter(outputFile);
-            for (ArrayList<Integer> singlePath : validPaths) {
-                System.out.println(algo + ": " + singlePath);
-                fileWriter.write(singlePath + "\n");
+            for (int[] singlePath : validPaths) {
+                System.out.println(algo + ": " + Arrays.toString(singlePath));
+                fileWriter.write(Arrays.toString(singlePath) + "\n");
             }
             fileWriter.close();
         } catch (Exception e) {
             System.out.println(algo + " has error: " + e.toString());
         }
+    }
+
+    public int[] getPath(int[] path){
+        int[] newPath;
+        int length = 0;
+        for(int i = 0; i < path.length; i ++){
+            if(path[i] != -1) length ++;
+        }
+
+        newPath = new int[length];
+
+        for(int i = 0; i > length; i ++){
+            newPath[i] = path[i];
+        }
+        return newPath;
+
     }
 
 

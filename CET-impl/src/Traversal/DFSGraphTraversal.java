@@ -1,11 +1,10 @@
 package Traversal;
 
 import Components.CompressedGraph;
+import util.ArrayStack;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Stack;
 
 public class DFSGraphTraversal extends GraphTraversal {
 
@@ -20,23 +19,23 @@ public class DFSGraphTraversal extends GraphTraversal {
         boolean[] visited = new boolean[graph.getNumVertex()];
         Arrays.fill(visited, false);
 
-        Stack<Integer> path = new Stack();
+        ArrayStack path = new ArrayStack(stackNum);
         path.push(start);
 
         if (graph.getNumDegree(start) != 0) DFStraversal(start, visited, path);
 
-        else validPaths.add(new ArrayList<>(path));
+        else validPaths.add(getPath(path.getStack()));
         // Call the recursive helper function to print DFS traversal
 
     }
 
 
-    public void DFStraversal(int s, boolean[] visited, Stack path) {
+    public void DFStraversal(int s, boolean[] visited, ArrayStack path) {
         visited[s] = true;
 
         if (graph.getEndPoints().contains(s)) {
             if (true) {
-                validPaths.add(new ArrayList<>(path));
+                validPaths.add(getPath(path.getStack()));
             }
             return;
         }

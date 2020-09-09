@@ -2,10 +2,9 @@ package Traversal;
 
 import Components.CompressedGraph;
 import util.ArrayQueue;
+import util.ArrayStack;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Stack;
 
 public class BFSGraphTraversal extends GraphTraversal {
 
@@ -17,22 +16,22 @@ public class BFSGraphTraversal extends GraphTraversal {
     // BFS traversal
     public void traversal(int start) {
 
-        ArrayQueue<Stack<Integer>> queue = new ArrayQueue();
+        ArrayQueue<ArrayStack> queue = new ArrayQueue();
 
-        Stack<Integer> path = new Stack<>();
-        path.add(start);
+        ArrayStack path = new ArrayStack(stackNum);
+        path.push(start);
         queue.offer(path);
         while (!queue.isEmpty()) {
-            Stack<Integer> currentPath = queue.poll();
+            ArrayStack currentPath = queue.poll();
             int cur = currentPath.peek();
             for (int i = graph.rowIndex[cur]; i < graph.rowIndex[cur + 1]; i++) {
                 int neighbour = graph.colIndex[i];
 
-                Stack<Integer> newStack = new Stack<>();
+                ArrayStack newStack = new ArrayStack(stackNum);
                 newStack.addAll(currentPath);
                 newStack.push(neighbour);
                 if (graph.getNumDegree(neighbour) == 0) {
-                    validPaths.add(new ArrayList<>(newStack));
+                    validPaths.add(getPath(newStack.getStack()));
                 } else queue.offer(newStack);
             }
         }
