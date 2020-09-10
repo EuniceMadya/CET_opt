@@ -150,7 +150,7 @@ public class GraphBuilder {
     }
 
     public int getFrequency(int num){
-        return (int) Math.round(num * 1.5);
+        return (int) Math.round(num * 1.8);
     }
 
     /**
