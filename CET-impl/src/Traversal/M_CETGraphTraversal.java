@@ -3,7 +3,6 @@ package Traversal;
 import Components.CompressedGraph;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Stack;
 
@@ -28,7 +27,7 @@ public class M_CETGraphTraversal extends GraphTraversal {
                 int node = iter.next();
                 resultPath.push(node);
             }
-            validPaths.add(new ArrayList<>(resultPath));
+            validPaths.add(getPath(resultPath));
             currentSeq.clear();
         } else {
             for (int i = graph.rowIndex[curNode]; i < graph.rowIndex[curNode + 1]; i++) {

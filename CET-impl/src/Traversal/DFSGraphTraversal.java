@@ -3,7 +3,6 @@ package Traversal;
 import Components.CompressedGraph;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Stack;
 
@@ -27,7 +26,8 @@ public class DFSGraphTraversal extends GraphTraversal {
 
         if (graph.getNumDegree(start) != 0) DFStraversal(start, visited, path);
 
-        else validPaths.add(new ArrayList<>(path));
+        //TODO: remember to un-comment this
+        else validPaths.add(getPath(path));
         // Call the recursive helper function to print DFS traversal
 
     }
@@ -38,7 +38,7 @@ public class DFSGraphTraversal extends GraphTraversal {
 
         if (graph.getEndPoints().contains(s)) {
             if (true) {
-//                validPaths.add(new ArrayList<>(path));
+                validPaths.add(getPath(path));
                 pathNum ++;
             }
             return;

@@ -34,7 +34,8 @@ public class BFSGraphTraversal extends GraphTraversal {
                 newStack.addAll(currentPath);
                 newStack.push(neighbour);
                 if (graph.getNumDegree(neighbour) == 0) {
-//                    validPaths.add(new ArrayList<>(newStack));
+//                    validPaths.add(new ArrayList<>(newStack);
+                    validPaths.add(getPath(newStack));
                     pathNum ++;
                 } else queue.offer(newStack);
             }

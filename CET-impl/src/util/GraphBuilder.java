@@ -55,7 +55,7 @@ public class GraphBuilder {
 
         DAGSmith smith = new DAGSmith();
         //generating adjacency matrix
-        boolean[][] dag = smith.generateDAGMatrix(num, num + 20);
+        boolean[][] dag = smith.generateDAGMatrix(num, getFrequency(num));
         StringBuilder sb = new StringBuilder("Grid\n" + num + "\n");
         sb.append(DAGTools.printDAG(dag));
         System.out.println(sb.toString());
@@ -71,7 +71,7 @@ public class GraphBuilder {
         DAGSmith smith = new DAGSmith();
 
         //generating sparse matrix
-        ArrayList<int[]> dag = smith.generateDAGPairs(num, num > 50 ? num : 20);
+        ArrayList<int[]> dag = smith.generateDAGPairs(num, getFrequency(num));
         StringBuilder sb = new StringBuilder("Pair\n" + num + "\n");
         for (int[] pair : dag) {
             sb.append(pair[0] + "," + pair[1] + "\n");
@@ -89,7 +89,7 @@ public class GraphBuilder {
         DAGSmith smith = new DAGSmith();
 
         //generating sparse matrix
-        ArrayList<Integer>[] dag = smith.generateDAGLists(num, num > 50 ? num : 20);
+        ArrayList<Integer>[] dag = smith.generateDAGLists(num, getFrequency(num));
         StringBuilder sb = new StringBuilder("List\n" + num + "\n");
         for (ArrayList<Integer> list : dag) {
             String s = list.size() == 0 ? "NaN" :
@@ -112,7 +112,7 @@ public class GraphBuilder {
         DAGSmith smith = new DAGSmith();
 
         //generating CSR form graph
-        CompressedGraph dag = smith.generateDAGCSR(num, num > 50 ? num : 20);
+        CompressedGraph dag = smith.generateDAGCSR(num, getFrequency(num));
         StringBuilder sb = new StringBuilder("CSR\n" + num + "\ncol:");
         for (int i : dag.getColIndex()) {
             sb.append(" " + i);
@@ -147,6 +147,10 @@ public class GraphBuilder {
             e.printStackTrace();
         }
 
+    }
+
+    public int getFrequency(int num){
+        return num * 2;
     }
 
     /**

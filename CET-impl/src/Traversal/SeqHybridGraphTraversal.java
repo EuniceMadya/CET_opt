@@ -94,10 +94,10 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
         while (!queue.isEmpty()) {
             Stack<ArrayList<ArrayList<Integer>>> currentPaths = queue.poll();
-            for (List<Integer> subPath : currentPaths.peek()) {
+            for (ArrayList<Integer> subPath : currentPaths.peek()) {
                 Stack<ArrayList<ArrayList<Integer>>> newPathStack = new Stack<>();
                 if (anchorPaths.get(subPath.get(subPath.size() - 1)) == null) {
-//                    validPaths.add(new ArrayList<>(subPath));
+                    validPaths.add(getPath(subPath));
                     pathNum ++;
                     continue;
                 }

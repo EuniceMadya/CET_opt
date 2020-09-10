@@ -61,7 +61,9 @@ public class T_CETGraphTraversal extends GraphTraversal {
             }
 
             if (graph.getEndPoints().contains(curNode)) {
-                validPaths.addAll(paths[curNode]);
+                for(ArrayList path: paths[curNode]){
+                    validPaths.add(getPath(path));
+                }
             }
             //paths[curNode.getIndex()] = null;
         }

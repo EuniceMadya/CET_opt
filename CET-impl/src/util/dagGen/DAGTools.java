@@ -121,7 +121,6 @@ public class DAGTools {
         int count = 0;
         for (int i = 0; i < graph.length; i++) {
             if (!visited[i]) {
-//				System.out.println("\nConnect Component: " );
                 isConnected(graph, i, visited);
                 ++count;
                 if (count > 1) {

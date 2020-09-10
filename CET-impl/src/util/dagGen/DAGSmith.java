@@ -113,7 +113,7 @@ public class DAGSmith {
             }
         }
         DAGTools dagTools = new DAGTools();
-        result = dagTools.connect(result, frequency);
+//        result = dagTools.connect(result, frequency);
         return result;
     }
 
