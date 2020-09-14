@@ -22,10 +22,7 @@ public class T_CETGraphTraversal extends GraphTraversal {
         long startTime = System.nanoTime();
         traversal(0);
         long endTime = System.nanoTime();
-        long timeElapsed = endTime - startTime;
-        System.out.println("num of paths:" + validPaths.size());
-        showResults(traversalType.toString());
-        System.out.println("time for T_CET: " + timeElapsed);
+        timeElapsed = endTime - startTime;
     }
 
     @Override
