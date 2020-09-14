@@ -54,20 +54,22 @@ public abstract class GraphTraversal {
 
      void saveResults(String algo) {
         System.out.println("Write to file...");
-        System.out.println(validPaths.size() + "paths to be written.");
+        System.out.println(validPaths.size() + " paths to be written.");
 
         File outputFolder = new File("OutputFiles/");
         outputFolder.mkdirs();
 
         File outputFile = new File("OutputFiles/" + algo + "-" + graph.getNumVertex() + "V-" + new Date().toString() + ".txt");
-
+        int maxLength = 0;
         try {
             outputFile.createNewFile();
             FileWriter fileWriter = new FileWriter(outputFile);
             for (int[] singlePath : validPaths) {
+                if(maxLength < singlePath.length) maxLength = singlePath.length;
                 fileWriter.write("(" + singlePath.length + ")");
                 fileWriter.write(Arrays.toString(singlePath) + "\n");
             }
+            fileWriter.write("Longest path has " + maxLength + " nodes.");
             fileWriter.close();
         } catch (Exception e) {
             System.out.println(algo + " has error: " + e.toString());

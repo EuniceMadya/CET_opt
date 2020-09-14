@@ -125,9 +125,9 @@ public class AlgoExecutor {
                     System.out.println("Number of paths: "+ algo.pathNum);
                 }
             }
-            fw.write("\n\nAverage execution time in nanoseconds  : " + average / numRun + "\n");
+            fw.write("\n\nAverage execution time in nanoseconds: " + average / numRun + "\n");
             fw.close();
-            System.out.println("\n\nAverage execution time in nanoseconds  : " + average / numRun + "\n");
+            System.out.println("\n\nAverage execution time in nanoseconds: " + average / numRun + "\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
