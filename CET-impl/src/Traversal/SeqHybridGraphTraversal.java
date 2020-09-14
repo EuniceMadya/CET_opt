@@ -8,8 +8,8 @@ import java.util.*;
 
 public class SeqHybridGraphTraversal extends GraphTraversal {
 
-    List<Integer> anchorNodes;
-    HashMap<Integer, ArrayList<ArrayList<Integer>>> anchorPaths;
+    private List<Integer> anchorNodes;
+    private HashMap<Integer, ArrayList<ArrayList<Integer>>> anchorPaths;
 
     public SeqHybridGraphTraversal(CompressedGraph graph, Timestamp windowSize, ArrayList<Integer> anchorNodes) {
         super(graph, windowSize);
@@ -87,7 +87,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
 
     private void BFSsubConcatenate(int start) {
-        ArrayQueue<Stack<ArrayList<ArrayList<Integer>>>> queue = new ArrayQueue();
+        ArrayQueue<Stack<ArrayList<ArrayList<Integer>>>> queue = new ArrayQueue<>();
         Stack<ArrayList<ArrayList<Integer>>> superPaths = new Stack<>();
         superPaths.add(anchorPaths.get(start));
         queue.offer(superPaths);

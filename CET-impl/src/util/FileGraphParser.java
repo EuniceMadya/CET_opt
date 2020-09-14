@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FileGraphParser {
+class FileGraphParser {
     // graph are read from a text file, with the format of adjacency matrix representation
 
 
@@ -40,7 +40,7 @@ public class FileGraphParser {
         String [] rowNums = null;
         try{
             myReader = new Scanner(file);
-            String type = myReader.nextLine();
+            myReader.nextLine();// read type
             int nodeNum = Integer.parseInt(myReader.nextLine());
             int colNum = 0;
             while(myReader.hasNextLine()){

@@ -11,10 +11,12 @@ import java.util.ArrayList;
 
 public class GraphBuilder {
 
-    GraphGenerator graphGenerator;
     public boolean random;
     public boolean saveFile = false;
     public GraphType type;
+
+    private GraphGenerator graphGenerator;
+
 
     public GraphBuilder() {
         graphGenerator = new GraphGenerator();
@@ -74,7 +76,7 @@ public class GraphBuilder {
         ArrayList<int[]> dag = smith.generateDAGPairs(num, getFrequency(num));
         StringBuilder sb = new StringBuilder("Pair\n" + num + "\n");
         for (int[] pair : dag) {
-            sb.append(pair[0] + "," + pair[1] + "\n");
+            sb.append(pair[0]).append(",").append(pair[1]).append("\n");
         }
         System.out.println(sb.toString());
         if (saveFile) {
@@ -108,18 +110,18 @@ public class GraphBuilder {
         return graphGenerator.buildGraph(dag);
     }
 
-    public CompressedGraph generateRandomCSRGraph(int num) {
+    private CompressedGraph generateRandomCSRGraph(int num) {
         DAGSmith smith = new DAGSmith();
 
         //generating CSR form graph
         CompressedGraph dag = smith.generateDAGCSR(num, getFrequency(num));
         StringBuilder sb = new StringBuilder("CSR\n" + num + "\ncol:");
         for (int i : dag.getColIndex()) {
-            sb.append(" " + i);
+            sb.append(" ").append(i);
         }
         sb.append("\nrow:");
         for (int i : dag.getRowIndex()) {
-            sb.append(" " + i);
+            sb.append(" ").append(i);
         }
         System.out.println(sb.toString());
         if (saveFile) {
@@ -149,8 +151,8 @@ public class GraphBuilder {
 
     }
 
-    public int getFrequency(int num){
-        return (int) Math.round(num * 1.8);
+    private int getFrequency(int num){
+        return (int) Math.round(num * 1.5);
     }
 
     /**
