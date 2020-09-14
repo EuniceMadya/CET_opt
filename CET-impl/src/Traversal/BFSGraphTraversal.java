@@ -3,15 +3,16 @@ package Traversal;
 import Components.CompressedGraph;
 import util.ArrayQueue;
 
-import java.sql.Timestamp;
 import java.util.Stack;
 
 public class BFSGraphTraversal extends GraphTraversal {
 
-    public BFSGraphTraversal(CompressedGraph graph, Timestamp windowSize) {
-        super(graph, windowSize);
+    public BFSGraphTraversal(CompressedGraph graph, boolean saveToMem){
+        super(graph, saveToMem);
         traversalType = TraversalType.BFS;
+
     }
+
 
     // BFS traversal
     public void traversal(int start) {
@@ -34,8 +35,7 @@ public class BFSGraphTraversal extends GraphTraversal {
                 newStack.addAll(currentPath);
                 newStack.push(neighbour);
                 if (graph.getNumDegree(neighbour) == 0) {
-//                    validPaths.add(new ArrayList<>(newStack);
-                    validPaths.add(getPath(newStack));
+                    if(saveToMem) validPaths.add(getPath(newStack));
                     pathNum ++;
                 } else queue.offer(newStack);
             }

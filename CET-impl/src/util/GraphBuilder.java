@@ -16,6 +16,7 @@ public class GraphBuilder {
     public GraphType type;
 
     private GraphGenerator graphGenerator;
+    public double frequency;
 
 
     public GraphBuilder() {
@@ -133,8 +134,9 @@ public class GraphBuilder {
 
 
     private void saveToFile(String string, int num) {
+        String fileName = type.toString().replace("GraphType.", "") +num + "-f" + frequency + ".txt";
 
-        File file = new File(type.toString().replace("GraphType.", "") + num + ".txt");
+        File file = new File(fileName);
 
         try {
             if(! file.exists())
@@ -152,7 +154,7 @@ public class GraphBuilder {
     }
 
     private int getFrequency(int num){
-        return (int) Math.round(num * 1.5);
+        return (int) Math.round(num * frequency);
     }
 
     /**

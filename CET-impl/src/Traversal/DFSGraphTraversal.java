@@ -2,15 +2,15 @@ package Traversal;
 
 import Components.CompressedGraph;
 
-import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Stack;
 
 public class DFSGraphTraversal extends GraphTraversal {
 
-    public DFSGraphTraversal(CompressedGraph graph, Timestamp windowSize) {
-        super(graph, windowSize);
+    public DFSGraphTraversal(CompressedGraph graph, boolean saveToMem){
+        super(graph, saveToMem);
         traversalType = TraversalType.DFS;
+
     }
 
     @Override
@@ -28,7 +28,8 @@ public class DFSGraphTraversal extends GraphTraversal {
         if (graph.getNumDegree(start) != 0) DFStraversal(start, visited, path);
 
         //TODO: remember to un-comment this
-        else validPaths.add(getPath(path));
+        else
+            if(saveToMem) validPaths.add(getPath(path));
 
     }
 
@@ -38,7 +39,7 @@ public class DFSGraphTraversal extends GraphTraversal {
 
         if (graph.getEndPoints().contains(s)) {
             // TODO: might need to add identify pattern later
-            validPaths.add(getPath(path));
+            if(saveToMem) validPaths.add(getPath(path));
             pathNum++;
 
             return;

@@ -2,14 +2,15 @@ package Traversal;
 
 import Components.CompressedGraph;
 
-import java.sql.Timestamp;
 import java.util.Iterator;
 import java.util.Stack;
 
 public class M_CETGraphTraversal extends GraphTraversal {
-    public M_CETGraphTraversal(CompressedGraph graph, Timestamp windowSize) {
-        super(graph, windowSize);
+
+    public M_CETGraphTraversal(CompressedGraph graph, boolean saveToMem){
+        super(graph, saveToMem);
         traversalType = TraversalType.M_CET;
+
     }
 
     @Override
@@ -27,7 +28,7 @@ public class M_CETGraphTraversal extends GraphTraversal {
                 int node = iter.next();
                 resultPath.push(node);
             }
-            validPaths.add(getPath(resultPath));
+            if(saveToMem) validPaths.add(getPath(resultPath));
             currentSeq.clear();
         } else {
             for (int i = graph.rowIndex[curNode]; i < graph.rowIndex[curNode + 1]; i++) {

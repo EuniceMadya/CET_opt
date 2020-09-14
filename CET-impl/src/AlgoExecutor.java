@@ -12,10 +12,11 @@ import java.util.Scanner;
 public class AlgoExecutor {
 
 
-    GraphTraversal algo;
-    long average;
-    int numRun;
-    long[] runTimes;
+    private GraphTraversal algo;
+    private long average;
+    private int numRun;
+    private long[] runTimes;
+    private boolean savePathInMem;
 
 
     public AlgoExecutor(int numRun) {
@@ -33,18 +34,17 @@ public class AlgoExecutor {
      * 5. T_CET
      *
      * @param selection of algo
-     * @return
      */
     public void useAlgo(int selection, CompressedGraph graph) {
 
         switch (selection) {
             case 1:
-                algo = new BFSGraphTraversal(graph, null);
+                algo = new BFSGraphTraversal(graph, savePathInMem);
 //                traversalAlgos.add(new BFSGraphTraversal(graph, null));
                 break;
 
             case 2:
-                algo = new DFSGraphTraversal(graph, null);
+                algo = new DFSGraphTraversal(graph, savePathInMem);
 //                traversalAlgos.add(new DFSGraphTraversal(graph, null));
                 break;
 
@@ -53,20 +53,22 @@ public class AlgoExecutor {
                 break;
 
             case 4:
-                algo = new M_CETGraphTraversal(graph, null);
+                algo = new M_CETGraphTraversal(graph, savePathInMem);
 //                traversalAlgos.add( new M_CETGraphTraversal(graph, null));
                 break;
 
             case 5:
-                algo = new T_CETGraphTraversal(graph, null);
+                algo = new T_CETGraphTraversal(graph, savePathInMem);
 //                traversalAlgos.add( new T_CETGraphTraversal(graph, null));
                 break;
 
             default:
-                return;
+                System.out.println("Algo unknown");
         }
 
     }
+
+    void setSavePathInMem(boolean set){ savePathInMem = set; }
 
     private void addSeqHybrid(CompressedGraph graph) {
         System.out.println(" \n" +
@@ -92,7 +94,7 @@ public class AlgoExecutor {
         System.out.println("Anchor nodes: " + anchor);
 
 //        traversalAlgos.add(new SeqHybridGraphTraversal(graph, null, anchor));
-        algo = new SeqHybridGraphTraversal(graph, null, anchor);
+        algo = new SeqHybridGraphTraversal(graph, savePathInMem, anchor);
     }
 
     void runAlgo() {
@@ -103,6 +105,7 @@ public class AlgoExecutor {
             average += algo.timeElapsed;
             runTimes[i] = algo.timeElapsed;
             System.out.println("run: " + runTimes[i]);
+            System.gc();
         }
 
 
@@ -119,7 +122,7 @@ public class AlgoExecutor {
                 if (algo != null) {
                     fw.write(String.format("Run %d: %d nanoseconds\n", i + 1, runTimes[i]));
                     System.out.println(String.format("Run %d: %d nanoseconds\n", i + 1, runTimes[i]));
-                    System.out.println("Path num: "+ algo.pathNum);
+                    System.out.println("Number of paths: "+ algo.pathNum);
                 }
             }
             fw.write("\n\nAverage execution time in nanoseconds  : " + average / numRun + "\n");
@@ -130,8 +133,16 @@ public class AlgoExecutor {
         }
     }
 
-    public void writePathsRestult() {
-        algo.showResults();
+    public boolean isSavePathInMem(){
+        return savePathInMem;
+    }
+
+    public void savePathsResult() {
+        algo.saveResults();
+    }
+
+    public void printPaths(){
+        algo.printPaths();
     }
 
 

@@ -2,16 +2,15 @@ package Traversal;
 
 import Components.CompressedGraph;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class T_CETGraphTraversal extends GraphTraversal {
 
-    public ArrayList<ArrayList<Integer>>[] paths;
+    private ArrayList<ArrayList<Integer>>[] paths;
 
-    public T_CETGraphTraversal(CompressedGraph graph, Timestamp windowSize) {
-        super(graph, windowSize);
+    public T_CETGraphTraversal(CompressedGraph graph, boolean saveToMem) {
+        super(graph, saveToMem);
         traversalType = TraversalType.T_CET;
         paths = new ArrayList[graph.getNumVertex()];
         for (int i = 0; i < paths.length; i++) paths[i] = new ArrayList<>();
@@ -62,7 +61,7 @@ public class T_CETGraphTraversal extends GraphTraversal {
 
             if (graph.getEndPoints().contains(curNode)) {
                 for(ArrayList path: paths[curNode]){
-                    validPaths.add(getPath(path));
+                    if(saveToMem) validPaths.add(getPath(path));
                 }
             }
             //paths[curNode.getIndex()] = null;

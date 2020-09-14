@@ -3,7 +3,6 @@ package Traversal;
 import Components.CompressedGraph;
 import util.ArrayQueue;
 
-import java.sql.Timestamp;
 import java.util.*;
 
 public class SeqHybridGraphTraversal extends GraphTraversal {
@@ -11,8 +10,8 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
     private List<Integer> anchorNodes;
     private HashMap<Integer, ArrayList<ArrayList<Integer>>> anchorPaths;
 
-    public SeqHybridGraphTraversal(CompressedGraph graph, Timestamp windowSize, ArrayList<Integer> anchorNodes) {
-        super(graph, windowSize);
+    public SeqHybridGraphTraversal(CompressedGraph graph,boolean saveToMem, ArrayList<Integer> anchorNodes) {
+        super(graph, saveToMem);
         this.traversalType = TraversalType.SeqHybrid;
         this.anchorNodes = anchorNodes;
         anchorPaths = new HashMap<>();
@@ -58,7 +57,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
         stack.push(start);
         if (graph.getNumDegree(start) != 0)
             DFSsubTraversal(start, visited, stack);
-        else if (graph.getStartPoints().contains(start)) pathNum ++ ; //validPaths.add(new ArrayList<>(stack));
+        else if (graph.getStartPoints().contains(start)) pathNum ++ ;
 
         // And then call BFS to copy & compute
 
@@ -97,7 +96,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
             for (ArrayList<Integer> subPath : currentPaths.peek()) {
                 Stack<ArrayList<ArrayList<Integer>>> newPathStack = new Stack<>();
                 if (anchorPaths.get(subPath.get(subPath.size() - 1)) == null) {
-                    validPaths.add(getPath(subPath));
+                    if(saveToMem) validPaths.add(getPath(subPath));
                     pathNum ++;
                     continue;
                 }

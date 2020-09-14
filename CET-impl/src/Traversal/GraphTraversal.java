@@ -4,28 +4,27 @@ import Components.CompressedGraph;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.sql.Timestamp;
 import java.util.*;
 
 public abstract class GraphTraversal {
     CompressedGraph graph;
-    Timestamp window;
     ArrayList<int[]> validPaths;
     public TraversalType traversalType;
     public long timeElapsed;
     public int pathNum;
+    boolean saveToMem;
 
 
-    public GraphTraversal(CompressedGraph graph, Timestamp windowSize) {
+    public GraphTraversal(CompressedGraph graph, boolean saveToMem){
         this.graph = graph;
-        this.window = windowSize;
+        this.saveToMem = saveToMem;
         this.validPaths = new ArrayList<>();
         timeElapsed = 0;
         pathNum = 0;
+    }
 
-        //TODO: change it later to actual window size
-//        this.window = new Timestamp(Long.MAX_VALUE);
-
+    public GraphTraversal(CompressedGraph graph ) {
+        this(graph, true);
     }
 
     //TODO: identify patterns of a path
@@ -49,11 +48,11 @@ public abstract class GraphTraversal {
 
     }
 
-    public void showResults() {
-        showResults(traversalType.toString());
+    public void saveResults() {
+        saveResults(traversalType.toString());
     }
 
-    public void showResults(String algo) {
+    private void saveResults(String algo) {
         System.out.println("Write to file...");
         System.out.println(validPaths.size() + "paths to be written.");
 
@@ -83,6 +82,12 @@ public abstract class GraphTraversal {
             path[counter ++] = (int)enumeration.nextElement();
         }
         return path;
+    }
+
+    public void printPaths(){
+        for (int[] singlePath : validPaths) {
+            System.out.println(traversalType.toString() + ": " + Arrays.toString(singlePath));
+        }
     }
 
     public int[] getPath(ArrayList<Integer> pathList){

@@ -62,7 +62,10 @@ public class Main {
                         graphBuilder.type = GraphType.Grid;
                 }
 
-                graph = graphBuilder.generateRandomGraph(numNodes);
+                System.out.println("Desired frequency: (requires a float range from 1 to 2)");
+                graphBuilder.frequency = Double.parseDouble(sc.nextLine());
+
+                graph = graphBuilder.generateRandomGraph(numNodes );
 
             } else if (input.equalsIgnoreCase("exit")) return;
             else {
@@ -110,12 +113,13 @@ public class Main {
 
             if (input.equals("")) continue;
             if (input.equals("0")) return;
+
+            System.out.println("\n\n- Do you want to save result to run time memory? (y/n)");
+            executor.setSavePathInMem(sc.nextLine().equalsIgnoreCase("y"));
+
             executor.useAlgo(Integer.parseInt(input), graph);
             break;
         }
-
-        System.out.println("\n\n- Do you want to save result to files? (y/n)");
-        input = sc.nextLine();
 
 
         System.out.println("Start executing...");
@@ -124,11 +128,27 @@ public class Main {
 
         System.gc();
 
-        if (input.equals("y")) {
-            System.out.println("Writing results...\n");
-            executor.writePathsRestult();
-            executor.writeTimeResult(graph.getNumVertex());
-        }
+        System.out.println("\n\n- Run finished");
+
+        if(executor.isSavePathInMem()) {
+            System.out.println("\n\n- Paths are now stored in memory. \n" +
+                    "Do you want to save result to files? (y/n)");
+
+            if (sc.nextLine().equals("y")) {
+
+                System.out.println("Writing results...\n");
+                executor.savePathsResult();
+            }
+
+            System.out.println("\n\n- Do you want to print out results? (y/n)\n");
+            if(sc.nextLine().equals("y")){
+                executor.printPaths();
+            }
+        }else
+            System.out.println("Warning: No results saved.\n");
+
+        executor.writeTimeResult(graph.getNumVertex());
+
 
     }
 
