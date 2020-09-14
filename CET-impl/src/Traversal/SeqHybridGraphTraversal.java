@@ -41,11 +41,11 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
     }
 
     @Override
-    public void showResults() {
+    public void saveResults() {
         String fileName = String.format("%s-anchor%d",
                 traversalType.toString(),
                 anchorNodes.size() - graph.getStartPoints().size());
-        showResults(fileName);
+        saveResults(fileName);
     }
 
     @Override

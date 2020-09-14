@@ -52,7 +52,7 @@ public abstract class GraphTraversal {
         saveResults(traversalType.toString());
     }
 
-    private void saveResults(String algo) {
+     void saveResults(String algo) {
         System.out.println("Write to file...");
         System.out.println(validPaths.size() + "paths to be written.");
 
