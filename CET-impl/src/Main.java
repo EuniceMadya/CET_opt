@@ -36,9 +36,6 @@ public class Main {
                 System.out.println("- Number of nodes for the graph:");
                 numNodes = Integer.parseInt(sc.nextLine());
 
-                System.out.println("\n- Do you want to save the graph to file?(y/n)");
-                graphBuilder.saveFile = sc.nextLine().equals("y");
-
                 System.out.println("Choose graph output type: \n" +
                         "  1. Grid \n" +
                         "  2. Pairs\n" +
@@ -47,6 +44,9 @@ public class Main {
                         "NOTE: Other selection will go to default -- Grid format");
 
                 input = sc.nextLine();
+
+                System.out.println("\n- Do you want to save the graph to file?(y/n)");
+                graphBuilder.saveFile = sc.nextLine().equals("y");
 
                 switch (input) {
                     case "2":

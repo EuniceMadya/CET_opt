@@ -65,7 +65,7 @@ public abstract class GraphTraversal {
             outputFile.createNewFile();
             FileWriter fileWriter = new FileWriter(outputFile);
             for (int[] singlePath : validPaths) {
-                System.out.println(algo + ": " + Arrays.toString(singlePath));
+                fileWriter.write("(" + singlePath.length + ")");
                 fileWriter.write(Arrays.toString(singlePath) + "\n");
             }
             fileWriter.close();
