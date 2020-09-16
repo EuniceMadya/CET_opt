@@ -35,7 +35,7 @@ public class CompressedGraph{
     }
 
     private void loadStartPoints(){
-        boolean isStart [] = new boolean[rowIndex.length - 1];
+        boolean []isStart = new boolean[rowIndex.length - 1];
 
         Arrays.fill(isStart, true);
 
@@ -51,7 +51,7 @@ public class CompressedGraph{
     }
 
     private void loadEndPoints(){
-        boolean isEnd [] = new boolean[rowIndex.length - 1];
+        boolean []isEnd = new boolean[rowIndex.length - 1];
         Arrays.fill(isEnd, false);
 
         for(int i = 0; i < rowIndex.length - 1; i ++)

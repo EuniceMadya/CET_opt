@@ -57,7 +57,11 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
         stack.push(start);
         if (graph.getNumDegree(start) != 0)
             DFSsubTraversal(start, visited, stack);
-        else if (graph.getStartPoints().contains(start)) pathNum ++ ;
+        // if it is a start point and has no neighbours
+        else if (graph.getStartPoints().contains(start)) {
+            if(saveToMem) validPaths.add(getPath(stack));
+            pathNum ++ ;
+        }
 
         // And then call BFS to copy & compute
 
@@ -86,8 +90,10 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
 
     private void BFSsubConcatenate(int start) {
-        ArrayQueue<Stack<ArrayList<ArrayList<Integer>>>> queue = new ArrayQueue<>();
+        ArrayQueue<Stack<ArrayList<ArrayList<Integer>>>> queue = new ArrayQueue<>(graph.getStartPoints().size());
         Stack<ArrayList<ArrayList<Integer>>> superPaths = new Stack<>();
+
+        // Add initial paths that
         superPaths.add(anchorPaths.get(start));
         queue.offer(superPaths);
 

@@ -10,7 +10,6 @@ public class BFSGraphTraversal extends GraphTraversal {
     public BFSGraphTraversal(CompressedGraph graph, boolean saveToMem){
         super(graph, saveToMem);
         traversalType = TraversalType.BFS;
-
     }
 
 
@@ -24,6 +23,11 @@ public class BFSGraphTraversal extends GraphTraversal {
         path.add(start);
 
         queue.offer(path);
+        if(graph.rowIndex[start + 1] - graph.rowIndex[start] == 0) {
+            validPaths.add(getPath(path));
+            pathNum ++;
+            return;
+        }
         while (!queue.isEmpty()) {
             Stack<Integer> currentPath = queue.poll();
             int cur = currentPath.peek();

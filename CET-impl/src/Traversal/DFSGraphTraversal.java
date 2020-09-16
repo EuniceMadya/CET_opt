@@ -2,7 +2,6 @@ package Traversal;
 
 import Components.CompressedGraph;
 
-import java.util.Arrays;
 import java.util.Stack;
 
 public class DFSGraphTraversal extends GraphTraversal {
@@ -15,17 +14,12 @@ public class DFSGraphTraversal extends GraphTraversal {
 
     @Override
     public void traversal(int start) {
-
-        boolean[] visited = new boolean[graph.getNumVertex()];
-        Arrays.fill(visited, false);
-
-
         Stack<Integer> path = new Stack<>();
 
         path.push(start);
 
         // Call the recursive helper function to print DFS traversal
-        if (graph.getNumDegree(start) != 0) DFStraversal(start, visited, path);
+        if (graph.getNumDegree(start) != 0) DFStraversal(start, path);
 
         //TODO: remember to un-comment this
         else
@@ -33,15 +27,13 @@ public class DFSGraphTraversal extends GraphTraversal {
 
     }
 
-
-    private void DFStraversal(int s, boolean[] visited, Stack path) {
-        visited[s] = true;
+    private void DFStraversal(int s, Stack path) {
 
         if (graph.getEndPoints().contains(s)) {
             // TODO: might need to add identify pattern later
             if(saveToMem) validPaths.add(getPath(path));
-            pathNum++;
 
+            pathNum++;
             return;
         }
 
@@ -49,7 +41,7 @@ public class DFSGraphTraversal extends GraphTraversal {
         for (int i = graph.rowIndex[s]; i < graph.rowIndex[s + 1]; i++) {
             int edge = graph.colIndex[i];
             path.push(edge);
-            DFStraversal(edge, visited, path);
+            DFStraversal(edge, path);
             path.pop();
         }
     }

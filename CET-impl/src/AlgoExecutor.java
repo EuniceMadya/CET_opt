@@ -83,7 +83,7 @@ public class AlgoExecutor {
         while (true) {
             System.out.println("\n- Please enter the number of anchors in between:");
             numAnchor = Integer.parseInt(sc.nextLine());
-            if (numAnchor + graph.getStartPoints().size() < graph.getNumVertex()) break;
+            if (numAnchor + graph.getStartPoints().size() <= graph.getNumVertex()) break;
             System.out.println("WARNING: The number of anchor nodes is larger than the number of nodes in graph, try again.\n\n");
         }
 
