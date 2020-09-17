@@ -15,6 +15,7 @@ public class BFSGraphTraversal extends GraphTraversal {
 
     // BFS traversal
     public void traversal(int start) {
+        System.out.println("start on: " + start);
 
         ArrayQueue<Stack<Integer>> queue = new ArrayQueue<>(graph.getNumVertex());
 

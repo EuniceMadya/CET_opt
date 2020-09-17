@@ -2,12 +2,37 @@ package util;
 
 import Components.CompressedGraph;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
-public class GraphGenerator {
+class GraphGenerator {
 
-    public CompressedGraph generateGraphFromPairs(ArrayList<int[]> pairs, Timestamp[] time, int jobCount) {
+
+    CompressedGraph buildGraph(boolean[][] dag) {
+        int edgeNum = 0;
+        for(boolean[] col : dag)
+            for(boolean b: col)
+                if(b) edgeNum ++;
+
+        CompressedGraph dagGraph = new CompressedGraph(edgeNum, dag.length+1);
+        int [] colIndex = dagGraph.getColIndex();
+        int [] rowIndex = dagGraph.getRowIndex();
+        int colCounter = 0;
+        int rowCounter = 0;
+        rowIndex[rowCounter++] = 0;
+        for (boolean[] booleans : dag) {
+            for (int j = 0; j < dag.length; j++) {
+                if (booleans[j]) {
+                    colIndex[colCounter++] = j;
+                }
+            }
+            rowIndex[rowCounter++] = colCounter;
+        }
+
+        return dagGraph;
+    }
+
+
+    CompressedGraph buildGraph(ArrayList<int[]> pairs, int jobCount) {
         CompressedGraph graph = new CompressedGraph(pairs.size(), jobCount + 1);
         int colCounter = 0;
         int rowCounter = 0;
@@ -30,46 +55,9 @@ public class GraphGenerator {
             graph.getRowIndex()[rowCounter ++ ] = colCounter;
         }
         return graph;
-
     }
 
-
-    public CompressedGraph buildGraph(boolean[][] dag) {
-        return buildGraph(dag, null);
-    }
-
-    // legacy method, backup for when timestamps are needed
-    public CompressedGraph buildGraph(boolean[][] dag, Timestamp[] timestamps) {
-        int edgeNum = 0;
-        for(boolean[] col : dag)
-            for(boolean b: col)
-                if(b) edgeNum ++;
-
-        CompressedGraph dagGraph = new CompressedGraph(edgeNum, dag.length+1);
-        int [] colIndex = dagGraph.getColIndex();
-        int [] rowIndex = dagGraph.getRowIndex();
-        int colCounter = 0;
-        int rowCounter = 0;
-        rowIndex[rowCounter++] = 0;
-        for(int i = 0; i < dag.length; i ++){
-            for(int j = 0; j < dag.length; j ++){
-                if(dag[i][j]) {
-                    colIndex[colCounter++] = j;
-                }
-            }
-            rowIndex[rowCounter++] = colCounter;
-        }
-
-        return dagGraph;
-    }
-
-    public CompressedGraph buildGraph(ArrayList<int[]> dag, int jobCount) {
-        CompressedGraph graph;
-        graph = generateGraphFromPairs(dag, null, jobCount);
-        return graph;
-    }
-
-    public CompressedGraph buildGraph(ArrayList<Integer>[] dag) {
+    CompressedGraph buildGraph(ArrayList<Integer>[] dag) {
         int edgeNum = 0;
 
         for(ArrayList<Integer> list: dag)

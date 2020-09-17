@@ -101,7 +101,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
             Stack<ArrayList<ArrayList<Integer>>> currentPaths = queue.poll();
             for (ArrayList<Integer> subPath : currentPaths.peek()) {
                 Stack<ArrayList<ArrayList<Integer>>> newPathStack = new Stack<>();
-                if (anchorPaths.get(subPath.get(subPath.size() - 1)) == null) {
+                if (anchorPaths.get(subPath.get(subPath.size() - 1)) == null) { // probs could optimize here
                     if(saveToMem) validPaths.add(getPath(subPath));
                     pathNum ++;
                     continue;

@@ -11,7 +11,7 @@ public abstract class GraphTraversal {
     ArrayList<int[]> validPaths;
     public TraversalType traversalType;
     public long timeElapsed;
-    public int pathNum;
+    public long pathNum;
     boolean saveToMem;
 
 
@@ -38,8 +38,12 @@ public abstract class GraphTraversal {
     public void execute() {
         if (validPaths.size() > 0) validPaths.clear();
 
+        System.out.println("Number of start points: " + graph.getStartPoints().size());
+        int i = 1;
+
         long startTime = System.nanoTime();
         for (int start : graph.getStartPoints()) {
+            System.out.println("Execute: " + (i++));
             traversal(start);
         }
         long endTime = System.nanoTime();

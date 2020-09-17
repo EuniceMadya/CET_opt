@@ -4,7 +4,6 @@ import Components.CompressedGraph;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -125,7 +124,6 @@ class FileGraphParser {
      */
     private CompressedGraph readGridGraph(String fileName) {
         CompressedGraph graph;
-        Timestamp[] timestamps;
         boolean[][] grid = null;
         try {
             File myObj = new File(fileName);
@@ -144,13 +142,6 @@ class FileGraphParser {
                 String[] neighbours = data.split(",");
                 for (int j = 0; j < nodeNum; j++) {
                     grid[i][j] = neighbours[j].equals("1");
-                }
-            }
-
-            if (myReader.hasNextLine() && myReader.nextLine().equals("timestamp")) {
-                timestamps = new Timestamp[nodeNum];
-                for (int i = 0; i < nodeNum; i++) {
-                    timestamps[i] = Timestamp.valueOf(myReader.nextLine());
                 }
             }
             myReader.close();
