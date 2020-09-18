@@ -43,7 +43,7 @@ public abstract class GraphTraversal {
 
         long startTime = System.nanoTime();
         for (int start : graph.getStartPoints()) {
-            System.out.println("Execute: " + (i++));
+            if(graph.getNumVertex()> 5000) System.out.println("Execute: " + (i++));
             traversal(start);
         }
         long endTime = System.nanoTime();
