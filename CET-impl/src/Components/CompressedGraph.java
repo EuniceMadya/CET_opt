@@ -11,7 +11,6 @@ public class CompressedGraph{
     ArrayList<Integer> endPoints;
 
     public CompressedGraph(int colNum, int rowNum) {
-        System.out.println("colNum " + colNum);
         colIndex = new int[colNum];
         rowIndex = new int[rowNum];
         startPoints = new ArrayList<>();

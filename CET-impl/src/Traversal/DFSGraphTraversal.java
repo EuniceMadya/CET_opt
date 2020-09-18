@@ -17,8 +17,7 @@ public class DFSGraphTraversal extends GraphTraversal {
         Stack<Integer> path = new Stack<>();
 
         path.push(start);
-        System.out.println("start on: " + start);
-
+        
         // Call the recursive helper function to print DFS traversal
         if (graph.getNumDegree(start) != 0) DFStraversal(start, path);
 
