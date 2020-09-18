@@ -64,6 +64,10 @@ public class CompressedGraph{
         return rowIndex[i + 1] - rowIndex[i];
     }
 
+    public int getTotalNumEdges(){
+        return colIndex.length;
+    }
+
     public int getNumVertex() {
         return rowIndex.length - 1;
     }

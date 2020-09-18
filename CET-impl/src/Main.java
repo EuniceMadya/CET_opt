@@ -65,7 +65,7 @@ public class Main {
                 System.out.println("Desired frequency: (requires a float range from 1 to 2)");
                 graphBuilder.frequency = Double.parseDouble(sc.nextLine());
 
-                graph = graphBuilder.generateRandomGraph(numNodes );
+                graph = graphBuilder.generateRandomGraph(numNodes);
 
             } else if (input.equalsIgnoreCase("exit")) return;
             else {
@@ -83,6 +83,9 @@ public class Main {
         }
 
         System.out.println("\n\nGraph generated!\n\n");
+
+        System.out.println("Graph has total of " + graph.getTotalNumEdges() + " edges");
+
         // Create output dir
         if (!new File("OutputFiles/result/timeResults").exists())
             new File("OutputFiles/result/timeResults").mkdirs();
