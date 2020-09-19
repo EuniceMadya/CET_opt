@@ -68,7 +68,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
     }
 
-    private void DFSsubTraversal(int s, boolean[] visited, Stack curStack) {
+    private void DFSsubTraversal(int s, boolean[] visited, Stack<Integer> curStack) {
         visited[s] = true;
 
 
