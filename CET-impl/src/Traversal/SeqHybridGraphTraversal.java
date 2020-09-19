@@ -8,7 +8,7 @@ import java.util.*;
 public class SeqHybridGraphTraversal extends GraphTraversal {
 
     private List<Integer> anchorNodes;
-    private HashMap<Integer, ArrayList<ArrayList<Integer>>> anchorPaths;
+    private HashMap<Integer, ArrayList<int[]>> anchorPaths;
 
     public SeqHybridGraphTraversal(CompressedGraph graph,boolean saveToMem, ArrayList<Integer> anchorNodes) {
         super(graph, saveToMem);
@@ -72,8 +72,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
 
         if (anchorNodes.contains(s) && curStack.size() > 1 || graph.getEndPoints().contains(s)) {
-            ArrayList<Integer> listPath = new ArrayList<>(curStack);
-            anchorPaths.get(curStack.firstElement()).add(listPath);
+            anchorPaths.get(curStack.firstElement()).add(getPath(curStack));
             return;
         }
 
@@ -90,27 +89,28 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
 
     private void BFSsubConcatenate(int start) {
-        ArrayQueue<Stack<ArrayList<ArrayList<Integer>>>> queue = new ArrayQueue<>(graph.getStartPoints().size());
-        Stack<ArrayList<ArrayList<Integer>>> superPaths = new Stack<>();
+        ArrayQueue<Stack<ArrayList<int []>>> queue = new ArrayQueue<>(graph.getStartPoints().size());
+
+        Stack<ArrayList<int[]>> superPaths = new Stack<>();
 
         // Add initial paths that
         superPaths.add(anchorPaths.get(start));
         queue.offer(superPaths);
 
         while (!queue.isEmpty()) {
-            Stack<ArrayList<ArrayList<Integer>>> currentPaths = queue.poll();
-            for (ArrayList<Integer> subPath : currentPaths.peek()) {
-                Stack<ArrayList<ArrayList<Integer>>> newPathStack = new Stack<>();
-                if (anchorPaths.get(subPath.get(subPath.size() - 1)) == null) { // probs could optimize here
-                    if(saveToMem) validPaths.add(getPath(subPath));
+            Stack<ArrayList<int[]>> currentPaths = queue.poll();
+            for (int[] subPath : currentPaths.peek()) {
+                Stack<ArrayList<int[]>> newPathStack = new Stack<>();
+                if (anchorPaths.get(subPath[subPath.length - 1]) == null) { // probs could optimize here
+                    if(saveToMem) validPaths.add(subPath);
                     pathNum ++;
                     continue;
                 }
-                ArrayList<ArrayList<Integer>> combo = new ArrayList<>();
-                for (List<Integer> nextList : anchorPaths.get(subPath.get(subPath.size() - 1))) {
-                    ArrayList<Integer> newPath = new ArrayList<>(subPath);
-                    newPath.remove(newPath.size() - 1);
-                    newPath.addAll(nextList);
+                ArrayList<int[]> combo = new ArrayList<>();
+                for (int[] nextList : anchorPaths.get(subPath[subPath.length - 1])){
+                    int[] newPath = new int[subPath.length - 1 + nextList.length];
+                    System.arraycopy(subPath,0,newPath, 0, subPath.length - 1);
+                    System.arraycopy(nextList, 0, newPath, subPath.length - 1, nextList.length);
                     combo.add(newPath);
                 }
                 newPathStack.push(combo);

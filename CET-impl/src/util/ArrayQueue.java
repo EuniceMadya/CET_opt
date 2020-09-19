@@ -20,6 +20,7 @@ public class ArrayQueue<E> {
      * @param startSize initial capacity
      */
     public ArrayQueue(int startSize) {
+        if(startSize == 1) startSize = 2;
         this.queue = new Object[startSize];
         this.size = 0;
         this.startPos = 0;
