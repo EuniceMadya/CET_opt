@@ -35,7 +35,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
         initMap();
         long startTime = System.nanoTime();
         for (int start : anchorNodes) {
-            if(graph.getNumVertex() > 500)
+            if(graph.getNumVertex() > 5000)
                 System.out.println("start on: " + start +
                         " with degree " + graph.getNumDegree(start));
 
