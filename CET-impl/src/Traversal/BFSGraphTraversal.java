@@ -23,7 +23,7 @@ public class BFSGraphTraversal extends GraphTraversal {
         path.add(start);
 
         queue.offer(path);
-        if(graph.rowIndex[start + 1] - graph.rowIndex[start] == 0) {
+        if(graph.getNumDegree(start) == 0) {
             validPaths.add(getPath(path));
             pathNum ++;
             return;

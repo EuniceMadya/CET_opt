@@ -71,5 +71,4 @@ public class CompressedGraph{
     public int getNumVertex() {
         return rowIndex.length - 1;
     }
-
 }

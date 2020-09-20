@@ -4,13 +4,14 @@ import Components.CompressedGraph;
 import util.ArrayQueue;
 
 import java.util.*;
+import java.util.stream.IntStream;
 
 public class SeqHybridGraphTraversal extends GraphTraversal {
 
-    private List<Integer> anchorNodes;
+    private int[] anchorNodes;
     private HashMap<Integer, ArrayList<int[]>> anchorPaths;
 
-    public SeqHybridGraphTraversal(CompressedGraph graph,boolean saveToMem, ArrayList<Integer> anchorNodes) {
+    public SeqHybridGraphTraversal(CompressedGraph graph,boolean saveToMem, int[] anchorNodes) {
         super(graph, saveToMem);
         this.traversalType = TraversalType.SeqHybrid;
         this.anchorNodes = anchorNodes;
@@ -45,7 +46,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
     public void saveResults() {
         String fileName = String.format("%s-anchor%d",
                 traversalType.toString(),
-                anchorNodes.size() - graph.getStartPoints().size());
+                anchorNodes.length - graph.getStartPoints().size());
         saveResults(fileName);
     }
 
@@ -72,7 +73,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
         visited[s] = true;
 
 
-        if (anchorNodes.contains(s) && curStack.size() > 1 || graph.getEndPoints().contains(s)) {
+        if (IntStream.of(anchorNodes).anyMatch(x -> x == s) && curStack.size() > 1 || graph.getEndPoints().contains(s)) {
             anchorPaths.get(curStack.firstElement()).add(getPath(curStack));
             return;
         }

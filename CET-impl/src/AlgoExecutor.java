@@ -1,11 +1,11 @@
-import Components.*;
+import Components.CompressedGraph;
 import Traversal.*;
 import util.AnchorProcessor;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -89,9 +89,16 @@ public class AlgoExecutor {
 
 
         AnchorProcessor anchorProcessor = new AnchorProcessor();
-        ArrayList<Integer> anchor = anchorProcessor.findAnchors(graph, selection, numAnchor);
+        int[] anchor = anchorProcessor.findAnchors(graph, selection, numAnchor);
 
-        System.out.println("Anchor nodes: " + anchor);
+        System.out.println("Anchor nodes: " + Arrays.toString(anchor) + "\n" +
+                "Anchors in between show as following:\n");
+
+        for(int i = graph.getStartPoints().size(); i < anchor.length; i ++){
+            System.out.print(String.format("[%d, %d] ", anchor[i], graph.getNumDegree(anchor[i])));
+        }
+        System.out.println("\n");
+
 
 //        traversalAlgos.add(new SeqHybridGraphTraversal(graph, null, anchor));
         algo = new SeqHybridGraphTraversal(graph, savePathInMem, anchor);
