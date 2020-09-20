@@ -45,7 +45,7 @@ public abstract class GraphTraversal {
         for (int start : graph.getStartPoints()) {
             if(graph.getNumVertex()> 5000){
                 System.out.println("Execute: " + (i++));
-                System.out.println("start on: " + start);
+                System.out.println("start on: " + start + " with degree " + graph.getNumDegree(start));
 
             }
 

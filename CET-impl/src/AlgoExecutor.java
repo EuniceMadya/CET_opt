@@ -111,7 +111,7 @@ public class AlgoExecutor {
             algo.execute();
             average += algo.timeElapsed;
             runTimes[i] = algo.timeElapsed;
-            System.out.println("run: " + runTimes[i]);
+            System.out.println("run: " + runTimes[i] );
             System.gc();
         }
 
