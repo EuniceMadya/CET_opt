@@ -3,7 +3,10 @@ package Traversal;
 import Components.CompressedGraph;
 import util.ArrayQueue;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Stack;
 import java.util.stream.IntStream;
 
 public class SeqHybridGraphTraversal extends GraphTraversal {
@@ -11,7 +14,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
     private int[] anchorNodes;
     private HashMap<Integer, ArrayList<int[]>> anchorPaths;
 
-    public SeqHybridGraphTraversal(CompressedGraph graph,boolean saveToMem, int[] anchorNodes) {
+    public SeqHybridGraphTraversal(CompressedGraph graph, boolean saveToMem, int[] anchorNodes) {
         super(graph, saveToMem);
         this.traversalType = TraversalType.SeqHybrid;
         this.anchorNodes = anchorNodes;
@@ -22,6 +25,10 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
         for (Integer anchorNode : anchorNodes) {
             anchorPaths.put(anchorNode, new ArrayList<>());
         }
+    }
+
+    public void setAnchorNodes(int[] anchorNodes) {
+        this.anchorNodes = anchorNodes;
     }
 
     @Override
@@ -35,7 +42,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
         initMap();
         long startTime = System.nanoTime();
         for (int start : anchorNodes) {
-            if(graph.getNumVertex() > 5000)
+            if (graph.getNumVertex() > 5000)
                 System.out.println("start on: " + start +
                         " with degree " + graph.getNumDegree(start));
 
@@ -67,10 +74,10 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
         stack.push(start);
         if (graph.getNumDegree(start) != 0)
             DFSsubTraversal(start, visited, stack);
-        // if it is a start point and has no neighbours
+            // if it is a start point and has no neighbours
         else if (graph.getStartPoints().contains(start)) {
-            if(saveToMem) validPaths.add(getPath(stack));
-            pathNum ++ ;
+            if (saveToMem) validPaths.add(getPath(stack));
+            pathNum++;
         }
 
         // And then call BFS to copy & compute
@@ -99,7 +106,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
 
     private void BFSsubConcatenate(int start) {
-        ArrayQueue<Stack<ArrayList<int []>>> queue = new ArrayQueue<>(graph.getStartPoints().size());
+        ArrayQueue<Stack<ArrayList<int[]>>> queue = new ArrayQueue<>(graph.getStartPoints().size());
 
         Stack<ArrayList<int[]>> superPaths = new Stack<>();
 
@@ -112,14 +119,14 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
             for (int[] subPath : currentPaths.peek()) {
                 Stack<ArrayList<int[]>> newPathStack = new Stack<>();
                 if (anchorPaths.get(subPath[subPath.length - 1]) == null) { // probs could optimize here
-                    if(saveToMem) validPaths.add(subPath);
-                    pathNum ++;
+                    if (saveToMem) validPaths.add(subPath);
+                    pathNum++;
                     continue;
                 }
                 ArrayList<int[]> combo = new ArrayList<>();
-                for (int[] nextList : anchorPaths.get(subPath[subPath.length - 1])){
+                for (int[] nextList : anchorPaths.get(subPath[subPath.length - 1])) {
                     int[] newPath = new int[subPath.length - 1 + nextList.length];
-                    System.arraycopy(subPath,0,newPath, 0, subPath.length - 1);
+                    System.arraycopy(subPath, 0, newPath, 0, subPath.length - 1);
                     System.arraycopy(nextList, 0, newPath, subPath.length - 1, nextList.length);
                     combo.add(newPath);
                 }
