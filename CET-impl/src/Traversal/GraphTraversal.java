@@ -15,7 +15,7 @@ public abstract class GraphTraversal {
     boolean saveToMem;
 
 
-    public GraphTraversal(CompressedGraph graph, boolean saveToMem){
+    public GraphTraversal(CompressedGraph graph, boolean saveToMem) {
         this.graph = graph;
         this.saveToMem = saveToMem;
         this.validPaths = new ArrayList<>();
@@ -23,7 +23,7 @@ public abstract class GraphTraversal {
         pathNum = 0;
     }
 
-    public GraphTraversal(CompressedGraph graph ) {
+    public GraphTraversal(CompressedGraph graph) {
         this(graph, true);
     }
 
@@ -31,6 +31,10 @@ public abstract class GraphTraversal {
     public boolean identifyPattern(ArrayList<Integer> path) {
         return path != null;
 
+    }
+
+    public CompressedGraph getGraph(){
+        return graph;
     }
 
     public abstract void traversal(int i);
@@ -43,7 +47,7 @@ public abstract class GraphTraversal {
 
         long startTime = System.nanoTime();
         for (int start : graph.getStartPoints()) {
-            if(graph.getNumVertex()> 5000){
+            if (graph.getNumVertex() > 5000) {
                 System.out.println("Execute: " + (i++));
                 System.out.println("start on: " + start + " with degree " + graph.getNumDegree(start));
 
@@ -61,7 +65,7 @@ public abstract class GraphTraversal {
         saveResults(traversalType.toString());
     }
 
-     void saveResults(String algo) {
+    void saveResults(String algo) {
         System.out.println("Write to file...");
         System.out.println(validPaths.size() + " paths to be written.");
 
@@ -74,7 +78,7 @@ public abstract class GraphTraversal {
             outputFile.createNewFile();
             FileWriter fileWriter = new FileWriter(outputFile);
             for (int[] singlePath : validPaths) {
-                if(maxLength < singlePath.length) maxLength = singlePath.length;
+                if (maxLength < singlePath.length) maxLength = singlePath.length;
                 fileWriter.write("(" + singlePath.length + ")");
                 fileWriter.write(Arrays.toString(singlePath) + "\n");
             }
@@ -85,32 +89,30 @@ public abstract class GraphTraversal {
         }
     }
 
-    int[] getPath(Stack stack){
+    int[] getPath(Stack stack) {
         Enumeration enumeration = stack.elements();
-        int [] path = new int [stack.size()];
+        int[] path = new int[stack.size()];
         int counter = 0;
-        while(enumeration.hasMoreElements()){
-            path[counter ++] = (int)enumeration.nextElement();
+        while (enumeration.hasMoreElements()) {
+            path[counter++] = (int) enumeration.nextElement();
         }
         return path;
     }
 
-    public void printPaths(){
+    public void printPaths() {
         for (int[] singlePath : validPaths) {
             System.out.println(traversalType.toString() + ": " + Arrays.toString(singlePath));
         }
     }
 
-    int[] getPath(ArrayList<Integer> pathList){
-        int [] path = new int [pathList.size()];
+    int[] getPath(ArrayList<Integer> pathList) {
+        int[] path = new int[pathList.size()];
 
-        for(int i = 0; i < pathList.size(); i ++){
+        for (int i = 0; i < pathList.size(); i++) {
             path[i] = pathList.get(i);
         }
         return path;
     }
-
-
 
 
 }

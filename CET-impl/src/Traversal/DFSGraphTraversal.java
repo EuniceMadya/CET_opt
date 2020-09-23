@@ -6,7 +6,7 @@ import java.util.Stack;
 
 public class DFSGraphTraversal extends GraphTraversal {
 
-    public DFSGraphTraversal(CompressedGraph graph, boolean saveToMem){
+    public DFSGraphTraversal(CompressedGraph graph, boolean saveToMem) {
         super(graph, saveToMem);
         traversalType = TraversalType.DFS;
 
@@ -21,9 +21,8 @@ public class DFSGraphTraversal extends GraphTraversal {
         // Call the recursive helper function to print DFS traversal
         if (graph.getNumDegree(start) != 0) DFStraversal(start, path);
 
-        //TODO: remember to un-comment this
-        else
-            if(saveToMem) validPaths.add(getPath(path));
+            //TODO: remember to un-comment this
+        else if (saveToMem) validPaths.add(getPath(path));
 
     }
 
@@ -31,7 +30,7 @@ public class DFSGraphTraversal extends GraphTraversal {
 
         if (graph.getEndPoints().contains(s)) {
             // TODO: might need to add identify pattern later
-            if(saveToMem) validPaths.add(getPath(path));
+            if (saveToMem) validPaths.add(getPath(path));
 
             pathNum++;
             return;

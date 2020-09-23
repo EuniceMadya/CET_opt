@@ -7,7 +7,7 @@ import java.util.Stack;
 
 public class BFSGraphTraversal extends GraphTraversal {
 
-    public BFSGraphTraversal(CompressedGraph graph, boolean saveToMem){
+    public BFSGraphTraversal(CompressedGraph graph, boolean saveToMem) {
         super(graph, saveToMem);
         traversalType = TraversalType.BFS;
     }
@@ -23,9 +23,9 @@ public class BFSGraphTraversal extends GraphTraversal {
         path.add(start);
 
         queue.offer(path);
-        if(graph.getNumDegree(start) == 0) {
+        if (graph.getNumDegree(start) == 0) {
             validPaths.add(getPath(path));
-            pathNum ++;
+            pathNum++;
             return;
         }
         while (!queue.isEmpty()) {
@@ -39,8 +39,8 @@ public class BFSGraphTraversal extends GraphTraversal {
                 newStack.addAll(currentPath);
                 newStack.push(neighbour);
                 if (graph.getNumDegree(neighbour) == 0) {
-                    if(saveToMem) validPaths.add(getPath(newStack));
-                    pathNum ++;
+                    if (saveToMem) validPaths.add(getPath(newStack));
+                    pathNum++;
                 } else queue.offer(newStack);
             }
         }

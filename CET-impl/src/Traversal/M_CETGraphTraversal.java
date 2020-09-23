@@ -7,7 +7,7 @@ import java.util.Stack;
 
 public class M_CETGraphTraversal extends GraphTraversal {
 
-    public M_CETGraphTraversal(CompressedGraph graph, boolean saveToMem){
+    public M_CETGraphTraversal(CompressedGraph graph, boolean saveToMem) {
         super(graph, saveToMem);
         traversalType = TraversalType.M_CET;
 
@@ -28,7 +28,7 @@ public class M_CETGraphTraversal extends GraphTraversal {
                 int node = iter.next();
                 resultPath.push(node);
             }
-            if(saveToMem) validPaths.add(getPath(resultPath));
+            if (saveToMem) validPaths.add(getPath(resultPath));
             currentSeq.clear();
         } else {
             for (int i = graph.rowIndex[curNode]; i < graph.rowIndex[curNode + 1]; i++) {

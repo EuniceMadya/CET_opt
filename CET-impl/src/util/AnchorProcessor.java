@@ -11,7 +11,7 @@ public class AnchorProcessor {
         System.out.println("  - Find anchor points for this graph...");
 
         if (type.equalsIgnoreCase("random")) return findRandomAnchors(graph, anchorNum);
-        if (type.equalsIgnoreCase("degrees")) return findLargestDegreeAnchors(graph, anchorNum);
+        if (type.equalsIgnoreCase("largest")) return findLargestDegreeAnchors(graph, anchorNum);
 
         System.out.println("WARNING: Anchor Type unknown!");
         return null;
