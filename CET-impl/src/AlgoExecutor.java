@@ -76,7 +76,7 @@ class AlgoExecutor {
         System.out.println(" \n" +
                 "- As you selected hybrid type, \n" +
                 "- please specify the anchor nodes selection strategy:\n" +
-                "-   1. Random\n" +
+                "-   1. Random selection\n" +
                 "-   2. Largest degree nodes\n" +
                 "-   3. Equally distributed nodes");
         Scanner sc = new Scanner(System.in);
@@ -148,6 +148,7 @@ class AlgoExecutor {
             System.out.println("run: " + runTimes[i] );
             System.gc();
         }
+        System.out.println("\n\nAverage execution time in nanoseconds: " + average / numRun + "\n");
     }
 
      void writeTimeResult(int nodeNum) {
@@ -166,7 +167,7 @@ class AlgoExecutor {
             }
             fw.write("\n\nAverage execution time in nanoseconds: " + average / numRun + "\n");
             fw.close();
-            System.out.println("\n\nAverage execution time in nanoseconds: " + average / numRun + "\n");
+
         } catch (IOException e) {
             e.printStackTrace();
         }
