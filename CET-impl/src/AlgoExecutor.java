@@ -142,9 +142,10 @@ class AlgoExecutor {
     }
 
     private void runOneAlgo(){
+        average = 0;
         for (int i = 0; i < numRun; i++) {
             algo.execute();
-            average = 0;
+
             average += algo.timeElapsed;
             runTimes[i] = algo.timeElapsed;
             System.out.println("run: " + runTimes[i] );
