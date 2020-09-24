@@ -152,13 +152,14 @@ class AlgoExecutor {
             System.gc();
         }
         System.out.println("\n\nAverage execution time in nanoseconds: " + average / numRun + "\n");
+        writeTimeResult(algo.getGraph().getNumVertex());
     }
 
      void writeTimeResult(int nodeNum) {
         File file = new File("OutputFiles/result/timeResults/" + "graph-" + nodeNum + "-" + algo.traversalType + "-" + new Date().toString() + ".txt");
 
         try {
-            file.createNewFile();
+            if(! file.createNewFile() ) return;
             FileWriter fw = new FileWriter(file);
             fw.write("Running: " + algo.getClass().getName());
             for (int i = 0; i < runTimes.length; i++) {

@@ -150,7 +150,7 @@ public class Main {
         }else
             System.out.println("Warning: No results saved.\n");
 
-        executor.writeTimeResult(graph.getNumVertex());
+
 
 
     }
