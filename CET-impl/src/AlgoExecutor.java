@@ -5,7 +5,6 @@ import util.AnchorProcessor;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Date;
 import java.util.Scanner;
 
 class AlgoExecutor {
@@ -156,7 +155,7 @@ class AlgoExecutor {
     }
 
      void writeTimeResult(int nodeNum) {
-        File file = new File("OutputFiles/result/timeResults/" + "graph-" + nodeNum + "-" + algo.traversalType + "-" + new Date().toString() + ".txt");
+        File file = new File("OutputFiles/result/timeResults/" + "graph-" + nodeNum + "-" + algo.traversalType + ".txt");
 
         try {
             if(! file.createNewFile() ) return;
