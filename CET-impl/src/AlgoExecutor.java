@@ -128,7 +128,8 @@ class AlgoExecutor {
                     ((SeqHybridGraphTraversal)algo).setAnchorNodes(
                             findAnchor(algo.getGraph(),selection, i));
                     runOneAlgo();
-                    System.out.println("-- Anchor nodes " + i + " finished;");
+                    System.out.println("-- Anchor nodes " + i + " finished!\n\n\n" +
+                            "                                 --------\n");
                 }
                 return;
             }
@@ -143,6 +144,7 @@ class AlgoExecutor {
     private void runOneAlgo(){
         for (int i = 0; i < numRun; i++) {
             algo.execute();
+            average = 0;
             average += algo.timeElapsed;
             runTimes[i] = algo.timeElapsed;
             System.out.println("run: " + runTimes[i] );
