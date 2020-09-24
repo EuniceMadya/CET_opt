@@ -134,7 +134,8 @@ public class GraphBuilder {
 
 
     private void saveToFile(String string, int num) {
-        String fileName = type.toString().replace("GraphType.", "") +num + "-f" + frequency + ".txt";
+        String fileName = type.toString().replace(
+                "GraphType.", "") +num + "-f" + frequency + ".txt";
 
         File file = new File(fileName);
 

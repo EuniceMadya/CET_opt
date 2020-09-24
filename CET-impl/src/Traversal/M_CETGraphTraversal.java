@@ -2,7 +2,6 @@ package Traversal;
 
 import Components.CompressedGraph;
 
-import java.util.Iterator;
 import java.util.Stack;
 
 public class M_CETGraphTraversal extends GraphTraversal {
@@ -15,7 +14,7 @@ public class M_CETGraphTraversal extends GraphTraversal {
 
     @Override
     public void traversal(int i) {
-        traversal(i, new Stack<Integer>());
+        traversal(i, new Stack<>());
     }
 
     private void traversal(int curNode, Stack<Integer> currentSeq) {
@@ -23,9 +22,7 @@ public class M_CETGraphTraversal extends GraphTraversal {
 
         if (graph.getEndPoints().contains(curNode)) {
             Stack<Integer> resultPath = new Stack<>();
-            Iterator<Integer> iter = currentSeq.iterator();
-            while (iter.hasNext()) {
-                int node = iter.next();
+            for (int node : currentSeq) {
                 resultPath.push(node);
             }
             if (saveToMem) validPaths.add(getPath(resultPath));

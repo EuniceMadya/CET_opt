@@ -7,17 +7,24 @@ import java.util.stream.IntStream;
 
 public class AnchorProcessor {
 
-    public int[] findAnchors(CompressedGraph graph, String type, int anchorNum) {
+    private CompressedGraph graph;
+
+    public AnchorProcessor(CompressedGraph graph){
+        this.graph = graph;
+    }
+
+    public int[] findAnchors(String type, int anchorNum) {
         System.out.println("  - Find anchor points for this graph...");
 
-        if (type.equalsIgnoreCase("random")) return findRandomAnchors(graph, anchorNum);
-        if (type.equalsIgnoreCase("largest")) return findLargestDegreeAnchors(graph, anchorNum);
+        if (type.equalsIgnoreCase("random")) return findRandomAnchors(anchorNum);
+        if (type.equalsIgnoreCase("largest")) return findLargestDegreeAnchors( anchorNum);
+        if (type.equalsIgnoreCase("distro")) return findEquallyDistributedAnchors(anchorNum);
 
         System.out.println("WARNING: Anchor Type unknown!");
         return null;
     }
 
-    private int[] findRandomAnchors(CompressedGraph graph, int anchorNum) {
+    private int[] findRandomAnchors(int anchorNum) {
         int[] anchorList = new int[graph.getStartPoints().size() + anchorNum];
 
         for(int i = 0; i < graph.getStartPoints().size(); i ++) anchorList[i] = graph.getStartPoints().get(i);
@@ -35,7 +42,7 @@ public class AnchorProcessor {
         return anchorList;
     }
 
-    private int[] findLargestDegreeAnchors(CompressedGraph graph, int anchorNum) {
+    private int[] findLargestDegreeAnchors(int anchorNum) {
         int[] anchorList = new int[graph.getStartPoints().size() + anchorNum];
 
         for(int i = 0; i < graph.getStartPoints().size(); i ++) anchorList[i] = graph.getStartPoints().get(i);
@@ -82,4 +89,60 @@ public class AnchorProcessor {
         }
         return temp;
     }
+
+    private int[] findEquallyDistributedAnchors(int anchorNum){
+        Stack <Integer> topStack = new Stack<>();
+        boolean [] visited = new boolean[graph.getNumVertex()];
+        Arrays.fill(visited, false);
+
+        for (int i: graph.getStartPoints()){
+            if (!visited[i])
+                topologicalSort(i, visited, topStack);
+        }
+        ArrayList<Integer> results = new ArrayList<>(graph.getStartPoints());
+
+        // Customized topological order of the graph
+        // with all start points at the front
+        while(!topStack.empty()){
+            int r = topStack.pop();
+            if(!results.contains(r))
+                results.add(r);
+        }
+
+
+        int[] anchorList = new int [graph.getStartPoints().size() + anchorNum];
+
+        for(int i = 0; i < graph.getStartPoints().size(); i ++) anchorList[i] = graph.getStartPoints().get(i);
+
+        // limit the number of anchor if it's too many
+        if((graph.getNumVertex() - graph.getStartPoints().size() + 1 ) / (anchorNum + 1) < 2) {
+            System.out.println("Anchor num too large! Reducing to "+ (graph.getNumVertex() - graph.getStartPoints().size() + 1 )/2);
+            anchorNum = (graph.getNumVertex() - graph.getStartPoints().size() + 1 )/2 - 1;
+        }
+
+        int spacing = (graph.getNumVertex() - graph.getStartPoints().size()) / anchorNum;
+
+        for(int i = 0; i < anchorNum; i ++){
+            anchorList[i + graph.getStartPoints().size()] = results.get((i + 1) *spacing);
+        }
+
+        return anchorList;
+    }
+
+    // reference from https://www.geeksforgeeks.org/topological-sorting/
+    private void topologicalSort(int s, boolean [] visited, Stack<Integer> stack){
+
+        visited[s] = true;
+
+        for (int i = graph.rowIndex[s]; i < graph.rowIndex[s+ 1]; i++) {
+            int neighbour = graph.colIndex[i];
+            if (!visited[neighbour])
+                topologicalSort(neighbour, visited, stack);
+        }
+
+        stack.push(s);
+
+    }
+
+
 }

@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Scanner;
 
-public class AlgoExecutor {
+class AlgoExecutor {
 
 
     private GraphTraversal algo;
@@ -17,8 +17,11 @@ public class AlgoExecutor {
     private long[] runTimes;
     private boolean savePathInMem;
 
+    // only when choosing sequential
+    private String selection;
 
-    public AlgoExecutor(int numRun) {
+
+    AlgoExecutor(int numRun) {
         this.numRun = numRun;
         average = 0;
         runTimes = new long[numRun];
@@ -73,10 +76,12 @@ public class AlgoExecutor {
         System.out.println(" \n" +
                 "- As you selected hybrid type, \n" +
                 "- please specify the anchor nodes selection strategy:\n" +
-                "-   1. Random" +
-                "    2. Largest degree nodes");
+                "-   1. Random\n" +
+                "-   2. Largest degree nodes\n" +
+                "-   3. Equally distributed nodes");
         Scanner sc = new Scanner(System.in);
-        String selection = sc.nextLine().equals("1") ? "random" : "degrees";
+        String input = sc.nextLine();
+        selection = input.equals("1") ? "random" : input.equals("2")? "largest" : "distro";
         int numAnchor;
 
         while (true) {
@@ -89,8 +94,8 @@ public class AlgoExecutor {
     }
 
     private int[] findAnchor(CompressedGraph graph, String selection, int numAnchor){
-        AnchorProcessor anchorProcessor = new AnchorProcessor();
-        int[] anchor = anchorProcessor.findAnchors(graph, selection, numAnchor);
+        AnchorProcessor anchorProcessor = new AnchorProcessor(graph);
+        int[] anchor = anchorProcessor.findAnchors(selection, numAnchor);
 
         System.out.println("Starting nodes: \n");
 
@@ -113,16 +118,15 @@ public class AlgoExecutor {
     void runAlgo() {
         System.out.println("Algorithm to execute: " + algo.getClass().getName());
 
-        if(algo.traversalType.equals(TraversalType.SeqHybrid)){
-            System.out.println("Do you want to run range of anchor node num?(y/n)\n" +
-                    "(Only largest N nodes as anchor available.)");
+        if(algo.traversalType.equals(TraversalType.SeqHybrid) && algo.getGraph().getNumVertex() > 100){
+            System.out.println("Do you want to run range of anchor node num?(y/n)\n");
             if(new Scanner(System.in).nextLine().equals("y")){
                 for(int i = 5; i < algo.getGraph().getNumVertex() -
                         algo.getGraph().getStartPoints().size() -
                         algo.getGraph().getEndPoints().size();
                     i += 5){
                     ((SeqHybridGraphTraversal)algo).setAnchorNodes(
-                            findAnchor(algo.getGraph(),"degrees", i));
+                            findAnchor(algo.getGraph(),selection, i));
                     runOneAlgo();
                     System.out.println("-- Anchor nodes " + i + " finished;");
                 }
@@ -168,15 +172,15 @@ public class AlgoExecutor {
         }
     }
 
-    public boolean isSavePathInMem(){
+     boolean isSavePathInMem(){
         return savePathInMem;
     }
 
-    public void savePathsResult() {
+     void savePathsResult() {
         algo.saveResults();
     }
 
-    public void printPaths(){
+     void printPaths(){
         algo.printPaths();
     }
 

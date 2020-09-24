@@ -11,7 +11,7 @@ class FileGraphParser {
     // graph are read from a text file, with the format of adjacency matrix representation
 
 
-    public CompressedGraph readGraph(String fileName) {
+     CompressedGraph readGraph(String fileName) {
         File myObj = new File(fileName);
         Scanner myReader = null;
         try {
@@ -19,7 +19,10 @@ class FileGraphParser {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
+        assert myReader != null;
         String type = myReader.nextLine();
+
         myReader.close();
 
         if (type.contains("Pair")) return readCompressedPairGraph(fileName);
@@ -197,6 +200,8 @@ class FileGraphParser {
             e.printStackTrace();
         }
         GraphGenerator graphGenerator = new GraphGenerator();
+
+        assert lists != null;
         graph = graphGenerator.buildGraph(lists);
 
         return graph;

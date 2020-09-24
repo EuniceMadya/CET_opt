@@ -15,7 +15,7 @@ public abstract class GraphTraversal {
     boolean saveToMem;
 
 
-    public GraphTraversal(CompressedGraph graph, boolean saveToMem) {
+     GraphTraversal(CompressedGraph graph, boolean saveToMem) {
         this.graph = graph;
         this.saveToMem = saveToMem;
         this.validPaths = new ArrayList<>();
@@ -50,7 +50,6 @@ public abstract class GraphTraversal {
             if (graph.getNumVertex() > 5000) {
                 System.out.println("Execute: " + (i++));
                 System.out.println("start on: " + start + " with degree " + graph.getNumDegree(start));
-
             }
 
             traversal(start);
