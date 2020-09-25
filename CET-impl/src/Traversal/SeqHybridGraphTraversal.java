@@ -10,7 +10,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
     private int[] anchorNodes;
     private boolean[] isAnchor;
-    private HashMap<Integer, Stack<int[]>> anchorPaths;
+    private HashMap<Integer, ArrayList<int[]>> anchorPaths;
 
     public SeqHybridGraphTraversal(CompressedGraph graph, boolean saveToMem, int[] anchorNodes) {
         super(graph, saveToMem);
@@ -90,7 +90,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
     private void DFSsubTraversal(int s, Stack<Integer> curStack) {
 
         if (isAnchor[s] && curStack.size() > 1 || graph.endContains(s)) {
-            anchorPaths.get(curStack.firstElement()).push(getPath(curStack));
+            anchorPaths.get(curStack.firstElement()).add(getPath(curStack));
             return;
         }
 
@@ -107,12 +107,12 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
 
     private void BFSsubConcatenate(int start) {
-        ArrayQueue<Stack<int[]>> queue = new ArrayQueue<>(graph.getStartPointNum());
+        ArrayQueue<ArrayList<int[]>> queue = new ArrayQueue<>(graph.getStartPointNum());
 
         queue.offer(anchorPaths.get(start));
 
         while (!queue.isEmpty()) {
-            Stack<int[]> currentPaths = queue.poll();
+            ArrayList<int[]> currentPaths = queue.poll();
             for (int[] subPath : currentPaths) {
                 if (graph.endContains(subPath[subPath.length - 1])) { // probs could optimize here
                     if (saveToMem) validPaths.add(subPath);
@@ -120,7 +120,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
                     continue;
                 }
 
-                Stack<int[]> combo = new Stack<>();
+                ArrayList<int[]> combo = new ArrayList<>();
                 for (int[] nextList : anchorPaths.get(subPath[subPath.length - 1])) {
 
                     int[] newPath = new int[subPath.length - 1 + nextList.length];
