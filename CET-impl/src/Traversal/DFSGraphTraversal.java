@@ -21,7 +21,6 @@ public class DFSGraphTraversal extends GraphTraversal {
         // Call the recursive helper function to print DFS traversal
         if (graph.getNumDegree(start) != 0) DFStraversal(start, path);
 
-            //TODO: remember to un-comment this
         else if (saveToMem) validPaths.add(getPath(path));
 
     }
@@ -29,7 +28,6 @@ public class DFSGraphTraversal extends GraphTraversal {
     private void DFStraversal(int s, Stack path) {
 
         if (graph.getEndPoints().contains(s)) {
-            // TODO: might need to add identify pattern later
             if (saveToMem) validPaths.add(getPath(path));
 
             pathNum++;

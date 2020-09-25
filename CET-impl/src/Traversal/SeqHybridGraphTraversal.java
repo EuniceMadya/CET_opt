@@ -4,7 +4,6 @@ import Components.CompressedGraph;
 import util.ArrayQueue;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Stack;
 import java.util.stream.IntStream;
@@ -42,10 +41,9 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
         initMap();
         long startTime = System.nanoTime();
         for (int start : anchorNodes) {
-            if (graph.getNumVertex() > 5000)
+            if (graph.getNumVertex() > 500)
                 System.out.println("start on: " + start +
                         " with degree " + graph.getNumDegree(start));
-
             traversal(start);
         }
         System.out.println("finished DFS sub traversal!");
@@ -67,13 +65,10 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
     @Override
     public void traversal(int start) {
-        boolean[] visited = new boolean[graph.getNumVertex()];
-        Arrays.fill(visited, false);
 
         Stack<Integer> stack = new Stack<>();
         stack.push(start);
-        if (graph.getNumDegree(start) != 0)
-            DFSsubTraversal(start, visited, stack);
+        if (graph.getNumDegree(start) != 0) DFSsubTraversal(start, stack);
             // if it is a start point and has no neighbours
         else if (graph.getStartPoints().contains(start)) {
             if (saveToMem) validPaths.add(getPath(stack));
@@ -84,9 +79,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
     }
 
-    private void DFSsubTraversal(int s, boolean[] visited, Stack<Integer> curStack) {
-        visited[s] = true;
-
+    private void DFSsubTraversal(int s, Stack<Integer> curStack) {
 
         if (IntStream.of(anchorNodes).anyMatch(x -> x == s) && curStack.size() > 1 || graph.getEndPoints().contains(s)) {
             anchorPaths.get(curStack.firstElement()).add(getPath(curStack));
@@ -97,9 +90,9 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
         if (graph.getRowIndex()[s + 1] - graph.getRowIndex()[s] == 0) return;
 
         for (int i = graph.rowIndex[s]; i < graph.rowIndex[s + 1]; i++) {
-            int edge = graph.getColIndex()[i];
+            int edge = graph.colIndex[i];
             curStack.push(edge);
-            DFSsubTraversal(edge, visited, curStack);
+            DFSsubTraversal(edge, curStack);
             curStack.pop();
         }
     }
