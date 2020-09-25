@@ -105,7 +105,7 @@ public abstract class GraphTraversal {
         }
     }
 
-    int[] getPath(List<Integer> pathList) {
+    int[] getPath(LinkedList<Integer> pathList) {
         int[] path = new int[pathList.size()];
 
         for (int i = 0; i < pathList.size(); i++) {
