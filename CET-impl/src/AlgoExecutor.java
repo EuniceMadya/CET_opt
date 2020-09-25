@@ -18,7 +18,7 @@ class AlgoExecutor {
     private boolean savePathInMem;
 
     // only when choosing sequential
-    private String selection;
+    private String selection = "";
 
 
     AlgoExecutor(int numRun) {
@@ -116,7 +116,10 @@ class AlgoExecutor {
 
     void runAlgo() {
         System.out.println("Algorithm to execute: " + algo.getClass().getName());
-        String fileName = "OutputFiles/result/timeResults/" + "graph-" + algo.getGraph().getNumVertex() + "-" +algo.traversalType + "-" + new Date().toString() + ".txt";
+        String fileName = "OutputFiles/result/timeResults/" + "graph-" +
+                algo.getGraph().getNumVertex() + "-" +
+                algo.traversalType +
+                new Date().toString() + selection + ".txt";
 
         if(algo.traversalType.equals(TraversalType.SeqHybrid) && algo.getGraph().getNumVertex() > 100){
             System.out.println("Do you want to run range of anchor node num?(y/n)\n");
@@ -163,7 +166,7 @@ class AlgoExecutor {
 
         try {
             if(! file.exists()) if(!file.createNewFile() ) return;
-            
+
             FileWriter fw = new FileWriter(file, true);
             fw.write("Running: " + algo.getClass().getName());
             for (int i = 0; i < runTimes.length; i++) {
@@ -173,7 +176,7 @@ class AlgoExecutor {
                     System.out.println("Number of paths: "+ algo.pathNum);
                 }
             }
-            fw.write("\n\nAverage execution time in nanoseconds: " + average / numRun + "\n");
+            fw.write("\n\nAverage execution time in nanoseconds: " + average / numRun + "\n\n\n\n");
             fw.close();
 
         } catch (IOException e) {

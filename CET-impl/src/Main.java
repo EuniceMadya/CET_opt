@@ -133,6 +133,7 @@ public class Main {
                     " -   3. Sequential Hybrid\n" +
                     " -   4. M_CET\n" +
                     " -   5. T_CET\n");
+
             input = sc.nextLine();
 
             if (input.equals("")) continue;
