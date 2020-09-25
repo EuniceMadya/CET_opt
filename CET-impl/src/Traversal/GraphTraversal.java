@@ -48,7 +48,7 @@ public abstract class GraphTraversal {
 
         long startTime = System.nanoTime();
         for (int start : graph.getStartPoints()) {
-            if (graph.getNumVertex() > 500) {
+            if (graph.getNumVertex() > 5000) {
                 System.out.println("Execute: " + (i++));
                 System.out.println(new Time(System.currentTimeMillis()).toString() + " - start on: " + start + " with degree " + graph.getNumDegree(start));
             }
