@@ -159,7 +159,7 @@ class AlgoExecutor {
 
         try {
             if(! file.createNewFile() ) return;
-            FileWriter fw = new FileWriter(file);
+            FileWriter fw = new FileWriter(file, true);
             fw.write("Running: " + algo.getClass().getName());
             for (int i = 0; i < runTimes.length; i++) {
                 if (algo != null) {
