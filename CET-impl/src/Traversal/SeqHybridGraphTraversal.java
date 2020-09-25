@@ -131,7 +131,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
                 queue.offer(combo);
             }
             currentPaths = null;
-            System.gc();
+//            System.gc();
         }
     }
 
