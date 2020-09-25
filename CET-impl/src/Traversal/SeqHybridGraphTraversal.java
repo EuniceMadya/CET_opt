@@ -23,7 +23,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
     private void initMap() {
         for (Integer anchorNode : anchorNodes) {
-            anchorPaths.put(anchorNode, new ArrayQueue<>());
+            anchorPaths.put(anchorNode, new Stack<>());
         }
     }
 
