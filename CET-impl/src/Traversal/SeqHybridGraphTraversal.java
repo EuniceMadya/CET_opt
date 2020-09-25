@@ -90,7 +90,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
     private void DFSsubTraversal(int s, Stack<Integer> curStack) {
 
         if (isAnchor[s] && curStack.size() > 1 || graph.endContains(s)) {
-            anchorPaths.get(curStack.firstElement()).offer(getPath(curStack));
+            anchorPaths.get(curStack.firstElement()).push(getPath(curStack));
             return;
         }
 
