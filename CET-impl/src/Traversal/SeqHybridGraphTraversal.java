@@ -82,10 +82,12 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
     private void DFSsubTraversal(int s, Stack<Integer> curStack) {
 
+        System.out.println("a");
         if (IntStream.of(anchorNodes).anyMatch(x -> x == s) && curStack.size() > 1 || graph.getEndPoints().contains(s)) {
             anchorPaths.get(curStack.firstElement()).add(getPath(curStack));
             return;
         }
+        System.out.println("b");
 
         // Recur for all the vertices adjacent to this vertex
         if (graph.getRowIndex()[s + 1] - graph.getRowIndex()[s] == 0) return;
