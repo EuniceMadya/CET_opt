@@ -4,16 +4,13 @@ import Components.CompressedGraph;
 import util.ArrayQueue;
 
 import java.sql.Time;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Stack;
+import java.util.*;
 
 public class SeqHybridGraphTraversal extends GraphTraversal {
 
     private int[] anchorNodes;
     private boolean[] isAnchor;
-    private HashMap<Integer, ArrayList<int[]>> anchorPaths;
+    private HashMap<Integer, LinkedList<int[]>> anchorPaths;
 
     public SeqHybridGraphTraversal(CompressedGraph graph, boolean saveToMem, int[] anchorNodes) {
         super(graph, saveToMem);
@@ -26,7 +23,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
     private void initMap() {
         for (Integer anchorNode : anchorNodes) {
-            anchorPaths.put(anchorNode, new ArrayList<>());
+            anchorPaths.put(anchorNode, new LinkedList<>());
         }
     }
 
@@ -110,12 +107,12 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
 
     private void BFSsubConcatenate(int start) {
-        ArrayQueue<ArrayList<int[]>> queue = new ArrayQueue<>(graph.getStartPointNum());
+        ArrayQueue<LinkedList<int[]>> queue = new ArrayQueue<>(graph.getStartPointNum());
 
         queue.offer(anchorPaths.get(start));
 
         while (!queue.isEmpty()) {
-            ArrayList<int[]> currentPaths = queue.poll();
+            LinkedList<int[]> currentPaths = queue.poll();
             for (int[] subPath : currentPaths) {
 
                 if (graph.endContains(subPath[subPath.length - 1])) { // probs could optimize here
@@ -124,7 +121,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
                     continue;
                 }
 
-                ArrayList<int[]> combo = new ArrayList<>();
+                LinkedList<int[]> combo = new LinkedList<>();
                 for (int[] nextList : anchorPaths.get(subPath[subPath.length - 1])) {
                     int[] newPath = new int[subPath.length - 1 + nextList.length];
                     System.arraycopy(subPath, 0, newPath, 0, subPath.length - 1);
