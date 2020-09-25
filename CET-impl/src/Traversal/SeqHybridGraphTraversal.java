@@ -5,13 +5,14 @@ import util.ArrayQueue;
 
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Stack;
-import java.util.stream.IntStream;
 
 public class SeqHybridGraphTraversal extends GraphTraversal {
 
     private int[] anchorNodes;
+    private boolean[] isAnchor;
     private HashMap<Integer, ArrayList<int[]>> anchorPaths;
 
     public SeqHybridGraphTraversal(CompressedGraph graph, boolean saveToMem, int[] anchorNodes) {
@@ -19,6 +20,8 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
         this.traversalType = TraversalType.SeqHybrid;
         this.anchorNodes = anchorNodes;
         anchorPaths = new HashMap<>();
+        isAnchor = new boolean[graph.getNumVertex()];
+        initAnchorBool();
     }
 
     private void initMap() {
@@ -27,19 +30,25 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
         }
     }
 
+    private void initAnchorBool(){
+        Arrays.fill(isAnchor, false);
+        for(int i: anchorNodes) isAnchor[i] = true;
+    }
+
     public void setAnchorNodes(int[] anchorNodes) {
         this.anchorNodes = anchorNodes;
+        initAnchorBool();
     }
 
     @Override
     public void execute() {
         validPaths.clear();
         anchorPaths.clear();
+        initMap();
+
         System.out.println("Number of start points: " + graph.getStartPoints().size());
         System.out.println("Number of anchor points: " + anchorNodes.length);
-
         System.out.println("Start DFS sub traversal!");
-        initMap();
         long startTime = System.nanoTime();
         for (int start : anchorNodes) {
             if (graph.getNumVertex() > 500)
@@ -83,13 +92,13 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
     private void DFSsubTraversal(int s, Stack<Integer> curStack) {
 
-        if (IntStream.of(anchorNodes).anyMatch(x -> x == s) && curStack.size() > 1 || graph.getEndPoints().contains(s)) {
+        if (isAnchor[s] && curStack.size() > 1 || graph.getEndPoints().contains(s)) {
             anchorPaths.get(curStack.firstElement()).add(getPath(curStack));
             return;
         }
 
         // Recur for all the vertices adjacent to this vertex
-        if (graph.getRowIndex()[s + 1] - graph.getRowIndex()[s] == 0) return;
+        if (graph.getNumDegree(s) == 0) return;
 
         for (int i = graph.rowIndex[s]; i < graph.rowIndex[s + 1]; i++) {
             int edge = graph.colIndex[i];
