@@ -110,23 +110,20 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
 
     private void BFSsubConcatenate(int start) {
-        ArrayQueue<Stack<ArrayList<int[]>>> queue = new ArrayQueue<>(graph.getStartPointNum());
+        ArrayQueue<ArrayList<int[]>> queue = new ArrayQueue<>(graph.getStartPointNum());
 
-        Stack<ArrayList<int[]>> superPaths = new Stack<>();
-
-        // Add initial paths that
-        superPaths.add(anchorPaths.get(start));
-        queue.offer(superPaths);
+        queue.offer(anchorPaths.get(start));
 
         while (!queue.isEmpty()) {
-            Stack<ArrayList<int[]>> currentPaths = queue.poll();
-            for (int[] subPath : currentPaths.peek()) {
-                Stack<ArrayList<int[]>> newPathStack = new Stack<>();
-                if (anchorPaths.get(subPath[subPath.length - 1]) == null) { // probs could optimize here
+            ArrayList<int[]> currentPaths = queue.poll();
+            for (int[] subPath : currentPaths) {
+
+                if (graph.endContains(subPath[subPath.length - 1])) { // probs could optimize here
                     if (saveToMem) validPaths.add(subPath);
                     pathNum++;
                     continue;
                 }
+
                 ArrayList<int[]> combo = new ArrayList<>();
                 for (int[] nextList : anchorPaths.get(subPath[subPath.length - 1])) {
                     int[] newPath = new int[subPath.length - 1 + nextList.length];
@@ -134,8 +131,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
                     System.arraycopy(nextList, 0, newPath, subPath.length - 1, nextList.length);
                     combo.add(newPath);
                 }
-                newPathStack.push(combo);
-                queue.offer(newPathStack);
+                queue.offer(combo);
             }
         }
     }

@@ -50,7 +50,7 @@ public abstract class GraphTraversal {
         for (int start : graph.getStartPoints()) {
             if (graph.getNumVertex() > 500) {
                 System.out.println("Execute: " + (i++));
-                System.out.println(new Time(System.currentTimeMillis()).toString() + "start on: " + start + " with degree " + graph.getNumDegree(start));
+                System.out.println(new Time(System.currentTimeMillis()).toString() + " - start on: " + start + " with degree " + graph.getNumDegree(start));
             }
 
             traversal(start);
