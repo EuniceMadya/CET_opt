@@ -125,9 +125,7 @@ class AlgoExecutor {
         if(algo.traversalType.equals(TraversalType.SeqHybrid) && algo.getGraph().getNumVertex() > 100){
             System.out.println("Do you want to run range of anchor node num?(y/n)\n");
             if(new Scanner(System.in).nextLine().equals("y")){
-                for(int i = 5; i < algo.getGraph().getNumVertex() -
-                        algo.getGraph().getStartPointNum() -
-                        algo.getGraph().getEndPointNum();
+                for(int i = 5; i < algo.getGraph().getNumVertex()/10 + 10;
                     i += 5){
                     // set new Anchor num
                     numAnchor = i;

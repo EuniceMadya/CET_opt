@@ -3,7 +3,7 @@ package Traversal;
 import Components.CompressedGraph;
 import util.ArrayQueue;
 
-import java.util.LinkedList;
+import java.util.Stack;
 
 public class BFSGraphTraversal extends GraphTraversal {
 
@@ -16,24 +16,24 @@ public class BFSGraphTraversal extends GraphTraversal {
     // BFS traversal
     public void traversal(int start) {
 
-        ArrayQueue<LinkedList<Integer>> queue = new ArrayQueue<>(graph.getNumVertex());
+        ArrayQueue<Stack<Integer>> queue = new ArrayQueue<>(graph.getNumVertex());
 
-        LinkedList<Integer> path = new LinkedList<>();
-        path.add(start);
+        Stack<Integer> path = new Stack<>();
+        path.push(start);
 
         queue.offer(path);
-        if (graph.getNumDegree(start) == 0) {
+        if (graph.endContains(start)) {
             validPaths.add(getPath(path));
             pathNum++;
             return;
         }
         while (!queue.isEmpty()) {
-            LinkedList<Integer> currentPath = queue.poll();
+            Stack<Integer> currentPath = queue.poll();
             int cur = currentPath.peek();
             for (int i = graph.rowIndex[cur]; i < graph.rowIndex[cur + 1]; i++) {
                 int neighbour = graph.colIndex[i];
 
-                LinkedList<Integer> newStack = new LinkedList<>();
+                Stack <Integer> newStack = new Stack<>();
                 newStack.addAll(currentPath);
                 newStack.push(neighbour);
                 if (graph.endContains(neighbour)) {
