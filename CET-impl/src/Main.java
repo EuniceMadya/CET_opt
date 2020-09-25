@@ -34,7 +34,14 @@ public class Main {
                 graphBuilder.random = true;
 
                 System.out.println("- Number of nodes for the graph:");
-                numNodes = Integer.parseInt(sc.nextLine());
+                while(true){
+                    try{
+                        numNodes = sc.nextInt();
+                        break;
+                    }catch (Exception e){
+                        System.out.println("Not a number!");
+                    }
+                }
 
                 System.out.println("Choose graph output type: \n" +
                         "  1. Grid \n" +
@@ -63,7 +70,15 @@ public class Main {
                 }
 
                 System.out.println("Desired frequency: (requires a float range from 1 to 2)");
-                graphBuilder.frequency = Double.parseDouble(sc.nextLine());
+                while(true){
+                    try{
+                        graphBuilder.frequency = sc.nextDouble();
+                        break;
+                    }catch (Exception e){
+                        System.out.println("Not a number!");
+                    }
+                }
+
 
                 graph = graphBuilder.generateRandomGraph(numNodes);
 
@@ -98,10 +113,16 @@ public class Main {
         System.out.print("Please enter number of run you want for the algorithm: \n");
 
         System.gc();
+        AlgoExecutor executor;
 
-
-        AlgoExecutor executor = new AlgoExecutor(Integer.parseInt(sc.nextLine()));
-
+        while(true){
+            try{
+                executor = new AlgoExecutor(sc.nextInt());
+                break;
+            }catch (Exception e){
+                System.out.println("Not a number!");
+            }
+        }
 
         while (true) {
             System.out.println("------------------------------------------------\n" +

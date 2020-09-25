@@ -116,7 +116,7 @@ class AlgoExecutor {
 
     void runAlgo() {
         System.out.println("Algorithm to execute: " + algo.getClass().getName());
-        String fileName = "OutputFiles/result/timeResults/" + "graph-" + algo.getGraph().getNumVertex() + "-" + new Date().toString() + algo.traversalType + ".txt";
+        String fileName = "OutputFiles/result/timeResults/" + "graph-" + algo.getGraph().getNumVertex() + "-" +algo.traversalType + "-" + new Date().toString() + ".txt";
 
         if(algo.traversalType.equals(TraversalType.SeqHybrid) && algo.getGraph().getNumVertex() > 100){
             System.out.println("Do you want to run range of anchor node num?(y/n)\n");
@@ -162,7 +162,8 @@ class AlgoExecutor {
         File file = new File(fileName);
 
         try {
-            if(! file.createNewFile() ) return;
+            if(! file.exists()) if(!file.createNewFile() ) return;
+            
             FileWriter fw = new FileWriter(file, true);
             fw.write("Running: " + algo.getClass().getName());
             for (int i = 0; i < runTimes.length; i++) {
