@@ -26,8 +26,6 @@ public class DFSGraphTraversal extends GraphTraversal {
             pathNum ++;
         }
 
-
-
     }
 
     private void DFStraversal(int s, Stack path) {
