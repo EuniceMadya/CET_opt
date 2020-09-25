@@ -49,10 +49,12 @@ public class CompressedGraph{
     }
 
     public boolean startContains(int i){
+        if(numOfStartPoint == 0) loadStartPoints();
         return isStartPoints[i];
     }
 
     public boolean endContains(int i){
+        if(numOfEndPoint == 0) loadEndPoints();
         return isEndPoints[i];
     }
 
