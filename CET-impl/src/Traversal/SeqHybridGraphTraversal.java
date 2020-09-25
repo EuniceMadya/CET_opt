@@ -23,7 +23,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
     private void initMap() {
         for (Integer anchorNode : anchorNodes) {
-            anchorPaths.put(anchorNode, new Stack<>());
+            anchorPaths.put(anchorNode, new ArrayList<>());
         }
     }
 
@@ -126,7 +126,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
                     int[] newPath = new int[subPath.length - 1 + nextList.length];
                     System.arraycopy(subPath, 0, newPath, 0, subPath.length - 1);
                     System.arraycopy(nextList, 0, newPath, subPath.length - 1, nextList.length);
-                    combo.push(newPath);
+                    combo.add(newPath);
                 }
                 queue.offer(combo);
             }
