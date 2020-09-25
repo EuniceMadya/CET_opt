@@ -3,6 +3,7 @@ package Traversal;
 import Components.CompressedGraph;
 import util.ArrayQueue;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
@@ -42,7 +43,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
         long startTime = System.nanoTime();
         for (int start : anchorNodes) {
             if (graph.getNumVertex() > 500)
-                System.out.println("start on: " + start +
+                System.out.println(new Time(System.currentTimeMillis()).toString() + " - start on: " + start +
                         " with degree " + graph.getNumDegree(start));
             traversal(start);
         }
