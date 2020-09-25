@@ -10,7 +10,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
     private int[] anchorNodes;
     private boolean[] isAnchor;
-    private HashMap<Integer, ArrayQueue<int[]>> anchorPaths;
+    private HashMap<Integer, Stack<int[]>> anchorPaths;
 
     public SeqHybridGraphTraversal(CompressedGraph graph, boolean saveToMem, int[] anchorNodes) {
         super(graph, saveToMem);
@@ -107,16 +107,16 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
 
     private void BFSsubConcatenate(int start) {
-        ArrayQueue<ArrayQueue<int[]>> queue = new ArrayQueue<>(graph.getStartPointNum());
+        ArrayQueue<Stack<int[]>> queue = new ArrayQueue<>(graph.getStartPointNum());
 
         queue.offer(anchorPaths.get(start));
 
         while (!queue.isEmpty()) {
-            ArrayQueue<int[]> currentPaths = queue.poll();
-            while(currentPaths.iterator().hasNext()){
-                int[]subPath = currentPaths.iterator().next();
-
-            //for (int[] subPath : currentPaths.iterator()) {
+            Stack<int[]> currentPaths = queue.poll();
+//            while(currentPaths.iterator().hasNext()){
+//                int[]subPath = currentPaths.iterator().next();
+//
+            for (int[] subPath : currentPaths) {
 
                 if (graph.endContains(subPath[subPath.length - 1])) { // probs could optimize here
                     if (saveToMem) validPaths.add(subPath);
@@ -124,14 +124,14 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
                     continue;
                 }
 
-                ArrayQueue<int[]> combo = new ArrayQueue<>();
-                //for (int[] nextList : anchorPaths.get(subPath[subPath.length - 1])) {
-                while(anchorPaths.get(subPath[subPath.length-1]).iterator().hasNext()){
-                    int[]nextList = anchorPaths.get(subPath[subPath.length-1]).iterator().next();
+                Stack<int[]> combo = new Stack<>();
+                for (int[] nextList : anchorPaths.get(subPath[subPath.length - 1])) {
+                //while(anchorPaths.get(subPath[subPath.length-1]).iterator().hasNext()){
+                    //int[]nextList = anchorPaths.get(subPath[subPath.length-1]).iterator().next();
                     int[] newPath = new int[subPath.length - 1 + nextList.length];
                     System.arraycopy(subPath, 0, newPath, 0, subPath.length - 1);
                     System.arraycopy(nextList, 0, newPath, subPath.length - 1, nextList.length);
-                    combo.offer(newPath);
+                    combo.push(newPath);
                 }
                 queue.offer(combo);
             }
