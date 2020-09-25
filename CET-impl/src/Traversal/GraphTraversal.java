@@ -1,7 +1,6 @@
 package Traversal;
 
 import Components.CompressedGraph;
-import util.ArrayQueue;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -106,7 +105,7 @@ public abstract class GraphTraversal {
         }
     }
 
-    int[] getPath(ArrayQueue<Integer> pathList) {
+    int[] getPath(ArrayList<Integer> pathList) {
         int[] path = new int[pathList.size()];
 
         for (int i = 0; i < pathList.size(); i++) {

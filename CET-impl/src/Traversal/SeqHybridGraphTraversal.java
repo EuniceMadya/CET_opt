@@ -113,11 +113,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
         while (!queue.isEmpty()) {
             Stack<int[]> currentPaths = queue.poll();
-//            while(currentPaths.iterator().hasNext()){
-//                int[]subPath = currentPaths.iterator().next();
-//
             for (int[] subPath : currentPaths) {
-
                 if (graph.endContains(subPath[subPath.length - 1])) { // probs could optimize here
                     if (saveToMem) validPaths.add(subPath);
                     pathNum++;
@@ -126,8 +122,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
                 Stack<int[]> combo = new Stack<>();
                 for (int[] nextList : anchorPaths.get(subPath[subPath.length - 1])) {
-                //while(anchorPaths.get(subPath[subPath.length-1]).iterator().hasNext()){
-                    //int[]nextList = anchorPaths.get(subPath[subPath.length-1]).iterator().next();
+
                     int[] newPath = new int[subPath.length - 1 + nextList.length];
                     System.arraycopy(subPath, 0, newPath, 0, subPath.length - 1);
                     System.arraycopy(nextList, 0, newPath, subPath.length - 1, nextList.length);
