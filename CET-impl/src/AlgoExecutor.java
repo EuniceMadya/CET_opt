@@ -5,6 +5,7 @@ import util.AnchorProcessor;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Scanner;
 
 class AlgoExecutor {
@@ -113,9 +114,9 @@ class AlgoExecutor {
 
     }
 
-
     void runAlgo() {
         System.out.println("Algorithm to execute: " + algo.getClass().getName());
+        String fileName = "OutputFiles/result/timeResults/" + "graph-" + algo.getGraph().getNumVertex() + "-" + new Date().toString() + algo.traversalType + ".txt";
 
         if(algo.traversalType.equals(TraversalType.SeqHybrid) && algo.getGraph().getNumVertex() > 100){
             System.out.println("Do you want to run range of anchor node num?(y/n)\n");
@@ -127,6 +128,8 @@ class AlgoExecutor {
                     ((SeqHybridGraphTraversal)algo).setAnchorNodes(
                             findAnchor(algo.getGraph(),selection, i));
                     runOneAlgo();
+                    writeTimeResult(fileName);
+
                     System.out.println("-- Anchor nodes " + i + " finished!\n\n\n" +
                             "                                 --------\n");
                 }
@@ -135,6 +138,8 @@ class AlgoExecutor {
 
         }
         runOneAlgo();
+        writeTimeResult(fileName);
+
 
 
 
@@ -151,11 +156,10 @@ class AlgoExecutor {
             System.gc();
         }
         System.out.println("\n\nAverage execution time in nanoseconds: " + average / numRun + "\n");
-        writeTimeResult(algo.getGraph().getNumVertex());
     }
 
-     void writeTimeResult(int nodeNum) {
-        File file = new File("OutputFiles/result/timeResults/" + "graph-" + nodeNum + "-" + algo.traversalType + ".txt");
+     private void writeTimeResult(String fileName) {
+        File file = new File(fileName);
 
         try {
             if(! file.createNewFile() ) return;
