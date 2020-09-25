@@ -36,10 +36,11 @@ public class Main {
                 System.out.println("- Number of nodes for the graph:");
                 while(true){
                     try{
-                        numNodes = sc.nextInt();
+                        numNodes = Integer.parseInt(sc.nextLine());
                         break;
                     }catch (Exception e){
                         System.out.println("Not a number!");
+                        continue;
                     }
                 }
 
@@ -72,10 +73,10 @@ public class Main {
                 System.out.println("Desired frequency: (requires a float range from 1 to 2)");
                 while(true){
                     try{
-                        graphBuilder.frequency = sc.nextDouble();
+                        graphBuilder.frequency = Double.parseDouble(sc.nextLine());
                         break;
                     }catch (Exception e){
-                        System.out.println("Not a number!");
+                        System.out.println("Not a number, try again!");
                     }
                 }
 
@@ -117,12 +118,14 @@ public class Main {
 
         while(true){
             try{
-                executor = new AlgoExecutor(sc.nextInt());
+                executor = new AlgoExecutor(Integer.parseInt(sc.nextLine()));
                 break;
             }catch (Exception e){
                 System.out.println("Not a number!");
             }
         }
+
+
 
         while (true) {
             System.out.println("------------------------------------------------\n" +
@@ -137,6 +140,7 @@ public class Main {
             input = sc.nextLine();
 
             if (input.equals("")) continue;
+
             if (input.equals("0")) return;
 
             System.out.println("\n\n- Do you want to save result to run time memory? (y/n)");
