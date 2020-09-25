@@ -41,6 +41,7 @@ public abstract class GraphTraversal {
     public abstract void traversal(int i);
 
     public void execute() {
+        pathNum = 0;
         if (validPaths.size() > 0) validPaths.clear();
 
         System.out.println("Number of start points: " + graph.getStartPointNum());

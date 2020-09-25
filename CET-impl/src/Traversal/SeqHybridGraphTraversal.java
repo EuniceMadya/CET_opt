@@ -42,7 +42,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
         validPaths.clear();
         anchorPaths.clear();
         initMap();
-
+        pathNum = 0;
         System.out.println("Number of start points: " + graph.getStartPointNum());
         System.out.println("Number of anchor points: " + anchorNodes.length);
         System.out.println("Start DFS sub traversal!");
@@ -130,8 +130,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
                 }
                 queue.offer(combo);
             }
-            currentPaths = null;
-//            System.gc();
+            currentPaths = null; // let garbage collection handle it
         }
     }
 
