@@ -25,9 +25,9 @@ public class AnchorProcessor {
     }
 
     private int[] findRandomAnchors(int anchorNum) {
-        int[] anchorList = new int[graph.getStartPoints().size() + anchorNum];
+        int[] anchorList = new int[graph.getStartPointNum() + anchorNum];
 
-        for(int i = 0; i < graph.getStartPoints().size(); i ++) anchorList[i] = graph.getStartPoints().get(i);
+        for(int i = 0; i < graph.getStartPointNum(); i ++) anchorList[i] = graph.getStartPoints().get(i);
 //        anchorList.addAll(graph.getEndPoints());
         Random random = new Random();
         int counter = 0;
@@ -36,21 +36,21 @@ public class AnchorProcessor {
 
             if (IntStream.of(anchorList).anyMatch(x -> x == anchor)) continue;
 
-            anchorList[graph.getStartPoints().size() + counter++] = anchor;
+            anchorList[graph.getStartPointNum() + counter++] = anchor;
         }
 
         return anchorList;
     }
 
     private int[] findLargestDegreeAnchors(int anchorNum) {
-        int[] anchorList = new int[graph.getStartPoints().size() + anchorNum];
+        int[] anchorList = new int[graph.getStartPointNum() + anchorNum];
 
-        for(int i = 0; i < graph.getStartPoints().size(); i ++) anchorList[i] = graph.getStartPoints().get(i);
+        for(int i = 0; i < graph.getStartPointNum(); i ++) anchorList[i] = graph.getStartPoints().get(i);
 
         HashMap<Integer, Integer> vertexDegrees = new HashMap<>();
         for (int i = 0; i < graph.getNumVertex(); i ++) {
-            if (graph.getStartPoints().contains(i)
-                    || graph.getEndPoints().contains(i))
+            if (graph.startContains(i)
+                    || graph.endContains(i))
                 continue;
             //put degree with node num
             vertexDegrees.put(i, graph.getNumDegree(i));
@@ -58,7 +58,7 @@ public class AnchorProcessor {
 
         TreeMap<Integer, List<Integer>> degreeVertex = sortMap(vertexDegrees);
 
-        int start = graph.getStartPoints().size();
+        int start = graph.getStartPointNum();
 
         for (Map.Entry<Integer, List<Integer>> entry : degreeVertex.descendingMap().entrySet()) {
             if (anchorNum <= 0) break;
@@ -110,20 +110,20 @@ public class AnchorProcessor {
         }
 
 
-        int[] anchorList = new int [graph.getStartPoints().size() + anchorNum];
+        int[] anchorList = new int [graph.getStartPointNum() + anchorNum];
 
-        for(int i = 0; i < graph.getStartPoints().size(); i ++) anchorList[i] = graph.getStartPoints().get(i);
+        for(int i = 0; i < graph.getStartPointNum(); i ++) anchorList[i] = graph.getStartPoints().get(i);
 
         // limit the number of anchor if it's too many
-        if((graph.getNumVertex() - graph.getStartPoints().size() + 1 ) / (anchorNum + 1) < 2) {
-            System.out.println("Anchor num too large! Reducing to "+ (graph.getNumVertex() - graph.getStartPoints().size() + 1 )/2);
-            anchorNum = (graph.getNumVertex() - graph.getStartPoints().size() + 1 )/2 - 1;
+        if((graph.getNumVertex() - graph.getStartPointNum() + 1 ) / (anchorNum + 1) < 2) {
+            System.out.println("Anchor num too large! Reducing to "+ (graph.getNumVertex() - graph.getStartPointNum() + 1 )/2);
+            anchorNum = (graph.getNumVertex() - graph.getStartPointNum() + 1 )/2 - 1;
         }
 
-        int spacing = (graph.getNumVertex() - graph.getStartPoints().size()) / anchorNum;
+        int spacing = (graph.getNumVertex() - graph.getStartPointNum()) / anchorNum;
 
         for(int i = 0; i < anchorNum; i ++){
-            anchorList[i + graph.getStartPoints().size()] = results.get((i + 1) *spacing);
+            anchorList[i + graph.getStartPointNum()] = results.get((i + 1) *spacing);
         }
 
         return anchorList;

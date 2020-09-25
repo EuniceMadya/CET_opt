@@ -7,14 +7,24 @@ import java.util.List;
 public class CompressedGraph{
     public int[] colIndex;
     public int[] rowIndex;
-    ArrayList<Integer> startPoints;
-    ArrayList<Integer> endPoints;
+
+    private boolean[] isEndPoints;
+    private boolean[] isStartPoints;
+
+    private int numOfStartPoint;
+    private int numOfEndPoint;
+
+    private ArrayList<Integer> startPoints;
+    private ArrayList<Integer> endPoints;
 
     public CompressedGraph(int colNum, int rowNum) {
         colIndex = new int[colNum];
         rowIndex = new int[rowNum];
         startPoints = new ArrayList<>();
         endPoints = new ArrayList<>();
+
+        numOfEndPoint = 0;
+        numOfStartPoint = 0;
 
         Arrays.fill(colIndex, -1);
         Arrays.fill(rowIndex, -1);
@@ -28,19 +38,40 @@ public class CompressedGraph{
         return rowIndex;
     }
 
+    public int getStartPointNum(){
+        if(numOfStartPoint == 0) loadStartPoints();
+        return numOfStartPoint;
+    }
+
+    public int getEndPointNum(){
+        if(numOfEndPoint == 0) loadEndPoints();
+        return numOfEndPoint;
+    }
+
+    public boolean startContains(int i){
+        return isStartPoints[i];
+    }
+
+    public boolean endContains(int i){
+        return isEndPoints[i];
+    }
+
+
     public List<Integer> getStartPoints() {
         if(startPoints.size() == 0) loadStartPoints();
         return startPoints;
     }
 
     private void loadStartPoints(){
-        boolean []isStart = new boolean[rowIndex.length - 1];
+        isStartPoints = new boolean[rowIndex.length - 1];
+        Arrays.fill(isStartPoints, true);
 
-        Arrays.fill(isStart, true);
-
-        for(int i : colIndex)  isStart[i] = false;
+        for(int i : colIndex)  isStartPoints[i] = false;
         for(int i = 0; i < getNumVertex(); i ++)
-            if(isStart[i]) startPoints.add(i);
+            if(isStartPoints[i]) {
+                startPoints.add(i);
+                numOfStartPoint ++;
+            }
     }
 
     public List<Integer> getEndPoints() {
@@ -50,14 +81,17 @@ public class CompressedGraph{
     }
 
     private void loadEndPoints(){
-        boolean []isEnd = new boolean[rowIndex.length - 1];
-        Arrays.fill(isEnd, false);
+        isEndPoints  = new boolean[rowIndex.length - 1];
+        Arrays.fill(isEndPoints, false);
 
         for(int i = 0; i < rowIndex.length - 1; i ++)
             if(rowIndex[i] == rowIndex[i + 1])
-                isEnd[i] = true;
+                isEndPoints[i] = true;
         for(int i = 0; i < getNumVertex(); i ++)
-            if(isEnd[i]) endPoints.add(i);
+            if(isEndPoints[i]) {
+                endPoints.add(i);
+                numOfEndPoint ++;
+            }
     }
 
     public int getNumDegree(int i){

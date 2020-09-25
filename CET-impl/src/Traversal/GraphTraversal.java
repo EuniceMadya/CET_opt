@@ -43,7 +43,7 @@ public abstract class GraphTraversal {
     public void execute() {
         if (validPaths.size() > 0) validPaths.clear();
 
-        System.out.println("Number of start points: " + graph.getStartPoints().size());
+        System.out.println("Number of start points: " + graph.getStartPointNum());
         int i = 1;
 
         long startTime = System.nanoTime();

@@ -87,7 +87,7 @@ class AlgoExecutor {
         while (true) {
             System.out.println("\n- Please enter the number of anchors in between:");
             numAnchor = Integer.parseInt(sc.nextLine());
-            if (numAnchor + graph.getStartPoints().size() <= graph.getNumVertex()) break;
+            if (numAnchor + graph.getStartPointNum() <= graph.getNumVertex()) break;
             System.out.println("WARNING: The number of anchor nodes is larger than the number of nodes in graph, try again.\n\n");
         }
         algo = new SeqHybridGraphTraversal(graph, savePathInMem,  findAnchor(graph, selection, numAnchor));
@@ -99,14 +99,15 @@ class AlgoExecutor {
 
         System.out.println("Starting nodes: \n");
 
-        for(int i = 0; i < graph.getStartPoints().size(); i ++){
+        for(int i = 0; i < graph.getStartPointNum(); i ++){
             System.out.print(String.format("[%d, %d] ",
                     graph.getStartPoints().get(i),
                     graph.getNumDegree(graph.getStartPoints().get(i))));
         }
         System.out.println("\nSelected anchor nodes: ");
 
-        for(int i = graph.getStartPoints().size(); i < anchor.length; i ++){
+        for(int i = graph.getStartPointNum(); i < anchor.length; i ++){
+            System.out.print(String.format("[%d, %d] ", anchor[i], graph.getNumDegree(anchor[i])));
             System.out.print(String.format("[%d, %d] ", anchor[i], graph.getNumDegree(anchor[i])));
         }
         System.out.println("\n");
@@ -125,8 +126,8 @@ class AlgoExecutor {
             System.out.println("Do you want to run range of anchor node num?(y/n)\n");
             if(new Scanner(System.in).nextLine().equals("y")){
                 for(int i = 5; i < algo.getGraph().getNumVertex() -
-                        algo.getGraph().getStartPoints().size() -
-                        algo.getGraph().getEndPoints().size();
+                        algo.getGraph().getStartPointNum() -
+                        algo.getGraph().getEndPointNum();
                     i += 5){
                     ((SeqHybridGraphTraversal)algo).setAnchorNodes(
                             findAnchor(algo.getGraph(),selection, i));

@@ -20,7 +20,7 @@ public class M_CETGraphTraversal extends GraphTraversal {
     private void traversal(int curNode, Stack<Integer> currentSeq) {
         currentSeq.push(curNode);
 
-        if (graph.getEndPoints().contains(curNode)) {
+        if (graph.endContains(curNode)) {
             Stack<Integer> resultPath = new Stack<>();
             for (int node : currentSeq) {
                 resultPath.push(node);

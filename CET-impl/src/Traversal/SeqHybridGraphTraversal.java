@@ -46,7 +46,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
         anchorPaths.clear();
         initMap();
 
-        System.out.println("Number of start points: " + graph.getStartPoints().size());
+        System.out.println("Number of start points: " + graph.getStartPointNum());
         System.out.println("Number of anchor points: " + anchorNodes.length);
         System.out.println("Start DFS sub traversal!");
         long startTime = System.nanoTime();
@@ -70,7 +70,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
     public void saveResults() {
         String fileName = String.format("%s-anchor%d",
                 traversalType.toString(),
-                anchorNodes.length - graph.getStartPoints().size());
+                anchorNodes.length - graph.getStartPointNum());
         saveResults(fileName);
     }
 
@@ -81,7 +81,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
         stack.push(start);
         if (graph.getNumDegree(start) != 0) DFSsubTraversal(start, stack);
             // if it is a start point and has no neighbours
-        else if (graph.getStartPoints().contains(start)) {
+        else if (graph.startContains(start)) {
             if (saveToMem) validPaths.add(getPath(stack));
             pathNum++;
         }
@@ -92,7 +92,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
     private void DFSsubTraversal(int s, Stack<Integer> curStack) {
 
-        if (isAnchor[s] && curStack.size() > 1 || graph.getEndPoints().contains(s)) {
+        if (isAnchor[s] && curStack.size() > 1 || graph.endContains(s)) {
             anchorPaths.get(curStack.firstElement()).add(getPath(curStack));
             return;
         }
@@ -110,7 +110,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
 
     private void BFSsubConcatenate(int start) {
-        ArrayQueue<Stack<ArrayList<int[]>>> queue = new ArrayQueue<>(graph.getStartPoints().size());
+        ArrayQueue<Stack<ArrayList<int[]>>> queue = new ArrayQueue<>(graph.getStartPointNum());
 
         Stack<ArrayList<int[]>> superPaths = new Stack<>();
 

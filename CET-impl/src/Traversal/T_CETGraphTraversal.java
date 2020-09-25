@@ -27,7 +27,7 @@ public class T_CETGraphTraversal extends GraphTraversal {
 
     @Override
     public void traversal(int i) {
-        System.out.println(graph.getStartPoints().size());
+        System.out.println(graph.getStartPointNum());
         T_CETtraversal((ArrayList<Integer>) graph.getStartPoints());
     }
 
@@ -37,7 +37,7 @@ public class T_CETGraphTraversal extends GraphTraversal {
         HashMap<Integer, Integer> nextLevelHash = new HashMap<>();
 
         for (Integer curNode : currentLevel) {
-            if (graph.getStartPoints().contains(curNode)) {
+            if (graph.startContains(curNode)) {
                 ArrayList<Integer> list = new ArrayList<>();
                 list.add(curNode);
                 paths[curNode].add(list);
@@ -56,7 +56,7 @@ public class T_CETGraphTraversal extends GraphTraversal {
                 }
             }
 
-            if (graph.getEndPoints().contains(curNode)) {
+            if (graph.endContains(curNode)) {
                 for (ArrayList path : paths[curNode]) {
                     if (saveToMem) validPaths.add(getPath(path));
                 }
