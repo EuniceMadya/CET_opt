@@ -125,7 +125,10 @@ class AlgoExecutor {
         if(algo.traversalType.equals(TraversalType.SeqHybrid) && algo.getGraph().getNumVertex() > 100){
             System.out.println("Do you want to run range of anchor node num?(y/n)\n");
             if(new Scanner(System.in).nextLine().equals("y")){
-                for(int i = 5; i < algo.getGraph().getNumVertex()/10 + 10;
+                // get the closest int of numAnchor as start point
+                numAnchor = numAnchor/5 * 5;
+
+                for(int i = numAnchor; i < algo.getGraph().getNumVertex()/10 + 10;
                     i += 5){
                     // set new Anchor num
                     numAnchor = i;
@@ -134,8 +137,8 @@ class AlgoExecutor {
                     runOneAlgo();
                     writeTimeResult(fileName);
 
-                    System.out.println("-- Anchor nodes " + i + " finished!\n\n\n" +
-                            "                                 --------\n");
+                    System.out.println("\n-- Anchor nodes " + i + " finished!\n\n" +
+                            "----------------------------------------------------------------------------------------\n\n\n\n");
                 }
                 return;
             }
