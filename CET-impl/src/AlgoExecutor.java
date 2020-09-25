@@ -19,6 +19,7 @@ class AlgoExecutor {
 
     // only when choosing sequential
     private String selection = "";
+    private int numAnchor = 0;
 
 
     AlgoExecutor(int numRun) {
@@ -82,7 +83,6 @@ class AlgoExecutor {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         selection = input.equals("1") ? "random" : input.equals("2")? "largest" : "distro";
-        int numAnchor;
 
         while (true) {
             System.out.println("\n- Please enter the number of anchors in between:");
@@ -90,10 +90,10 @@ class AlgoExecutor {
             if (numAnchor + graph.getStartPointNum() <= graph.getNumVertex()) break;
             System.out.println("WARNING: The number of anchor nodes is larger than the number of nodes in graph, try again.\n\n");
         }
-        algo = new SeqHybridGraphTraversal(graph, savePathInMem,  findAnchor(graph, selection, numAnchor));
+        algo = new SeqHybridGraphTraversal(graph, savePathInMem,  findAnchor(graph, selection));
     }
 
-    private int[] findAnchor(CompressedGraph graph, String selection, int numAnchor){
+    private int[] findAnchor(CompressedGraph graph, String selection){
         AnchorProcessor anchorProcessor = new AnchorProcessor(graph);
         int[] anchor = anchorProcessor.findAnchors(selection, numAnchor);
 
@@ -129,8 +129,10 @@ class AlgoExecutor {
                         algo.getGraph().getStartPointNum() -
                         algo.getGraph().getEndPointNum();
                     i += 5){
+                    // set new Anchor num
+                    numAnchor = i;
                     ((SeqHybridGraphTraversal)algo).setAnchorNodes(
-                            findAnchor(algo.getGraph(),selection, i));
+                            findAnchor(algo.getGraph(),selection));
                     runOneAlgo();
                     writeTimeResult(fileName);
 
@@ -143,10 +145,6 @@ class AlgoExecutor {
         }
         runOneAlgo();
         writeTimeResult(fileName);
-
-
-
-
     }
 
     private void runOneAlgo(){
@@ -169,11 +167,12 @@ class AlgoExecutor {
             if(! file.exists()) if(!file.createNewFile() ) return;
 
             FileWriter fw = new FileWriter(file, true);
-            fw.write("Running: " + algo.getClass().getName());
+            fw.write("Run: " + algo.getClass().getName());
+            if(numAnchor != 0) fw.write("Anchor num: " + numAnchor + "\n");
             for (int i = 0; i < runTimes.length; i++) {
                 if (algo != null) {
                     fw.write(String.format("Run %d: %d nanoseconds\n", i + 1, runTimes[i]));
-                    System.out.println(String.format("Run %d: %d nanoseconds\n", i + 1, runTimes[i]));
+//                    System.out.println(String.format("Run %d: %d nanoseconds\n", i + 1, runTimes[i]));
                     System.out.println("Number of paths: "+ algo.pathNum);
                 }
             }

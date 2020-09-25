@@ -10,7 +10,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
     private int[] anchorNodes;
     private boolean[] isAnchor;
-    private HashMap<Integer, LinkedList<int[]>> anchorPaths;
+    private HashMap<Integer, ArrayQueue<int[]>> anchorPaths;
 
     public SeqHybridGraphTraversal(CompressedGraph graph, boolean saveToMem, int[] anchorNodes) {
         super(graph, saveToMem);
@@ -23,7 +23,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
     private void initMap() {
         for (Integer anchorNode : anchorNodes) {
-            anchorPaths.put(anchorNode, new LinkedList<>());
+            anchorPaths.put(anchorNode, new ArrayQueue<>());
         }
     }
 
@@ -90,12 +90,12 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
     private void DFSsubTraversal(int s, Stack<Integer> curStack) {
 
         if (isAnchor[s] && curStack.size() > 1 || graph.endContains(s)) {
-            anchorPaths.get(curStack.firstElement()).add(getPath(curStack));
+            anchorPaths.get(curStack.firstElement()).offer(getPath(curStack));
             return;
         }
 
         // Recur for all the vertices adjacent to this vertex
-        if (graph.getNumDegree(s) == 0) return;
+        if (graph.endContains(s)) return;
 
         for (int i = graph.rowIndex[s]; i < graph.rowIndex[s + 1]; i++) {
             int edge = graph.colIndex[i];
@@ -107,13 +107,16 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
 
     private void BFSsubConcatenate(int start) {
-        ArrayQueue<LinkedList<int[]>> queue = new ArrayQueue<>(graph.getStartPointNum());
+        ArrayQueue<ArrayQueue<int[]>> queue = new ArrayQueue<>(graph.getStartPointNum());
 
         queue.offer(anchorPaths.get(start));
 
         while (!queue.isEmpty()) {
-            LinkedList<int[]> currentPaths = queue.poll();
-            for (int[] subPath : currentPaths) {
+            ArrayQueue<int[]> currentPaths = queue.poll();
+            while(currentPaths.iterator().hasNext()){
+                int[]subPath = currentPaths.iterator().next();
+
+            //for (int[] subPath : currentPaths.iterator()) {
 
                 if (graph.endContains(subPath[subPath.length - 1])) { // probs could optimize here
                     if (saveToMem) validPaths.add(subPath);
@@ -121,12 +124,14 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
                     continue;
                 }
 
-                LinkedList<int[]> combo = new LinkedList<>();
-                for (int[] nextList : anchorPaths.get(subPath[subPath.length - 1])) {
+                ArrayQueue<int[]> combo = new ArrayQueue<>();
+                //for (int[] nextList : anchorPaths.get(subPath[subPath.length - 1])) {
+                while(anchorPaths.get(subPath[subPath.length-1]).iterator().hasNext()){
+                    int[]nextList = anchorPaths.get(subPath[subPath.length-1]).iterator().next();
                     int[] newPath = new int[subPath.length - 1 + nextList.length];
                     System.arraycopy(subPath, 0, newPath, 0, subPath.length - 1);
                     System.arraycopy(nextList, 0, newPath, subPath.length - 1, nextList.length);
-                    combo.add(newPath);
+                    combo.offer(newPath);
                 }
                 queue.offer(combo);
             }

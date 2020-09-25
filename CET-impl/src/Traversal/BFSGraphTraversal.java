@@ -34,10 +34,9 @@ public class BFSGraphTraversal extends GraphTraversal {
                 int neighbour = graph.colIndex[i];
 
                 LinkedList<Integer> newStack = new LinkedList<>();
-
                 newStack.addAll(currentPath);
                 newStack.push(neighbour);
-                if (graph.getNumDegree(neighbour) == 0) {
+                if (graph.endContains(neighbour)) {
                     if (saveToMem) validPaths.add(getPath(newStack));
                     pathNum++;
                 } else queue.offer(newStack);
