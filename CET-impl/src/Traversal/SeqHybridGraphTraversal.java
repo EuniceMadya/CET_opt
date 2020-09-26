@@ -56,7 +56,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
         System.out.println("finished DFS sub traversal!");
 
         for(int start: graph.getStartPoints()){
-            System.out.println("start concatenate for: "+ start);
+//            System.out.println("start concatenate for: "+ start);
             concatenate(start);
         }
 
