@@ -28,7 +28,7 @@ public class DFSGraphTraversal extends GraphTraversal {
 
     }
 
-    private void DFStraversal(int s, Stack path) {
+    private void DFStraversal(int s, Stack <Integer> path) {
 
         if (graph.endContains(s)) {
             if (saveToMem) validPaths.add(getPath(path));

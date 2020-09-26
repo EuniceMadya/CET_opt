@@ -54,9 +54,14 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
             traversal(start);
         }
         System.out.println("finished DFS sub traversal!");
-        for (int start : graph.getStartPoints()) {
-            BFSsubConcatenate(start);
+
+        for(int start: graph.getStartPoints()){
+            concatenate(start);
         }
+
+//        for (int start : graph.getStartPoints()) {
+//            BFSsubConcatenate(start);
+//        }
         long endTime = System.nanoTime();
         timeElapsed = endTime - startTime;
         System.out.println(new Time(System.currentTimeMillis()).toString() + " - finished BFS sub traversal!");
@@ -87,6 +92,14 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
     }
 
+    private void concatenate(int start){
+        for(int[] startPath: anchorPaths.get(start)){
+            Stack <int[]>stack = new Stack<>();
+            stack.push(startPath);
+            DFSsubConcatenate(startPath, stack );
+        }
+    }
+
     private void DFSsubTraversal(int s, Stack<Integer> curStack) {
 
         if (isAnchor[s] && curStack.size() > 1 || graph.endContains(s)) {
@@ -103,6 +116,22 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
             DFSsubTraversal(edge, curStack);
             curStack.pop();
         }
+    }
+
+    private void DFSsubConcatenate(int[] s, Stack<int[]> curStack){
+
+        if(graph.endContains(s[s.length - 1])){
+            if(saveToMem) validPaths.add(getPathSeq(curStack));
+            pathNum ++;
+            return;
+        }
+
+        for(int[] nextAnchorPath: anchorPaths.get(s[s.length - 1])){ //get neighbours
+            curStack.push(nextAnchorPath);
+            DFSsubConcatenate(nextAnchorPath, curStack);
+            curStack.pop();
+        }
+
     }
 
 
@@ -132,6 +161,25 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
             }
             currentPaths = null; // let garbage collection handle it
         }
+    }
+
+
+    private int[] getPathSeq(Stack <int[]> stack){
+        ArrayList<Integer> path = new ArrayList<>();
+        for(int[] s: stack){
+            for(int i = 0; i< s.length; i ++){
+                if(i == s.length - 1 && !graph.endContains(s[i]))
+                    continue;
+                path.add(s[i]);
+            }
+        }
+        int[] pathArray = new int[path.size()];
+        for(int i = 0; i < path.size(); i ++){
+            pathArray[i] = path.get(i);
+        }
+        path = null;
+        return pathArray;
+
     }
 
 }

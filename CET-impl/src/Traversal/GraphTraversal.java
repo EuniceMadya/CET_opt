@@ -90,7 +90,7 @@ public abstract class GraphTraversal {
         }
     }
 
-    int[] getPath(Stack stack) {
+    int[] getPath(Stack<Integer> stack) {
         Enumeration enumeration = stack.elements();
         int[] path = new int[stack.size()];
         int counter = 0;
