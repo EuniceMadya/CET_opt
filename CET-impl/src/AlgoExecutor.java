@@ -158,7 +158,9 @@ class AlgoExecutor {
             System.out.println("run: " + runTimes[i] );
             System.gc();
         }
-        System.out.println("\n\nAverage execution time in nanoseconds: " + average / numRun + "\n");
+        System.out.println("\n\nAverage execution time in nanoseconds: " + average / numRun);
+        System.out.println("Average execution time in seconds: " + average / numRun / Math.pow(10, 9) + "\n");
+
     }
 
      private void writeTimeResult(String fileName) {
