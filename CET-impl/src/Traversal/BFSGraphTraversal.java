@@ -41,6 +41,7 @@ public class BFSGraphTraversal extends GraphTraversal {
                     pathNum++;
                 } else queue.offer(newStack);
             }
+            currentPath = null;
         }
     }
 }
