@@ -170,16 +170,21 @@ class AlgoExecutor {
             if(! file.exists()) if(!file.createNewFile() ) return;
 
             FileWriter fw = new FileWriter(file, true);
-            fw.write("Run: " + algo.getClass().getName());
-            if(numAnchor != 0) fw.write("Anchor num: " + numAnchor + "\n");
-            for (int i = 0; i < runTimes.length; i++) {
-                if (algo != null) {
-                    fw.write(String.format("Run %d: %d nanoseconds\n", i + 1, runTimes[i]));
-//                    System.out.println(String.format("Run %d: %d nanoseconds\n", i + 1, runTimes[i]));
-                    System.out.println("Number of paths: "+ algo.pathNum);
-                }
+//            fw.write("Run: " + algo.getClass().getName());
+//            if(numAnchor != 0) fw.write("Anchor num: " + numAnchor + "\n");
+//            for (int i = 0; i < runTimes.length; i++) {
+//                if (algo != null) {
+//                    fw.write(String.format("Run %d: %d nanoseconds\n", i + 1, runTimes[i]));
+////                    System.out.println(String.format("Run %d: %d nanoseconds\n", i + 1, runTimes[i]));
+//                    System.out.println("Number of paths: "+ algo.pathNum);
+//                }
+//            }
+//            fw.write("\n\nAverage execution time in nanoseconds: " + average / numRun + "\n\n\n\n");
+            if(numAnchor != 0){
+                fw.write("selection: "+ selection);
+                fw.write("\n" + numAnchor + "," + average/numRun/Math.pow(10, 9) + "\n");
             }
-            fw.write("\n\nAverage execution time in nanoseconds: " + average / numRun + "\n\n\n\n");
+
             fw.close();
 
         } catch (IOException e) {
