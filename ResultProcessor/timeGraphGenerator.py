@@ -20,11 +20,11 @@ def addSeq(data: list):
 
     selection: str = ""
     for i in range(len(data)):
-        if len(data[i].split(",")) == 1:
+        if len(data[i].split(",")) == 1:  #and len(data[i]) != 0:
             selection = data[i]
             dataSet[selection]: dict = {"x": [], "y": []}
             continue
-        singleData = data[i].replace("\n", "").split(",")
+        singleData = data[i].split(",")
         dataSet[selection]["x"].append(int(singleData[0]))
         dataSet[selection]["y"].append(float(singleData[1]))
         if (float(singleData[1]) > maxTime):
@@ -57,17 +57,19 @@ file = open(fileName, "r")
 
 content = []
 for line in file:
-    content.append(line)
+    if len(line.strip()) == 0:
+        continue
+    content.append(line.strip())
 file.close()
 
 totalNodeNum = int(content[0])
 totalAnchorNum = int(content[1])
 for i in range(2, len(content)):
     if "BFS" in content[i] or "DFS" in content[i]:
-        addAlgo(content[i].replace("\n", "").replace("Algo:", ""), content[i + 1: i + 2])
+        addAlgo(content[i].replace("Algo:", ""), content[i + 1: i + 2])
         i = i + 1
     if "Hybrid" in content[i]:
-        addAlgo(content[i].replace("\n", "").replace("Algo:", ""), content[i + 1:])
+        addAlgo(content[i].replace("Algo:", ""), content[i + 1:])
 
 
 plt.axis([0, totalAnchorNum, 0, maxTime + 10])

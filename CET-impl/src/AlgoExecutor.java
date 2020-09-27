@@ -119,7 +119,7 @@ class AlgoExecutor {
         System.out.println("Algorithm to execute: " + algo.getClass().getName());
         String fileName = "OutputFiles/result/timeResults/" + "graph-" +
                 algo.getGraph().getNumVertex() + "-" +
-                algo.traversalType +
+                algo.traversalType + "-" +
                 new Date().toString() + selection + ".txt";
 
         if(algo.traversalType.equals(TraversalType.SeqHybrid) && algo.getGraph().getNumVertex() > 100){
@@ -181,7 +181,7 @@ class AlgoExecutor {
 //            }
 //            fw.write("\n\nAverage execution time in nanoseconds: " + average / numRun + "\n\n\n\n");
             if(numAnchor != 0){
-                fw.write("selection: "+ selection);
+//                fw.write("selection: "+ selection);
                 fw.write("\n" + numAnchor + "," + average/numRun/Math.pow(10, 9) + "\n");
             }
 

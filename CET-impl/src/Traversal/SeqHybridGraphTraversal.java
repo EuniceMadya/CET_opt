@@ -65,7 +65,7 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 //        }
         long endTime = System.nanoTime();
         timeElapsed = endTime - startTime;
-        System.out.println(new Time(System.currentTimeMillis()).toString() + " - finished BFS sub traversal!");
+        System.out.println(new Time(System.currentTimeMillis()).toString() + " - finished DFS sub concatenate!");
 
     }
 
