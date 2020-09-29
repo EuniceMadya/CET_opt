@@ -43,26 +43,28 @@ class AlgoExecutor {
         switch (selection) {
             case 1:
                 algo = new BFSGraphTraversal(graph, savePathInMem);
-//                traversalAlgos.add(new BFSGraphTraversal(graph, null));
                 break;
 
             case 2:
                 algo = new DFSGraphTraversal(graph, savePathInMem);
-//                traversalAlgos.add(new DFSGraphTraversal(graph, null));
                 break;
 
             case 3:
+                algo = new HybridDFSDFSTraversal(graph, savePathInMem, null);
                 addSeqHybrid(graph);
                 break;
 
             case 4:
-                algo = new M_CETGraphTraversal(graph, savePathInMem);
-//                traversalAlgos.add( new M_CETGraphTraversal(graph, null));
+                algo = new HybridDFSBFSTraversal(graph, savePathInMem, null);
+                addSeqHybrid(graph);
                 break;
 
             case 5:
+                algo = new M_CETGraphTraversal(graph, savePathInMem);
+                break;
+
+            case 6:
                 algo = new T_CETGraphTraversal(graph, savePathInMem);
-//                traversalAlgos.add( new T_CETGraphTraversal(graph, null));
                 break;
 
             default:
@@ -90,7 +92,9 @@ class AlgoExecutor {
             if (numAnchor + graph.getStartPointNum() <= graph.getNumVertex()) break;
             System.out.println("WARNING: The number of anchor nodes is larger than the number of nodes in graph, try again.\n\n");
         }
-        algo = new SeqHybridGraphTraversal(graph, savePathInMem,  findAnchor(graph, selection));
+
+        ((SeqHybridGraphTraversal)algo).setAnchorNodes(
+                findAnchor(algo.getGraph(),selection));
     }
 
     private int[] findAnchor(CompressedGraph graph, String selection){

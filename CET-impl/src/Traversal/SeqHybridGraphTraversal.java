@@ -1,16 +1,18 @@
 package Traversal;
 
 import Components.CompressedGraph;
-import util.ArrayQueue;
 
 import java.sql.Time;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Stack;
 
-public class SeqHybridGraphTraversal extends GraphTraversal {
+public abstract class SeqHybridGraphTraversal extends GraphTraversal {
 
     private int[] anchorNodes;
     private boolean[] isAnchor;
-    private HashMap<Integer, ArrayList<int[]>> anchorPaths;
+    HashMap<Integer, ArrayList<int[]>> anchorPaths;
 
     public SeqHybridGraphTraversal(CompressedGraph graph, boolean saveToMem, int[] anchorNodes) {
         super(graph, saveToMem);
@@ -18,7 +20,6 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
         this.anchorNodes = anchorNodes;
         anchorPaths = new HashMap<>();
         isAnchor = new boolean[graph.getNumVertex()];
-        initAnchorBool();
     }
 
     private void initMap() {
@@ -60,9 +61,6 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
             concatenate(start);
         }
 
-//        for (int start : graph.getStartPoints()) {
-//            BFSsubConcatenate(start);
-//        }
         long endTime = System.nanoTime();
         timeElapsed = endTime - startTime;
         System.out.println(new Time(System.currentTimeMillis()).toString() + " - finished DFS sub concatenate!");
@@ -93,13 +91,8 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
 
     }
 
-    private void concatenate(int start){
-        for(int[] startPath: anchorPaths.get(start)){
-            Stack <int[]>stack = new Stack<>();
-            stack.push(startPath);
-            DFSsubConcatenate(startPath, stack );
-        }
-    }
+
+    abstract void concatenate(int start);
 
     private void DFSsubTraversal(int s, Stack<Integer> curStack) {
 
@@ -119,68 +112,5 @@ public class SeqHybridGraphTraversal extends GraphTraversal {
         }
     }
 
-    private void DFSsubConcatenate(int[] s, Stack<int[]> curStack){
-
-        if(graph.endContains(s[s.length - 1])){
-            if(saveToMem) validPaths.add(getPathSeq(curStack));
-            pathNum ++;
-            return;
-        }
-
-        for(int[] nextAnchorPath: anchorPaths.get(s[s.length - 1])){ //get neighbours
-            curStack.push(nextAnchorPath);
-            DFSsubConcatenate(nextAnchorPath, curStack);
-            curStack.pop();
-        }
-
-    }
-
-
-    private void BFSsubConcatenate(int start) {
-        ArrayQueue<ArrayList<int[]>> queue = new ArrayQueue<>(graph.getStartPointNum());
-
-        queue.offer(anchorPaths.get(start));
-
-        while (!queue.isEmpty()) {
-            ArrayList<int[]> currentPaths = queue.poll();
-            for (int[] subPath : currentPaths) {
-                if (graph.endContains(subPath[subPath.length - 1])) { // probs could optimize here
-                    if (saveToMem) validPaths.add(subPath);
-                    pathNum++;
-                    continue;
-                }
-
-                ArrayList<int[]> combo = new ArrayList<>();
-                for (int[] nextList : anchorPaths.get(subPath[subPath.length - 1])) {
-
-                    int[] newPath = new int[subPath.length - 1 + nextList.length];
-                    System.arraycopy(subPath, 0, newPath, 0, subPath.length - 1);
-                    System.arraycopy(nextList, 0, newPath, subPath.length - 1, nextList.length);
-                    combo.add(newPath);
-                }
-                queue.offer(combo);
-            }
-            currentPaths = null; // let garbage collection handle it
-        }
-    }
-
-
-    private int[] getPathSeq(Stack <int[]> stack){
-        ArrayList<Integer> path = new ArrayList<>();
-        for(int[] s: stack){
-            for(int i = 0; i< s.length; i ++){
-                if(i == s.length - 1 && !graph.endContains(s[i]))
-                    continue;
-                path.add(s[i]);
-            }
-        }
-        int[] pathArray = new int[path.size()];
-        for(int i = 0; i < path.size(); i ++){
-            pathArray[i] = path.get(i);
-        }
-        path = null;
-        return pathArray;
-
-    }
 
 }
