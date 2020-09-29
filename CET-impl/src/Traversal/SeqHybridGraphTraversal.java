@@ -14,7 +14,7 @@ public abstract class SeqHybridGraphTraversal extends GraphTraversal {
     private boolean[] isAnchor;
     HashMap<Integer, ArrayList<int[]>> anchorPaths;
 
-    public SeqHybridGraphTraversal(CompressedGraph graph, boolean saveToMem, int[] anchorNodes) {
+    SeqHybridGraphTraversal(CompressedGraph graph, boolean saveToMem, int[] anchorNodes) {
         super(graph, saveToMem);
         this.traversalType = TraversalType.SeqHybrid;
         this.anchorNodes = anchorNodes;

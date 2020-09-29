@@ -128,12 +128,23 @@ class AlgoExecutor {
 
         if(algo.traversalType.equals(TraversalType.SeqHybrid) && algo.getGraph().getNumVertex() > 100){
             System.out.println("Do you want to run range of anchor node num?(y/n)\n");
+            int upper;
+
             if(new Scanner(System.in).nextLine().equals("y")){
+                while(true){
+                    System.out.println("Desired upper bound:");
+                    try{
+                        upper = Integer.parseInt(new Scanner(System.in).nextLine());
+                        break;
+                    }catch (Exception e){
+                        System.out.println("Not a number!");
+                    }
+                }
                 // get the closest int of numAnchor as start point
                 numAnchor = numAnchor/5 * 5;
+                if(upper < numAnchor) upper = algo.getGraph().getNumVertex()/10 + 10;
 
-                for(int i = numAnchor; i < algo.getGraph().getNumVertex()/10 + 10;
-                    i += 5){
+                for(int i = numAnchor; i < upper;i += 5){
                     // set new Anchor num
                     numAnchor = i;
                     ((SeqHybridGraphTraversal)algo).setAnchorNodes(
