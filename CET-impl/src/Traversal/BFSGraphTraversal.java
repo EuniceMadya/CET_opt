@@ -3,7 +3,7 @@ package Traversal;
 import Components.CompressedGraph;
 import util.ArrayQueue;
 
-import java.util.Stack;
+import java.util.ArrayList;
 
 public class BFSGraphTraversal extends GraphTraversal {
 
@@ -16,10 +16,10 @@ public class BFSGraphTraversal extends GraphTraversal {
     // BFS traversal
     public void traversal(int start) {
 
-        ArrayQueue<Stack<Integer>> queue = new ArrayQueue<>(graph.getNumVertex());
+        ArrayQueue<ArrayList<Integer>> queue = new ArrayQueue<>(graph.getNumVertex());
 
-        Stack<Integer> path = new Stack<>();
-        path.push(start);
+        ArrayList<Integer> path = new ArrayList<>();
+        path.add(start);
 
         queue.offer(path);
         if (graph.endContains(start)) {
@@ -28,14 +28,14 @@ public class BFSGraphTraversal extends GraphTraversal {
             return;
         }
         while (!queue.isEmpty()) {
-            Stack<Integer> currentPath = queue.poll();
-            int cur = currentPath.peek();
+            ArrayList<Integer> currentPath = queue.poll();
+            int cur = currentPath.get(0);
             for (int i = graph.rowIndex[cur]; i < graph.rowIndex[cur + 1]; i++) {
                 int neighbour = graph.colIndex[i];
 
-                Stack <Integer> newStack = new Stack<>();
+                ArrayList <Integer> newStack = new ArrayList<>();
                 newStack.addAll(currentPath);
-                newStack.push(neighbour);
+                newStack.add(neighbour);
                 if (graph.endContains(neighbour)) {
                     if (saveToMem) validPaths.add(getPath(newStack));
                     pathNum++;
