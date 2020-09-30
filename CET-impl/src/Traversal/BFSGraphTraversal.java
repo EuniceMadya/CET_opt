@@ -29,7 +29,7 @@ public class BFSGraphTraversal extends GraphTraversal {
         }
         while (!queue.isEmpty()) {
             ArrayList<Integer> currentPath = queue.poll();
-            int cur = currentPath.get(0);
+            int cur = currentPath.get(currentPath.size() - 1);
             for (int i = graph.rowIndex[cur]; i < graph.rowIndex[cur + 1]; i++) {
                 int neighbour = graph.colIndex[i];
 
