@@ -127,12 +127,12 @@ class AlgoExecutor {
                 new Date().toString() + selection + ".txt";
 
         if(algo.traversalType.equals(TraversalType.SeqHybrid) && algo.getGraph().getNumVertex() > 100){
-            System.out.println("Do you want to run range of anchor node num?(y/n)\n");
+            System.out.println("Do you want to run range of anchor node num?(y/n)");
             int upper;
 
             if(new Scanner(System.in).nextLine().equals("y")){
                 while(true){
-                    System.out.println("Desired upper bound:");
+                    System.out.println("\nDesired upper bound:");
                     try{
                         upper = Integer.parseInt(new Scanner(System.in).nextLine());
                         break;
@@ -197,7 +197,7 @@ class AlgoExecutor {
 //            fw.write("\n\nAverage execution time in nanoseconds: " + average / numRun + "\n\n\n\n");
             if(numAnchor != 0){
 //                fw.write("selection: "+ selection);
-                fw.write("\n" + numAnchor + "," + average/numRun/Math.pow(10, 9) + "\n");
+                fw.write("\n" + numAnchor + "," + average/numRun/Math.pow(10, 9) );
             }
 
             fw.close();
