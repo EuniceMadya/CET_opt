@@ -2,7 +2,6 @@ package Traversal;
 
 import Components.CompressedGraph;
 
-import java.util.ArrayList;
 import java.util.Stack;
 
 public class HybridDFSDFSTraversal extends SeqHybridGraphTraversal {
@@ -11,23 +10,23 @@ public class HybridDFSDFSTraversal extends SeqHybridGraphTraversal {
         super(graph, saveToMem, anchorNodes);
     }
 
-    public void concatenate(int start){
-        for(int[] startPath: anchorPaths.get(start)){
+    public void concatenate(int start) {
+        for (int[] startPath : anchorPaths.get(start)) {
             Stack<int[]> stack = new Stack<>();
             stack.push(startPath);
-            DFSsubConcatenate(startPath, stack );
+            DFSsubConcatenate(startPath, stack);
         }
     }
 
-    private void DFSsubConcatenate(int[] s, Stack<int[]> curStack){
+    private void DFSsubConcatenate(int[] s, Stack<int[]> curStack) {
 
-        if(graph.endContains(s[s.length - 1])){
-            if(saveToMem) validPaths.add(getPathSeq(curStack));
-            pathNum ++;
+        if (graph.endContains(s[s.length - 1])) {
+            if (saveToMem) validPaths.add(getPathSeq(curStack));
+            pathNum++;
             return;
         }
 
-        for(int[] nextAnchorPath: anchorPaths.get(s[s.length - 1])){ //get neighbours
+        for (int[] nextAnchorPath : anchorPaths.get(s[s.length - 1])) { //get neighbours
             curStack.push(nextAnchorPath);
             DFSsubConcatenate(nextAnchorPath, curStack);
             curStack.pop();
@@ -35,20 +34,28 @@ public class HybridDFSDFSTraversal extends SeqHybridGraphTraversal {
 
     }
 
-    private int[] getPathSeq(Stack <int[]> stack){
-        ArrayList<Integer> path = new ArrayList<>();
-        for(int[] s: stack){
-            for(int i = 0; i< s.length; i ++){
-                if(i == s.length - 1 && !graph.endContains(s[i]))
-                    continue;
-                path.add(s[i]);
+    private int[] getPathSeq(Stack<int[]> stack) {
+        int length = 0;
+        for (int[] s : stack) {
+            if (!graph.endContains(s[s.length - 1]))
+                length += s.length - 1;
+            else length += s.length;
+        }
+
+        int[] pathArray = new int[length];
+
+        length = 0;
+        for (int[] s : stack) {
+            if (!graph.endContains(s[s.length - 1])){
+                System.arraycopy(s, 0, pathArray, length, s.length -1 );
+                length += s.length - 1;
+            }
+            else{
+                System.arraycopy(s, 0, pathArray, length, s.length );
+                length += s.length ;
             }
         }
-        int[] pathArray = new int[path.size()];
-        for(int i = 0; i < path.size(); i ++){
-            pathArray[i] = path.get(i);
-        }
-        path = null;
+
         return pathArray;
 
     }
