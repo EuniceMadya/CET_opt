@@ -48,7 +48,7 @@ public abstract class SeqHybridGraphTraversal extends GraphTraversal {
         pathNum = 0;
         System.out.println("Number of start points: " + graph.getStartPointNum());
         System.out.println("Number of anchor points: " + anchorNodes.length);
-        System.out.println("Start DFS sub traversal!");
+//        System.out.println("Start DFS sub traversal!");
         long startTime = System.nanoTime();
         for (int start : anchorNodes) {
             if (graph.getNumVertex() > 5000)
@@ -56,7 +56,7 @@ public abstract class SeqHybridGraphTraversal extends GraphTraversal {
                         " with degree " + graph.getNumDegree(start));
             traversal(start);
         }
-        System.out.println("finished DFS sub traversal!");
+//        System.out.println("finished DFS sub traversal!");
 
         for (int start : graph.getStartPoints()) {
 //            System.out.println("start concatenate for: "+ start);
