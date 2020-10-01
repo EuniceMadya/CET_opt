@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class CustomIntStack {
 
     private int top;
-    private int stack[];
+    private int []stack;
 
 
     public CustomIntStack(int size) {
