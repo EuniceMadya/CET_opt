@@ -1,6 +1,7 @@
 package Traversal;
 
 import Components.CompressedGraph;
+import util.CustomIntStack;
 
 import java.util.Stack;
 
@@ -14,7 +15,7 @@ public class DFSGraphTraversal extends GraphTraversal {
 
     @Override
     public void traversal(int start) {
-        Stack<Integer> path = new Stack<>();
+        CustomIntStack path = new CustomIntStack();
 
         path.push(start);
 
@@ -22,16 +23,16 @@ public class DFSGraphTraversal extends GraphTraversal {
         if (graph.getNumDegree(start) != 0) DFStraversal(start, path);
 
         else {
-            if (saveToMem) validPaths.add(getPath(path));
+            if (saveToMem) validPaths.add(path.getAllElements());
             pathNum++;
         }
 
     }
 
-    private void DFStraversal(int s, Stack<Integer> path) {
+    private void DFStraversal(int s, CustomIntStack path) {
 
         if (graph.endContains(s)) {
-            if (saveToMem) validPaths.add(getPath(path));
+            if (saveToMem) validPaths.add(path.getAllElements());
             pathNum++;
             return;
         }

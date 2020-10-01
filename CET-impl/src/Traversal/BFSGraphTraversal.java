@@ -32,12 +32,12 @@ public class BFSGraphTraversal extends GraphTraversal {
             for (int i = graph.rowIndex[cur]; i < graph.rowIndex[cur + 1]; i++) {
                 int neighbour = graph.colIndex[i];
 
-                IntArray newStack = new IntArray(currentPath);
-                newStack.add(neighbour);
+                IntArray newArray = new IntArray(currentPath);
+                newArray.add(neighbour);
                 if (graph.endContains(neighbour)) {
-                    if (saveToMem) validPaths.add(newStack.getArray());
+                    if (saveToMem) validPaths.add(newArray.getArray());
                     pathNum++;
-                } else queue.offer(newStack);
+                } else queue.offer(newArray);
             }
             currentPath = null;
         }
