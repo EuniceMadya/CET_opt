@@ -12,7 +12,8 @@ public class HybridDFSDFSTraversal extends SeqHybridGraphTraversal {
     }
 
     public void concatenate(int start) {
-        for (int[] startPath : anchorPaths.get(start)) {
+        for (Object obj : anchorPaths.get(start).getAllElements()) {
+            int[] startPath = (int[]) obj;
             CustomObjStack<int[]> stack = new CustomObjStack<>();
             stack.push(startPath);
             DFSsubConcatenate(startPath, stack);
@@ -27,7 +28,8 @@ public class HybridDFSDFSTraversal extends SeqHybridGraphTraversal {
             return;
         }
 
-        for (int[] nextAnchorPath : anchorPaths.get(s[s.length - 1])) { //get neighbours
+        for (Object obj : anchorPaths.get(s[s.length - 1]).getAllElements()) { //get neighbours
+            int[] nextAnchorPath = (int[]) obj;
             curStack.push(nextAnchorPath);
             DFSsubConcatenate(nextAnchorPath, curStack);
             curStack.pop();

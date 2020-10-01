@@ -2,6 +2,7 @@ package Traversal;
 
 import Components.CompressedGraph;
 import util.CustomDS.CustomIntStack;
+import util.CustomDS.CustomObjStack;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public abstract class SeqHybridGraphTraversal extends GraphTraversal {
 
     private int[] anchorNodes;
     private boolean[] isAnchor;
-    HashMap<Integer, ArrayList<int[]>> anchorPaths;
+    HashMap<Integer, CustomObjStack<int[]>> anchorPaths;
 
     SeqHybridGraphTraversal(CompressedGraph graph, boolean saveToMem, int[] anchorNodes) {
         super(graph, saveToMem);
@@ -25,7 +26,7 @@ public abstract class SeqHybridGraphTraversal extends GraphTraversal {
 
     private void initMap() {
         for (Integer anchorNode : anchorNodes) {
-            anchorPaths.put(anchorNode, new ArrayList<>());
+            anchorPaths.put(anchorNode, new CustomObjStack<>());
         }
     }
 
@@ -98,7 +99,7 @@ public abstract class SeqHybridGraphTraversal extends GraphTraversal {
     private void DFSsubTraversal(int s, CustomIntStack curStack) {
 
         if (isAnchor[s] && curStack.size() > 1 || graph.endContains(s)) {
-            anchorPaths.get(curStack.firstElement()).add(curStack.getAllElements());
+            anchorPaths.get(curStack.firstElement()).push(curStack.getAllElements());
             return;
         }
 
