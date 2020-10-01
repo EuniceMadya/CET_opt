@@ -1,9 +1,7 @@
 package Traversal;
 
 import Components.CompressedGraph;
-import util.CustomIntStack;
-
-import java.util.Stack;
+import util.CustomDS.CustomIntStack;
 
 public class DFSGraphTraversal extends GraphTraversal {
 

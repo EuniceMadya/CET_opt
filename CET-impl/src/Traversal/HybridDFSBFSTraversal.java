@@ -1,7 +1,7 @@
 package Traversal;
 
 import Components.CompressedGraph;
-import util.ArrayQueue;
+import util.CustomDS.ArrayQueue;
 
 import java.util.ArrayList;
 import java.util.Arrays;

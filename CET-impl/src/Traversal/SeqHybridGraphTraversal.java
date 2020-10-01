@@ -1,6 +1,7 @@
 package Traversal;
 
 import Components.CompressedGraph;
+import util.CustomDS.CustomIntStack;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -78,12 +79,12 @@ public abstract class SeqHybridGraphTraversal extends GraphTraversal {
     @Override
     public void traversal(int start) {
 
-        Stack<Integer> stack = new Stack<>();
+        CustomIntStack stack = new CustomIntStack();
         stack.push(start);
         if (graph.getNumDegree(start) != 0) DFSsubTraversal(start, stack);
             // if it is a start point and has no neighbours
         else if (graph.startContains(start)) {
-            if (saveToMem) validPaths.add(getPath(stack));
+            if (saveToMem) validPaths.add(stack.getAllElements());
             pathNum++;
         }
 
@@ -94,10 +95,10 @@ public abstract class SeqHybridGraphTraversal extends GraphTraversal {
 
     abstract void concatenate(int start);
 
-    private void DFSsubTraversal(int s, Stack<Integer> curStack) {
+    private void DFSsubTraversal(int s, CustomIntStack curStack) {
 
         if (isAnchor[s] && curStack.size() > 1 || graph.endContains(s)) {
-            anchorPaths.get(curStack.firstElement()).add(getPath(curStack));
+            anchorPaths.get(curStack.firstElement()).add(curStack.getAllElements());
             return;
         }
 

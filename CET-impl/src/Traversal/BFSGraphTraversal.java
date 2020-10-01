@@ -1,8 +1,8 @@
 package Traversal;
 
 import Components.CompressedGraph;
-import util.ArrayQueue;
-import util.IntArray;
+import util.CustomDS.ArrayQueue;
+import util.CustomDS.IntArray;
 
 public class BFSGraphTraversal extends GraphTraversal {
 
