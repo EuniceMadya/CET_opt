@@ -6,13 +6,13 @@ import util.ArrayQueue;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class HybridDFSBFSTraversal extends SeqHybridGraphTraversal{
+public class HybridDFSBFSTraversal extends SeqHybridGraphTraversal {
 
     public HybridDFSBFSTraversal(CompressedGraph graph, boolean saveToMem, int[] anchorNodes) {
         super(graph, saveToMem, anchorNodes);
     }
 
-    public void concatenate(int start){
+    public void concatenate(int start) {
         BFSsubConcatenate(start);
     }
 
@@ -46,7 +46,6 @@ public class HybridDFSBFSTraversal extends SeqHybridGraphTraversal{
             currentPaths = null; // let garbage collection handle it
         }
     }
-
 
 
 }

@@ -46,13 +46,12 @@ public class HybridDFSDFSTraversal extends SeqHybridGraphTraversal {
 
         length = 0;
         for (int[] s : stack) {
-            if (!graph.endContains(s[s.length - 1])){
-                System.arraycopy(s, 0, pathArray, length, s.length -1 );
+            if (!graph.endContains(s[s.length - 1])) {
+                System.arraycopy(s, 0, pathArray, length, s.length - 1);
                 length += s.length - 1;
-            }
-            else{
-                System.arraycopy(s, 0, pathArray, length, s.length );
-                length += s.length ;
+            } else {
+                System.arraycopy(s, 0, pathArray, length, s.length);
+                length += s.length;
             }
         }
 

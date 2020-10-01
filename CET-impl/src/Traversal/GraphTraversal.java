@@ -16,7 +16,7 @@ public abstract class GraphTraversal {
     boolean saveToMem;
 
 
-     GraphTraversal(CompressedGraph graph, boolean saveToMem) {
+    GraphTraversal(CompressedGraph graph, boolean saveToMem) {
         this.graph = graph;
         this.saveToMem = saveToMem;
         this.validPaths = new ArrayList<>();
@@ -34,7 +34,7 @@ public abstract class GraphTraversal {
 
     }
 
-    public CompressedGraph getGraph(){
+    public CompressedGraph getGraph() {
         return graph;
     }
 

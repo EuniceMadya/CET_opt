@@ -22,13 +22,13 @@ public class DFSGraphTraversal extends GraphTraversal {
         if (graph.getNumDegree(start) != 0) DFStraversal(start, path);
 
         else {
-            if(saveToMem) validPaths.add(getPath(path));
-            pathNum ++;
+            if (saveToMem) validPaths.add(getPath(path));
+            pathNum++;
         }
 
     }
 
-    private void DFStraversal(int s, Stack <Integer> path) {
+    private void DFStraversal(int s, Stack<Integer> path) {
 
         if (graph.endContains(s)) {
             if (saveToMem) validPaths.add(getPath(path));

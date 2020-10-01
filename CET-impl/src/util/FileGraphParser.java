@@ -11,7 +11,7 @@ class FileGraphParser {
     // graph are read from a text file, with the format of adjacency matrix representation
 
 
-     CompressedGraph readGraph(String fileName) {
+    CompressedGraph readGraph(String fileName) {
         File myObj = new File(fileName);
         Scanner myReader = null;
         try {
@@ -34,39 +34,39 @@ class FileGraphParser {
         return null;
     }
 
-    private CompressedGraph readCSRGraph(String fileName){
+    private CompressedGraph readCSRGraph(String fileName) {
         File file = new File(fileName);
         Scanner myReader;
         CompressedGraph graph;
-        String [] colNums = null;
-        String [] rowNums = null;
-        try{
+        String[] colNums = null;
+        String[] rowNums = null;
+        try {
             myReader = new Scanner(file);
             myReader.nextLine();// read type
             int nodeNum = Integer.parseInt(myReader.nextLine());
             int colNum = 0;
-            while(myReader.hasNextLine()){
+            while (myReader.hasNextLine()) {
                 String str = myReader.nextLine();
-                if(str.contains("col")){
+                if (str.contains("col")) {
                     str = str.replace("col: ", "");
                     colNums = str.split(" ");
                     colNum = colNums.length;
                 }
-                if(str.contains("row")){
+                if (str.contains("row")) {
                     str = str.replace("row: ", "");
                     rowNums = str.split(" ");
                 }
             }
             graph = new CompressedGraph(colNum, nodeNum + 1);
 
-            for(int i = 0; i < colNum; i ++) graph.getColIndex()[i] = Integer.parseInt(colNums[i]);
+            for (int i = 0; i < colNum; i++) graph.getColIndex()[i] = Integer.parseInt(colNums[i]);
 
-            for(int i = 0; i < nodeNum + 1; i ++) graph.getRowIndex()[i] = Integer.parseInt(rowNums[i]);
+            for (int i = 0; i < nodeNum + 1; i++) graph.getRowIndex()[i] = Integer.parseInt(rowNums[i]);
 
             myReader.close();
 
             return graph;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

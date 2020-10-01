@@ -135,18 +135,18 @@ public class GraphBuilder {
 
     private void saveToFile(String string, int num) {
         String fileName = type.toString().replace(
-                "GraphType.", "") +num + "-f" + frequency + ".txt";
+                "GraphType.", "") + num + "-f" + frequency + ".txt";
 
         File file = new File(fileName);
 
         try {
-            if(! file.exists())
+            if (!file.exists())
                 file.createNewFile();
 
 
             FileWriter fw = new FileWriter(file, true);
-            fw.write(string.substring(0, string.length()/2));
-            fw.write(string.substring(string.length()/2));
+            fw.write(string.substring(0, string.length() / 2));
+            fw.write(string.substring(string.length() / 2));
             fw.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -154,7 +154,7 @@ public class GraphBuilder {
 
     }
 
-    private int getFrequency(int num){
+    private int getFrequency(int num) {
         return (int) Math.round(num * frequency);
     }
 

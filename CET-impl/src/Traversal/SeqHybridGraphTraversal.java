@@ -28,9 +28,9 @@ public abstract class SeqHybridGraphTraversal extends GraphTraversal {
         }
     }
 
-    private void initAnchorBool(){
+    private void initAnchorBool() {
         Arrays.fill(isAnchor, false);
-        for(int i: anchorNodes) isAnchor[i] = true;
+        for (int i : anchorNodes) isAnchor[i] = true;
     }
 
     public void setAnchorNodes(int[] anchorNodes) {
@@ -56,7 +56,7 @@ public abstract class SeqHybridGraphTraversal extends GraphTraversal {
         }
         System.out.println("finished DFS sub traversal!");
 
-        for(int start: graph.getStartPoints()){
+        for (int start : graph.getStartPoints()) {
 //            System.out.println("start concatenate for: "+ start);
             concatenate(start);
         }
