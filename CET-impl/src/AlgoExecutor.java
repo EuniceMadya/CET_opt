@@ -112,7 +112,6 @@ class AlgoExecutor {
 
         for(int i = graph.getStartPointNum(); i < anchor.length; i ++){
             System.out.print(String.format("[%d, %d] ", anchor[i], graph.getNumDegree(anchor[i])));
-            System.out.print(String.format("[%d, %d] ", anchor[i], graph.getNumDegree(anchor[i])));
         }
         System.out.println("\n");
         return anchor;

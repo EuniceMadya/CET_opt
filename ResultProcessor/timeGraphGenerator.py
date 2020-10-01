@@ -57,7 +57,7 @@ file = open(fileName, "r")
 
 content = []
 for line in file:
-    if len(line.strip()) == 0:
+    if len(line.strip()) == 0 or "#" in line:
         continue
     content.append(line.strip())
 file.close()

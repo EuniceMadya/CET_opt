@@ -4,6 +4,7 @@ import Components.CompressedGraph;
 import util.ArrayQueue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class HybridDFSBFSTraversal extends SeqHybridGraphTraversal{
 
@@ -35,6 +36,9 @@ public class HybridDFSBFSTraversal extends SeqHybridGraphTraversal{
                     int[] newPath = new int[subPath.length - 1 + nextList.length];
                     System.arraycopy(subPath, 0, newPath, 0, subPath.length - 1);
                     System.arraycopy(nextList, 0, newPath, subPath.length - 1, nextList.length);
+
+                    System.out.println(Arrays.toString(newPath));
+
                     combo.add(newPath);
                 }
                 queue.offer(combo);
