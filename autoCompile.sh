@@ -3,9 +3,7 @@ Components=CET-impl/src/Components/*.java
 
 #utils
 DagGenTool=CET-impl/src/util/dagGen/*.java
-ArrayQueue=CET-impl/src/util/ArrayQueue.java
-IntArray=CET-impl/src/util/IntArray.java
-CustomIntStack=CET-impl/src/util/CustomIntStack.java
+DS=CET-impl/src/util/CustomDS/*.java
 Processor=CET-impl/src/util/GraphProcessor.java
 Generator=CET-impl/src/util/GraphGenerator.java
 FileParser=CET-impl/src/util/FileGraphParser.java
@@ -14,7 +12,7 @@ RandomTimeGen=CET-impl/src/util/RandomTimeGenerator.java
 AnchorProcessor=CET-impl/src/util/AnchorProcessor.java
 GraphType=CET-impl/src/util/GraphType.java
 
-Util="$DagGenTool $ArrayQueue $IntArray $CustomIntStack $Generator $FileParser $GraphType $GraphBuilder $RandomTimeGen $AnchorProcessor"
+Util="$DagGenTool $DS $Generator $FileParser $GraphType $GraphBuilder $RandomTimeGen $AnchorProcessor"
 
 #Algos
 TraversalAlgos=CET-impl/src/Traversal/*.java
