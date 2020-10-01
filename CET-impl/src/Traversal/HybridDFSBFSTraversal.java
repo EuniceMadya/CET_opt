@@ -40,8 +40,6 @@ public class HybridDFSBFSTraversal extends SeqHybridGraphTraversal {
                     System.arraycopy(subPath, 0, newPath, 0, subPath.length - 1);
                     System.arraycopy(nextList, 0, newPath, subPath.length - 1, nextList.length);
 
-                    System.out.println(Arrays.toString(newPath));
-
                     combo.push(newPath);
                 }
                 queue.offer(combo);
