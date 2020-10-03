@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 
+TOTAL_NODE_NUM: int = 0
 totalNodeNum: int = 0
 totalAnchorNum: int = 0
 maxTime: float = 0.0
@@ -13,8 +14,6 @@ def addAlgo(algo: str, data: list):
 
 
 def addSeq(data: list):
-    global totalAnchorNum
-    global totalNodeNum
     global maxTime
     dataSet: dict = {}
 
@@ -36,8 +35,6 @@ def addSeq(data: list):
 
 
 def addDFSorBFS(algo: str, data: str):
-    global totalAnchorNum
-    global totalNodeNum
     global maxTime
     x = []
     y = []

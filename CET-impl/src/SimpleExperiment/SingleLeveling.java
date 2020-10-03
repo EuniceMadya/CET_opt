@@ -9,9 +9,9 @@ public class SingleLeveling extends Concatenate {
 
     @Override
     public int[] concatenate() {
-        int[] result = new int[1000];
+        int[] result = new int[1000000];
         for (int i = 0; i < elements.size(); i++) {
-            System.arraycopy(elements.get(i), 0, result, i * 10, elements.get(i).length);
+            System.arraycopy(elements.get(i), 0, result, i * 100, elements.get(i).length);
         }
         return result;
     }
