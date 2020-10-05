@@ -5,9 +5,7 @@ import util.AnchorProcessor;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Scanner;
+import java.util.*;
 
 class AlgoExecutor {
 
@@ -120,11 +118,14 @@ class AlgoExecutor {
     }
 
     void runAlgo() {
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTimeZone(TimeZone.getTimeZone("Australia/Sydney"));
+
         System.out.println("Algorithm to execute: " + algo.getClass().getName());
         String fileName = "OutputFiles/result/timeResults/" + "graph-" +
                 algo.getGraph().getNumVertex() + "-" +
                 algo.traversalType + "-" +
-                new GregorianCalendar().getTime().toString() + selection + ".txt";
+                calendar.getTime().toString() + selection + ".txt";
 
         if(algo.traversalType.equals(TraversalType.SeqHybrid) && algo.getGraph().getNumVertex() > 100){
             System.out.println("Do you want to run range of anchor node num?(y/n)");

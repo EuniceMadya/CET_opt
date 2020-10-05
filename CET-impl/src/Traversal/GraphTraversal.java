@@ -67,13 +67,17 @@ public abstract class GraphTraversal {
     }
 
     void saveResults(String algo) {
+
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTimeZone(TimeZone.getTimeZone("Australia/Sydney"));
+
         System.out.println("Write to file...");
         System.out.println(validPaths.size() + " paths to be written.");
 
         File outputFolder = new File("OutputFiles/");
         outputFolder.mkdirs();
 
-        File outputFile = new File("OutputFiles/" + algo + "-" + graph.getNumVertex() + "V-" + new GregorianCalendar().getTime().toString() + ".txt");
+        File outputFile = new File("OutputFiles/" + algo + "-"  + "V-" + graph.getNumVertex() + calendar.getTime().toString() + ".txt");
         int maxLength = 0;
         try {
             outputFile.createNewFile();

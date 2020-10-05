@@ -5,13 +5,18 @@ import util.GraphType;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
+import java.util.TimeZone;
 
 public class Main {
     public static void main(String[] args) {
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTimeZone(TimeZone.getTimeZone("Australia/Sydney"));
 
-        System.out.println("Right now it is time: " + new GregorianCalendar().getTime().toString());
+        System.out.println("Right now it is time: " +calendar.getTime().toString() );
+
 
         Path currentRelativePath = Paths.get("");
         String s = currentRelativePath.toAbsolutePath().toString();
