@@ -118,14 +118,12 @@ class AlgoExecutor {
     }
 
     void runAlgo() {
-        Calendar calendar = new GregorianCalendar();
-        calendar.setTimeZone(TimeZone.getTimeZone("Australia/Sydney"));
 
         System.out.println("Algorithm to execute: " + algo.getClass().getName());
         String fileName = "OutputFiles/result/timeResults/" + "graph-" +
                 algo.getGraph().getNumVertex() + "-" +
                 algo.traversalType + "-" +
-                calendar.getTime().toString() + selection + ".txt";
+                new Date().toString() + selection + ".txt";
 
         if(algo.traversalType.equals(TraversalType.SeqHybrid) && algo.getGraph().getNumVertex() > 100){
             System.out.println("Do you want to run range of anchor node num?(y/n)");
