@@ -12,7 +12,7 @@ public abstract class GraphTraversal {
     ArrayList<int[]> validPaths;
     public TraversalType traversalType;
     public long timeElapsed;
-    public long pathNum;
+    long pathNum;
     boolean saveToMem;
 
 
@@ -73,7 +73,7 @@ public abstract class GraphTraversal {
         File outputFolder = new File("OutputFiles/");
         outputFolder.mkdirs();
 
-        File outputFile = new File("OutputFiles/" + algo + "-" + graph.getNumVertex() + "V-" + new Date().toString() + ".txt");
+        File outputFile = new File("OutputFiles/" + algo + "-" + graph.getNumVertex() + "V-" + new GregorianCalendar().getTime().toString() + ".txt");
         int maxLength = 0;
         try {
             outputFile.createNewFile();

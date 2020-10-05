@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 class AlgoExecutor {
@@ -123,7 +124,7 @@ class AlgoExecutor {
         String fileName = "OutputFiles/result/timeResults/" + "graph-" +
                 algo.getGraph().getNumVertex() + "-" +
                 algo.traversalType + "-" +
-                new Date().toString() + selection + ".txt";
+                new GregorianCalendar().getTime().toString() + selection + ".txt";
 
         if(algo.traversalType.equals(TraversalType.SeqHybrid) && algo.getGraph().getNumVertex() > 100){
             System.out.println("Do you want to run range of anchor node num?(y/n)");
