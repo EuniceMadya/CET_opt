@@ -2,7 +2,8 @@ import matplotlib.pyplot as plt
 
 
 TOTAL_NODE_NUM: int = 0
-TOTAL_ANCHOR_NUM: int = 0
+MIN_ANCHOR_NUM: int = 0
+MAX_ANCHOR_NUM: int = 0
 MAX_TIME: float = 0.0
 
 
@@ -39,7 +40,7 @@ def add_DFSorBFS(algo: str, data: str):
     x = []
     y = []
     data_list = data.split(",")
-    for i in range(0, TOTAL_ANCHOR_NUM + 5, 5):
+    for i in range(0, MAX_ANCHOR_NUM + 5, 5):
         x.append(i)
         y.append(float(data_list[0]))
         if (float(data_list[0]) > MAX_TIME):
@@ -60,15 +61,17 @@ for line in file:
 file.close()
 
 TOTAL_NODE_NUM = int(content[0])
-TOTAL_ANCHOR_NUM = int(content[1])
-for i in range(2, len(content)):
+MIN_ANCHOR_NUM = int(content[1])
+MAX_ANCHOR_NUM = int(content[2])
+
+for i in range(3, len(content)):
     if "BFS" in content[i] or "DFS" in content[i]:
         add_algo(content[i].replace("Algo:", ""), content[i + 1: i + 2])
         i = i + 1
     if "Hybrid" in content[i]:
         add_algo(content[i].replace("Algo:", ""), content[i + 1:])
 
-plt.axis([0, TOTAL_ANCHOR_NUM, 0, MAX_TIME + 10])
+plt.axis([MIN_ANCHOR_NUM - 5, MAX_ANCHOR_NUM, 0, MAX_TIME + MAX_TIME/10])
 plt.grid(linestyle='--')
 plt.title("Algorithm comparison for " + str(TOTAL_NODE_NUM) + " nodes")
 ax = plt.gca()

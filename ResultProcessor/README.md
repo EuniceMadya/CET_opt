@@ -2,7 +2,9 @@
 
 First line would be the total node num for the graph.
 
-Second line would be the largest anchor number for the graph.
+Second line would be the smallest anchor number for the graph.
+
+Third line would be the largest anchor number for the graph.
 
 For DFS, BFS M_CET and T_CET, the format would just be:
 
