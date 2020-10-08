@@ -11,7 +11,7 @@ public class DoubleLeveling extends Concatenate {
         firstConcatenate();
     }
 
-    public void firstConcatenate(){
+    public void firstConcatenate() {
         for (int i = 0; i < 50; i++) {
             System.arraycopy(elements.get(i), 0, firstHalf, i * 10000, elements.get(i).length);
         }
@@ -31,7 +31,6 @@ public class DoubleLeveling extends Concatenate {
 
         return result;
     }
-
 
 
 }

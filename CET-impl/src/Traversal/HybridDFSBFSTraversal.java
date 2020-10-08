@@ -2,11 +2,7 @@ package Traversal;
 
 import Components.CompressedGraph;
 import util.CustomDS.ArrayQueue;
-import util.CustomDS.CustomIntStack;
 import util.CustomDS.CustomObjStack;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class HybridDFSBFSTraversal extends SeqHybridGraphTraversal {
 
@@ -26,7 +22,7 @@ public class HybridDFSBFSTraversal extends SeqHybridGraphTraversal {
         while (!queue.isEmpty()) {
             CustomObjStack<int[]> currentPaths = queue.poll();
             for (Object obj : currentPaths.getAllElements()) {
-                int[]subPath = (int[])obj;
+                int[] subPath = (int[]) obj;
                 if (graph.endContains(subPath[subPath.length - 1])) { // probs could optimize here
                     if (saveToMem) validPaths.add(subPath);
                     pathNum++;
@@ -44,7 +40,7 @@ public class HybridDFSBFSTraversal extends SeqHybridGraphTraversal {
                 }
                 queue.offer(combo);
             }
-            currentPaths = null; // let garbage collection handle it
+            currentPaths = null; // let garbage collection deal with it
         }
     }
 

@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class CustomIntStack {
 
     private int top;
-    private int [] stack;
+    private int[] stack;
 
 
     public CustomIntStack(int size) {
@@ -52,17 +52,17 @@ public class CustomIntStack {
 
     }
 
-    public int[]getAllElements(){
-        return Arrays.copyOfRange(stack,0, top + 1);
+    public int[] getAllElements() {
+        return Arrays.copyOfRange(stack, 0, top + 1);
     }
 
-    public int firstElement(){
+    public int firstElement() {
         if (top < 0)
             throw new NumberFormatException();
         return stack[0];
     }
 
-    public int size(){
+    public int size() {
         return top + 1;
     }
 }

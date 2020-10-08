@@ -3,8 +3,6 @@ package Traversal;
 import Components.CompressedGraph;
 import util.CustomDS.CustomObjStack;
 
-import java.util.Stack;
-
 public class HybridDFSDFSTraversal extends SeqHybridGraphTraversal {
 
     public HybridDFSDFSTraversal(CompressedGraph graph, boolean saveToMem, int[] anchorNodes) {
@@ -39,8 +37,8 @@ public class HybridDFSDFSTraversal extends SeqHybridGraphTraversal {
 
     private int[] getPathSeq(CustomObjStack<int[]> stack) {
         int length = 0;
-        for ( Object object : stack.getAllElements()) {
-            int []s = (int[]) object;
+        for (Object object : stack.getAllElements()) {
+            int[] s = (int[]) object;
             if (!graph.endContains(s[s.length - 1]))
                 length += s.length - 1;
             else length += s.length;
@@ -50,7 +48,7 @@ public class HybridDFSDFSTraversal extends SeqHybridGraphTraversal {
 
         length = 0;
         for (Object obj : stack.getAllElements()) {
-            int[] s = (int[])obj;
+            int[] s = (int[]) obj;
             if (!graph.endContains(s[s.length - 1])) {
                 System.arraycopy(s, 0, pathArray, length, s.length - 1);
                 length += s.length - 1;

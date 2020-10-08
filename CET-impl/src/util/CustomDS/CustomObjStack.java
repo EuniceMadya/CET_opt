@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class CustomObjStack<E> {
     private int top;
-    private Object []stack;
+    private Object[] stack;
 
 
     public CustomObjStack(int size) {
@@ -39,7 +39,7 @@ public class CustomObjStack<E> {
         if (top < 0)
             throw new NumberFormatException();
 
-        return (E)stack[top--];
+        return (E) stack[top--];
 
     }
 
@@ -47,12 +47,12 @@ public class CustomObjStack<E> {
         if (top < 0)
             throw new NumberFormatException();
 
-        return (E)stack[top];
+        return (E) stack[top];
 
     }
 
-    public Object[]getAllElements(){
-        return Arrays.copyOfRange(stack,0, top + 1);
+    public Object[] getAllElements() {
+        return Arrays.copyOfRange(stack, 0, top + 1);
     }
 
 }

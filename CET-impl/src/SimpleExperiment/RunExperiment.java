@@ -18,13 +18,13 @@ public class RunExperiment {
         System.out.println("Which one to run?(Single/Double)");
         Concatenate concatenate;
 
-        if(new Scanner(System.in).nextLine().equals("Single")) concatenate = new SingleLeveling(elements);
+        if (new Scanner(System.in).nextLine().equals("Single")) concatenate = new SingleLeveling(elements);
         else concatenate = new DoubleLeveling(elements);
 
         long startTime = System.nanoTime();
         concatenate.run();
         long endTime = System.nanoTime();
-        System.out.println((endTime - startTime)/ Math.pow(10,9));
+        System.out.println((endTime - startTime) / Math.pow(10, 9));
 
     }
 }

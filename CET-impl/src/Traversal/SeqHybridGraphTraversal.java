@@ -5,10 +5,8 @@ import util.CustomDS.CustomIntStack;
 import util.CustomDS.CustomObjStack;
 
 import java.sql.Time;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Stack;
 
 public abstract class SeqHybridGraphTraversal extends GraphTraversal {
 

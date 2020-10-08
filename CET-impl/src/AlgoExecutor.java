@@ -5,7 +5,8 @@ import util.AnchorProcessor;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
+import java.util.Date;
+import java.util.Scanner;
 
 class AlgoExecutor {
 
@@ -37,7 +38,7 @@ class AlgoExecutor {
      *
      * @param selection of algo
      */
-     void useAlgo(int selection, CompressedGraph graph) {
+    void useAlgo(int selection, CompressedGraph graph) {
 
         switch (selection) {
             case 1:
@@ -72,7 +73,9 @@ class AlgoExecutor {
 
     }
 
-    void setSavePathInMem(boolean set){ savePathInMem = set; }
+    void setSavePathInMem(boolean set) {
+        savePathInMem = set;
+    }
 
     private void addSeqHybrid(CompressedGraph graph) {
         System.out.println(" \n" +
@@ -83,7 +86,7 @@ class AlgoExecutor {
                 "-   3. Equally distributed nodes");
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
-        selection = input.equals("1") ? "random" : input.equals("2")? "largest" : "distro";
+        selection = input.equals("1") ? "random" : input.equals("2") ? "largest" : "distro";
 
         while (true) {
             System.out.println("\n- Please enter the number of anchors in between:");
@@ -92,24 +95,24 @@ class AlgoExecutor {
             System.out.println("WARNING: The number of anchor nodes is larger than the number of nodes in graph, try again.\n\n");
         }
 
-        ((SeqHybridGraphTraversal)algo).setAnchorNodes(
-                findAnchor(algo.getGraph(),selection));
+        ((SeqHybridGraphTraversal) algo).setAnchorNodes(
+                findAnchor(algo.getGraph(), selection));
     }
 
-    private int[] findAnchor(CompressedGraph graph, String selection){
+    private int[] findAnchor(CompressedGraph graph, String selection) {
         AnchorProcessor anchorProcessor = new AnchorProcessor(graph);
         int[] anchor = anchorProcessor.findAnchors(selection, numAnchor);
 
         System.out.println("Starting nodes: \n");
 
-        for(int i = 0; i < graph.getStartPointNum(); i ++){
+        for (int i = 0; i < graph.getStartPointNum(); i++) {
             System.out.print(String.format("[%d, %d] ",
                     graph.getStartPoints().get(i),
                     graph.getNumDegree(graph.getStartPoints().get(i))));
         }
         System.out.println("\nSelected anchor nodes: ");
 
-        for(int i = graph.getStartPointNum(); i < anchor.length; i ++){
+        for (int i = graph.getStartPointNum(); i < anchor.length; i++) {
             System.out.print(String.format("[%d, %d] ", anchor[i], graph.getNumDegree(anchor[i])));
         }
         System.out.println("\n");
@@ -125,29 +128,29 @@ class AlgoExecutor {
                 algo.traversalType + "-" +
                 new Date().toString() + selection + ".txt";
 
-        if(algo.traversalType.equals(TraversalType.SeqHybrid) && algo.getGraph().getNumVertex() > 100){
+        if (algo.traversalType.equals(TraversalType.SeqHybrid) && algo.getGraph().getNumVertex() > 100) {
             System.out.println("Do you want to run range of anchor node num?(y/n)");
             int upper;
 
-            if(new Scanner(System.in).nextLine().equals("y")){
-                while(true){
+            if (new Scanner(System.in).nextLine().equals("y")) {
+                while (true) {
                     System.out.println("\nDesired upper bound:");
-                    try{
+                    try {
                         upper = Integer.parseInt(new Scanner(System.in).nextLine());
                         break;
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         System.out.println("Not a number!");
                     }
                 }
                 // get the closest int of numAnchor as start point
-                numAnchor = numAnchor/5 * 5;
-                if(upper < numAnchor) upper = algo.getGraph().getNumVertex()/10 + 10;
+                numAnchor = numAnchor / 5 * 5;
+                if (upper < numAnchor) upper = algo.getGraph().getNumVertex() / 10 + 10;
 
-                for(int i = numAnchor; i < upper;i += 5){
+                for (int i = numAnchor; i < upper; i += 5) {
                     // set new Anchor num
                     numAnchor = i;
-                    ((SeqHybridGraphTraversal)algo).setAnchorNodes(
-                            findAnchor(algo.getGraph(),selection));
+                    ((SeqHybridGraphTraversal) algo).setAnchorNodes(
+                            findAnchor(algo.getGraph(), selection));
                     runOneAlgo();
                     writeTimeResult(fileName);
 
@@ -162,14 +165,14 @@ class AlgoExecutor {
         writeTimeResult(fileName);
     }
 
-    private void runOneAlgo(){
+    private void runOneAlgo() {
         average = 0;
         for (int i = 0; i < numRun; i++) {
             algo.execute();
 
             average += algo.timeElapsed;
             runTimes[i] = algo.timeElapsed;
-            System.out.println("run: " + runTimes[i] );
+            System.out.println("run: " + runTimes[i]);
             System.gc();
         }
         System.out.println("\n\nAverage execution time in nanoseconds: " + average / numRun);
@@ -177,27 +180,18 @@ class AlgoExecutor {
 
     }
 
-     private void writeTimeResult(String fileName) {
+    private void writeTimeResult(String fileName) {
         File file = new File(fileName);
 
         try {
-            if(! file.exists()) if(!file.createNewFile() ) return;
+            if (!file.exists()) if (!file.createNewFile()) return;
 
             FileWriter fw = new FileWriter(file, true);
-//            fw.write("Run: " + algo.getClass().getName());
-//            if(numAnchor != 0) fw.write("Anchor num: " + numAnchor + "\n");
-//            for (int i = 0; i < runTimes.length; i++) {
-//                if (algo != null) {
-//                    fw.write(String.format("Run %d: %d nanoseconds\n", i + 1, runTimes[i]));
-////                    System.out.println(String.format("Run %d: %d nanoseconds\n", i + 1, runTimes[i]));
-//                    System.out.println("Number of paths: "+ algo.pathNum);
-//                }
-//            }
-//            fw.write("\n\nAverage execution time in nanoseconds: " + average / numRun + "\n\n\n\n");
-            if(numAnchor != 0){
-//                fw.write("selection: "+ selection);
-                fw.write("\n" + numAnchor + "," + average/numRun/Math.pow(10, 9) );
-            }
+
+            if (numAnchor != 0)
+                fw.write("\n" + numAnchor + "," + average / numRun / Math.pow(10, 9));
+            else
+                fw.write("Average time(s) running " + numRun + " times: " + average/numRun/Math.pow(10, 9));
 
             fw.close();
 
@@ -206,15 +200,15 @@ class AlgoExecutor {
         }
     }
 
-     boolean isSavePathInMem(){
+    boolean isSavePathInMem() {
         return savePathInMem;
     }
 
-     void savePathsResult() {
+    void savePathsResult() {
         algo.saveResults();
     }
 
-     void printPaths(){
+    void printPaths() {
         algo.printPaths();
     }
 

@@ -5,12 +5,13 @@ import util.GraphType;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.Date;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
-        System.out.println("Right now it is time: " +new Date().toString());
+        System.out.println("Right now it is time: " + new Date().toString());
 
 
         Path currentRelativePath = Paths.get("");
@@ -37,11 +38,11 @@ public class Main {
                 graphBuilder.random = true;
 
                 System.out.println("- Number of nodes for the graph:");
-                while(true){
-                    try{
+                while (true) {
+                    try {
                         numNodes = Integer.parseInt(sc.nextLine());
                         break;
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         System.out.println("Not a number!");
                         continue;
                     }
@@ -74,11 +75,11 @@ public class Main {
                 }
 
                 System.out.println("Desired frequency: (requires a float range from 1 to 2)");
-                while(true){
-                    try{
+                while (true) {
+                    try {
                         graphBuilder.frequency = Double.parseDouble(sc.nextLine());
                         break;
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         System.out.println("Not a number, try again!");
                     }
                 }
@@ -119,15 +120,14 @@ public class Main {
         System.gc();
         AlgoExecutor executor;
 
-        while(true){
-            try{
+        while (true) {
+            try {
                 executor = new AlgoExecutor(Integer.parseInt(sc.nextLine()));
                 break;
-            }catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("Not a number!");
             }
         }
-
 
 
         while (true) {
@@ -163,7 +163,7 @@ public class Main {
 
         System.out.println("\n\n- Run finished");
 
-        if(executor.isSavePathInMem()) {
+        if (executor.isSavePathInMem()) {
             System.out.println("\n\n- Paths are now stored in memory. \n" +
                     "Do you want to save result to files? (y/n)");
 
@@ -174,13 +174,11 @@ public class Main {
             }
 
             System.out.println("\n\n- Do you want to print out results? (y/n)\n");
-            if(sc.nextLine().equals("y")){
+            if (sc.nextLine().equals("y")) {
                 executor.printPaths();
             }
-        }else
+        } else
             System.out.println("Warning: No results saved.\n");
-
-
 
 
     }
