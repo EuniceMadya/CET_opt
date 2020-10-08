@@ -18,7 +18,7 @@ public abstract class Concatenate {
     public abstract int[] concatenate();
 
     public void run() {
-        for (int i = 0; i < 100000; i++) {
+        for (int i = 0; i < 1000000; i++) {
             results.add(concatenate());
         }
     }

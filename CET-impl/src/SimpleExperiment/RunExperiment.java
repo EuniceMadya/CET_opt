@@ -15,11 +15,18 @@ public class RunExperiment {
         }
 
 
-        System.out.println("Which one to run?(Single/Double)");
         Concatenate concatenate;
 
+        String type = System.getProperty("type", "Single");
+        if (type == null) {
+            System.out.println("Which one to run?(Single/Double)");
+
+            type = new Scanner(System.in).nextLine();
+        }
+        System.out.println("Running: type " + type);
+
         long startTime = System.nanoTime();
-        if (new Scanner(System.in).nextLine().equals("Single")) concatenate = new SingleLeveling(elements);
+        if (type.equals("Single")) concatenate = new SingleLeveling(elements);
         else concatenate = new DoubleLeveling(elements);
 
         concatenate.run();

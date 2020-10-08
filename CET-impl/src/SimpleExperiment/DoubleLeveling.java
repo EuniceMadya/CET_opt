@@ -28,7 +28,6 @@ public class DoubleLeveling extends Concatenate {
         System.arraycopy(firstHalf, 0, result, 0, 5000);
         System.arraycopy(secondHalf, 0, result, 5000, 5000);
 
-
         return result;
     }
 
