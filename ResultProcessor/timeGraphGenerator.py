@@ -1,49 +1,49 @@
 import matplotlib.pyplot as plt
 
+
 TOTAL_NODE_NUM: int = 0
-totalNodeNum: int = 0
-totalAnchorNum: int = 0
-maxTime: float = 0.0
+TOTAL_ANCHOR_NUM: int = 0
+MAX_TIME: float = 0.0
 
 
-def addAlgo(algo: str, data: list):
+def add_algo(algo: str, data: list):
     if algo == "DFS" or algo == "BFS":
-        addDFSorBFS(algo, data[0])
+        add_DFSorBFS(algo, data[0])
     else:
-        addSeq(data)
+        add_seq(data)
 
 
-def addSeq(data: list):
-    global maxTime
-    dataSet: dict = {}
+def add_seq(data: list):
+    global MAX_TIME
+    dataset: dict = {}
 
     selection: str = ""
     for i in range(len(data)):
-        if len(data[i].split(",")) == 1:  #and len(data[i]) != 0:
+        if len(data[i].split(",")) == 1:  # and len(data[i]) != 0:
             selection = data[i]
-            dataSet[selection]: dict = {"x": [], "y": []}
+            dataset[selection]: dict = {"x": [], "y": []}
             continue
-        singleData = data[i].split(",")
-        dataSet[selection]["x"].append(int(singleData[0]))
-        dataSet[selection]["y"].append(float(singleData[1]))
-        if (float(singleData[1]) > maxTime):
-            maxTime = float(singleData[1])
+        single_data = data[i].split(",")
+        dataset[selection]["x"].append(int(single_data[0]))
+        dataset[selection]["y"].append(float(single_data[1]))
+        if (float(single_data[1]) > MAX_TIME):
+            MAX_TIME = float(single_data[1])
 
-    for key in dataSet:
-        plt.plot(dataSet[key]["x"], dataSet[key]["y"], label="Hybrid-" + key)
+    for key in dataset:
+        plt.plot(dataset[key]["x"], dataset[key]["y"], label="Hybrid-" + key)
         plt.legend()
 
 
-def addDFSorBFS(algo: str, data: str):
-    global maxTime
+def add_DFSorBFS(algo: str, data: str):
+    global MAX_TIME
     x = []
     y = []
-    dataList = data.split(",")
-    for i in range(0, totalAnchorNum + 5, 5):
+    data_list = data.split(",")
+    for i in range(0, TOTAL_ANCHOR_NUM + 5, 5):
         x.append(i)
-        y.append(float(dataList[0]))
-        if (float(dataList[0]) > maxTime):
-            maxTime = float(dataList[0])
+        y.append(float(data_list[0]))
+        if (float(data_list[0]) > MAX_TIME):
+            MAX_TIME = float(data_list[0])
     plt.plot(x, y, label=algo)
     plt.legend()
 
@@ -59,19 +59,18 @@ for line in file:
     content.append(line.strip())
 file.close()
 
-totalNodeNum = int(content[0])
-totalAnchorNum = int(content[1])
+TOTAL_NODE_NUM = int(content[0])
+TOTAL_ANCHOR_NUM = int(content[1])
 for i in range(2, len(content)):
     if "BFS" in content[i] or "DFS" in content[i]:
-        addAlgo(content[i].replace("Algo:", ""), content[i + 1: i + 2])
+        add_algo(content[i].replace("Algo:", ""), content[i + 1: i + 2])
         i = i + 1
     if "Hybrid" in content[i]:
-        addAlgo(content[i].replace("Algo:", ""), content[i + 1:])
+        add_algo(content[i].replace("Algo:", ""), content[i + 1:])
 
-
-plt.axis([0, totalAnchorNum, 0, maxTime + 10])
+plt.axis([0, TOTAL_ANCHOR_NUM, 0, MAX_TIME + 10])
 plt.grid(linestyle='--')
-plt.title("Algorithm comparison for " + str(totalNodeNum) + " nodes")
+plt.title("Algorithm comparison for " + str(TOTAL_NODE_NUM) + " nodes")
 ax = plt.gca()
 ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
