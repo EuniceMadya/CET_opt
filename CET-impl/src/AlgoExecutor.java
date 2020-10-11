@@ -1,6 +1,7 @@
 import Components.CompressedGraph;
 import Traversal.*;
 import util.AnchorProcessor;
+import util.AnchorType;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -18,7 +19,7 @@ class AlgoExecutor {
     private boolean savePathInMem;
 
     // only when choosing sequential
-    private String selection = "";
+    private AnchorType selection = null;
     private int numAnchor = 0;
 
 
@@ -50,13 +51,11 @@ class AlgoExecutor {
                 break;
 
             case 3:
-                algo = new HybridDFSDFSTraversal(graph, savePathInMem, null);
-                addSeqHybrid(graph);
+                addSeqHybrid(graph, TraversalType.SeqHybridDFSDFS);
                 break;
 
             case 4:
-                algo = new HybridDFSBFSTraversal(graph, savePathInMem, null);
-                addSeqHybrid(graph);
+                addSeqHybrid(graph, TraversalType.SeqHybridDFSBFS);
                 break;
 
             case 5:
@@ -77,16 +76,24 @@ class AlgoExecutor {
         savePathInMem = set;
     }
 
-    private void addSeqHybrid(CompressedGraph graph) {
-        System.out.println(" \n" +
+    private void addSeqHybrid(CompressedGraph graph, TraversalType traversalType) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("\n" +
+                "Do you want to run it concurrently?(y/n)");
+        String input = sc.nextLine();
+        if(input.equals("y")) algo = new ConcurrentHybridTraversal(graph, savePathInMem, null, traversalType);
+        else algo = new HybridGraphTraversal(graph, savePathInMem, null,traversalType );
+
+
+        System.out.println("\n\n-----\n" +
                 "- As you selected hybrid type, \n" +
                 "- please specify the anchor nodes selection strategy:\n" +
                 "-   1. Random selection\n" +
                 "-   2. Largest degree nodes\n" +
                 "-   3. Equally distributed nodes");
-        Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine();
-        selection = input.equals("1") ? "random" : input.equals("2") ? "largest" : "distro";
+        input = sc.nextLine();
+        selection = input.equals("1") ? AnchorType.RANDOM : input.equals("2") ? AnchorType.LARGEST_DEGREE : AnchorType.EQUAL_DISTRIBUTE;
 
         while (true) {
             System.out.println("\n- Please enter the number of anchors in between:");
@@ -95,11 +102,11 @@ class AlgoExecutor {
             System.out.println("WARNING: The number of anchor nodes is larger than the number of nodes in graph, try again.\n\n");
         }
 
-        ((SeqHybridGraphTraversal) algo).setAnchorNodes(
+        ((HybridGraphTraversal) algo).setAnchorNodes(
                 findAnchor(algo.getGraph(), selection));
     }
 
-    private int[] findAnchor(CompressedGraph graph, String selection) {
+    private int[] findAnchor(CompressedGraph graph, AnchorType selection) {
         AnchorProcessor anchorProcessor = new AnchorProcessor(graph);
         int[] anchor = anchorProcessor.findAnchors(selection, numAnchor);
 
@@ -128,7 +135,7 @@ class AlgoExecutor {
                 algo.traversalType + "-" +
                 new Date().toString() + selection + ".txt";
 
-        if (algo.traversalType.equals(TraversalType.SeqHybrid) && algo.getGraph().getNumVertex() > 100) {
+        if (selection!= null && algo.getGraph().getNumVertex() > 100) {
             System.out.println("Do you want to run range of anchor node num?(y/n)");
             int upper;
 
@@ -149,7 +156,7 @@ class AlgoExecutor {
                 for (int i = numAnchor; i < upper; i += 5) {
                     // set new Anchor num
                     numAnchor = i;
-                    ((SeqHybridGraphTraversal) algo).setAnchorNodes(
+                    ((HybridGraphTraversal) algo).setAnchorNodes(
                             findAnchor(algo.getGraph(), selection));
                     runOneAlgo();
                     writeTimeResult(fileName);
@@ -191,7 +198,7 @@ class AlgoExecutor {
             if (numAnchor != 0)
                 fw.write("\n" + numAnchor + "," + average / numRun / Math.pow(10, 9));
             else
-                fw.write("Average time(s) running " + numRun + " times: " + average/numRun/Math.pow(10, 9));
+                fw.write("Average time(s) running " + numRun + " times: " + average / numRun / Math.pow(10, 9));
 
             fw.close();
 

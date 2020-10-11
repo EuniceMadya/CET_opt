@@ -34,6 +34,11 @@ public abstract class GraphTraversal {
 
     }
 
+    void clearAll(){
+        if (validPaths.size() > 0) validPaths.clear();
+        pathNum = 0;
+    }
+
     public CompressedGraph getGraph() {
         return graph;
     }
@@ -41,9 +46,7 @@ public abstract class GraphTraversal {
     public abstract void traversal(int i);
 
     public void execute() {
-        pathNum = 0;
-        if (validPaths.size() > 0) validPaths.clear();
-
+        clearAll();
         System.out.println("Number of start points: " + graph.getStartPointNum());
         int i = 1;
 

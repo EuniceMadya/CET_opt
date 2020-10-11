@@ -13,12 +13,12 @@ public class AnchorProcessor {
         this.graph = graph;
     }
 
-    public int[] findAnchors(String type, int anchorNum) {
+    public int[] findAnchors(AnchorType type, int anchorNum) {
         System.out.println("  - Find anchor points for this graph...");
 
-        if (type.equalsIgnoreCase("random")) return findRandomAnchors(anchorNum);
-        if (type.equalsIgnoreCase("largest")) return findLargestDegreeAnchors(anchorNum);
-        if (type.equalsIgnoreCase("distro")) return findEquallyDistributedAnchors(anchorNum);
+        if (type.equals(AnchorType.RANDOM)) return findRandomAnchors(anchorNum);
+        if (type.equals(AnchorType.LARGEST_DEGREE)) return findLargestDegreeAnchors(anchorNum);
+        if (type.equals(AnchorType.EQUAL_DISTRIBUTE)) return findEquallyDistributedAnchors(anchorNum);
 
         System.out.println("WARNING: Anchor Type unknown!");
         return null;
