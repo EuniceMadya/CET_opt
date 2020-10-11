@@ -10,9 +10,10 @@ FileParser=CET-impl/src/util/FileGraphParser.java
 GraphBuilder=CET-impl/src/util/GraphBuilder.java
 RandomTimeGen=CET-impl/src/util/RandomTimeGenerator.java
 AnchorProcessor=CET-impl/src/util/AnchorProcessor.java
-GraphType=CET-impl/src/util/GraphType.java
+Type=CET-impl/src/util/*Type.java
 
-Util="$DagGenTool $DS $Generator $FileParser $GraphType $GraphBuilder $RandomTimeGen $AnchorProcessor"
+
+Util="$DagGenTool $DS $Generator $FileParser $Type $GraphBuilder $RandomTimeGen $AnchorProcessor"
 
 #Algos
 TraversalAlgos=CET-impl/src/Traversal/*.java
