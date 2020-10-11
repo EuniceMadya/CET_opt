@@ -57,7 +57,6 @@ public class HybridGraphTraversal extends GraphTraversal {
 
         System.out.println("Number of start points: " + graph.getStartPointNum());
         System.out.println("Number of anchor points: " + anchorNodes.length);
-//        System.out.println("Start DFS sub traversal!");
         long startTime = System.nanoTime();
         for (int start : anchorNodes) {
             if (graph.getNumVertex() > 5000)
