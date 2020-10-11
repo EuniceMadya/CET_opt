@@ -18,6 +18,14 @@ public class ConcurrentHybridTraversal extends HybridGraphTraversal {
         pool = Executors.newFixedThreadPool(10);
     }
 
+    @Override
+    public void saveResults() {
+        String fileName = String.format("%s-anchor%d-concurrent",
+                traversalType.toString(),
+                getAnchorNodes().length - graph.getStartPointNum());
+        saveResults(fileName);
+    }
+
 
     @Override
     public void execute()  {
@@ -77,5 +85,6 @@ public class ConcurrentHybridTraversal extends HybridGraphTraversal {
             return null;
         }
     }
+
 
 }

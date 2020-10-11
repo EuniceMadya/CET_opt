@@ -132,7 +132,7 @@ class AlgoExecutor {
         System.out.println("Algorithm to execute: " + algo.getClass().getName());
         String fileName = "OutputFiles/result/timeResults/" + "graph-" +
                 algo.getGraph().getNumVertex() + "-" +
-                algo.traversalType + "-" +
+                algo.traversalType + "-" +  (algo.getClass().getName().contains("Concurrent") ? "Concurrent" : "") +
                 new Date().toString() + selection + ".txt";
 
         if (selection!= null && algo.getGraph().getNumVertex() > 100) {
@@ -169,6 +169,8 @@ class AlgoExecutor {
 
         }
         runOneAlgo();
+        if(algo.getClass().getName().contains("Concurrent")) ((ConcurrentHybridTraversal)algo).pool.shutdown();
+
         writeTimeResult(fileName);
     }
 
@@ -182,7 +184,6 @@ class AlgoExecutor {
             System.out.println("run: " + runTimes[i]);
             System.gc();
         }
-        if(algo.getClass().getName().contains("Concurrent")) ((ConcurrentHybridTraversal)algo).pool.shutdown();
 
         System.out.println("\n\nAverage execution time in nanoseconds: " + average / numRun);
         System.out.println("Average execution time in seconds: " + average / numRun / Math.pow(10, 9) + "\n");
