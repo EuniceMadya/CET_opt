@@ -159,7 +159,7 @@ public class Main {
 
         executor.runAlgo();
 
-        System.gc();
+        executor.cleanGarbage();
 
         System.out.println("\n\n- Run finished");
 
@@ -173,7 +173,7 @@ public class Main {
                 executor.savePathsResult();
             }
 
-            System.out.println("\n\n- Do you want to print out results? (y/n)\n");
+            System.out.println("\n\n- Do you want to print out results? (y/n)");
             if (sc.nextLine().equals("y")) {
                 executor.printPaths();
             }
