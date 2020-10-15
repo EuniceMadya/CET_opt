@@ -126,7 +126,6 @@ public class HybridGraphTraversal extends GraphTraversal {
                 CustomObjStack<int[]> stack = new CustomObjStack<>();
                 stack.push(startPath);
                 DFSsubConcatenate(startPath, stack);
-                stack = null;
             }
         }
     }
