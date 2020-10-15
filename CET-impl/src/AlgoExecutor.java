@@ -1,5 +1,5 @@
 import Components.CompressedGraph;
-import SimpleExperiment.Concatenate;
+
 import Traversal.*;
 import util.AnchorProcessor;
 import util.AnchorType;
