@@ -5,6 +5,7 @@ public enum TraversalType {
     DFS,
     T_CET,
     M_CET,
-    Anchor
+    Anchor,
+    DoubleAnchor
 
 }
