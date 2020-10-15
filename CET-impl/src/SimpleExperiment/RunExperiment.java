@@ -7,11 +7,16 @@ public class RunExperiment {
 
     public static void main(String[] args) {
 
-        ArrayList<int[]> elements = new ArrayList<>(5000);
-        for (int i = 0; i < 100; i++) {
-            elements.add(new int[50]);
-            for (int j = 0; j < 50; j++)
-                elements.get(i)[j] = i * 50 + j;
+        Scanner scanner = new Scanner(System.in);
+
+        int numElements = Integer.parseInt(scanner.nextLine());
+        int individualSize = Integer.parseInt(scanner.nextLine());
+
+        ArrayList<int[]> elements = new ArrayList<>();
+        for (int i = 0; i < numElements; i++) {
+            elements.add(new int[individualSize]);
+            for (int j = 0; j < individualSize; j++)
+                elements.get(i)[j] = i * individualSize + j;
         }
 
 
