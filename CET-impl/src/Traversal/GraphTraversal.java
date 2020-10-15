@@ -61,6 +61,7 @@ public abstract class GraphTraversal {
         }
         long endTime = System.nanoTime();
         timeElapsed = endTime - startTime;
+        System.out.println("path num: " + pathNum);
 
 
     }

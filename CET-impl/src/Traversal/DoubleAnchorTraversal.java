@@ -5,6 +5,7 @@ import util.CustomDS.ArrayQueue;
 import util.CustomDS.CustomObjStack;
 
 import java.sql.Time;
+import java.util.Arrays;
 
 
 public class DoubleAnchorTraversal extends AnchorGraphTraversal {
@@ -37,6 +38,7 @@ public class DoubleAnchorTraversal extends AnchorGraphTraversal {
         timeElapsed = endTime - startTime;
         System.out.println(new Time(System.currentTimeMillis()).toString() + " - finished double leveling - -!");
 
+        System.out.println("path num: " + pathNum);
     }
 
     private void concatenate(){
@@ -54,10 +56,12 @@ public class DoubleAnchorTraversal extends AnchorGraphTraversal {
             anchorPaths.replace(i, newAnchorPaths);
         }
 
+        System.out.println("first concatenate finished");
 
         for(int i: anchorNodes){
             if(!isAnchor[i]) anchorPaths.remove(i);
         }
+
 
 
         for(int i : graph.getStartPoints()){
@@ -86,7 +90,11 @@ public class DoubleAnchorTraversal extends AnchorGraphTraversal {
 
     private void firstConcatenateDFS(int[] s, CustomObjStack<int[]> curStack, CustomObjStack<int[]>newAnchorPaths){
         if(isAnchor[s[s.length - 1]] || graph.endContains(s[s.length - 1])) {
+            System.out.println("met " + (s.length - 1));
+            System.out.println((Arrays.toString(s)));
+
             newAnchorPaths.push(getPathSeq(curStack));
+            System.out.println(Arrays.toString(getPathSeq(curStack)));
             return;
         }
 
@@ -132,6 +140,7 @@ public class DoubleAnchorTraversal extends AnchorGraphTraversal {
 
     private  void secondConcatenate(int start){
         // second level concatenate
+        System.out.println("second concatenate starting on " + start);
         if(secondLevel.equals(ConcatenateType.DFS) ){
             for (Object obj : anchorPaths.get(start).getAllElements()) {
                 int[] startPath = (int[]) obj;

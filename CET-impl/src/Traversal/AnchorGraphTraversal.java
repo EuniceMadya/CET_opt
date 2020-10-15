@@ -76,6 +76,7 @@ public class AnchorGraphTraversal extends GraphTraversal {
         long endTime = System.nanoTime();
         timeElapsed = endTime - startTime;
         System.out.println(new Time(System.currentTimeMillis()).toString() + " - finished sub concatenate!");
+        System.out.println("path num: " + pathNum);
 
     }
 
@@ -199,14 +200,17 @@ public class AnchorGraphTraversal extends GraphTraversal {
         int[] pathArray = new int[length];
 
         length = 0;
+        counter = 0;
         for (Object obj : stack.getAllElements()) {
             int[] s = (int[]) obj;
-            if (!graph.endContains(s[s.length - 1])) {
+            if (counter < stack.size() - 1) {
                 System.arraycopy(s, 0, pathArray, length, s.length - 1);
                 length += s.length - 1;
+                counter ++;
             } else {
                 System.arraycopy(s, 0, pathArray, length, s.length);
                 length += s.length;
+                counter ++;
             }
         }
 
