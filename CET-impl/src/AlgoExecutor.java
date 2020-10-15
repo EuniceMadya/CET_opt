@@ -155,9 +155,21 @@ class AlgoExecutor {
     void runAlgo() {
 
         System.out.println("Algorithm to execute: " + algo.getClass().getName());
+        boolean isDoubleConcatenate = algo.getClass().getName().contains("Double");
+
+        String concurrentPrefix = (algo.getClass().getName().contains("Concurrent") ? "Concurrent-" : "");
+
+        String doublePrefix = (isDoubleConcatenate ?
+            ((DoubleAnchorTraversal)algo).firstLevel +
+                "-"+((DoubleAnchorTraversal)algo).secondLevel+ "-":"")
+                .replaceAll("AnchorType.", "");
+
+
+
         String fileName = "OutputFiles/result/timeResults/" + "graph-" +
                 algo.getGraph().getNumVertex() + "-" +
-                algo.traversalType + "-" +  (algo.getClass().getName().contains("Concurrent") ? "Concurrent-" : "") +
+                algo.traversalType + "-" +
+               doublePrefix   + concurrentPrefix +
                 new Date().toString() + selection + ".txt";
 
         if (selection!= null && algo.getGraph().getNumVertex() > 100) {

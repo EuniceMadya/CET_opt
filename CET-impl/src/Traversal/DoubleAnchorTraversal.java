@@ -9,8 +9,8 @@ import java.sql.Time;
 
 public class DoubleAnchorTraversal extends AnchorGraphTraversal {
 
-    private ConcatenateType firstLevel;
-    private ConcatenateType secondLevel;
+    public ConcatenateType firstLevel;
+    public ConcatenateType secondLevel;
     public DoubleAnchorTraversal(CompressedGraph graph, boolean saveToMem, int[] anchorNodes,
                                  ConcatenateType firstLevel, ConcatenateType secondLevel) {
         super(graph, saveToMem, anchorNodes, firstLevel);
