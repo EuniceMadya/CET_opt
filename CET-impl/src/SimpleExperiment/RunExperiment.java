@@ -7,11 +7,11 @@ public class RunExperiment {
 
     public static void main(String[] args) {
 
-        ArrayList<int[]> elements = new ArrayList<>(10000);
+        ArrayList<int[]> elements = new ArrayList<>(5000);
         for (int i = 0; i < 100; i++) {
-            elements.add(new int[100]);
-            for (int j = 0; j < 100; j++)
-                elements.get(i)[j] = i * 100 + j;
+            elements.add(new int[50]);
+            for (int j = 0; j < 50; j++)
+                elements.get(i)[j] = i * 50 + j;
         }
 
 
