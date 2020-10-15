@@ -3,8 +3,8 @@ package SimpleExperiment;
 import java.util.ArrayList;
 
 public class DoubleLeveling extends Concatenate {
-    private int[] firstHalf = new int[2500];
-    private int[] secondHalf = new int[2500];
+    private int[] firstHalf ;
+    private int[] secondHalf;
 
     DoubleLeveling(ArrayList<int[]> elements) {
         super(elements);
@@ -12,13 +12,27 @@ public class DoubleLeveling extends Concatenate {
     }
 
     private void firstConcatenate() {
-        for (int i = 0; i < 50; i++) {
-            System.arraycopy(elements.get(i), 0, firstHalf, i * 100, elements.get(i).length);
+
+        firstHalf = new int[elements.get(0).length];
+        secondHalf = new int[elements.get(0).length];
+
+        System.arraycopy(elements.get(0), 0, firstHalf,  0, elements.get(0).length);
+        for (int i = 0; i < elements.size()/2; i ++) {
+            int [] element = elements.get(i);
+            int[] inter = new int[element.length + firstHalf.length];
+            System.arraycopy(firstHalf, 0, inter, 0, firstHalf.length);
+            System.arraycopy(element, 0, inter, firstHalf.length, element.length);
+            firstHalf = inter;
+        }
+        for (int i = elements.size()/2; i < elements.size(); i ++) {
+            int [] element = elements.get(i);
+            int[] inter = new int[element.length + secondHalf.length];
+            System.arraycopy(secondHalf, 0, inter, 0, secondHalf.length);
+            System.arraycopy(element, 0, inter, secondHalf.length, element.length);
+            secondHalf = inter;
         }
 
-        for (int i = 0; i < 50; i++) {
-            System.arraycopy(elements.get(i), 0, secondHalf, i * 100, elements.get(i + 50).length);
-        }
+
     }
 
     @Override
