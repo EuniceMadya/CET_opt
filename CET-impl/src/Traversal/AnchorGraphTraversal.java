@@ -29,7 +29,6 @@ public class AnchorGraphTraversal extends GraphTraversal {
 
     private void initMap() {
         for (Integer anchorNode : anchorNodes) {
-            System.out.print (anchorNode + " ");
             anchorPaths.put(anchorNode, new CustomObjStack<>());
         }
     }
