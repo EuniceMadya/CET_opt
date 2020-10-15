@@ -137,7 +137,6 @@ public class DoubleAnchorTraversal extends AnchorGraphTraversal {
 
     private  void secondConcatenate(int start){
         // second level concatenate
-        System.out.println("second concatenate starting on " + start);
         if(secondLevel.equals(ConcatenateType.DFS) ){
             for (Object obj : anchorPaths.get(start).getAllElements()) {
                 int[] startPath = (int[]) obj;
