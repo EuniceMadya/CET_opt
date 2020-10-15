@@ -90,11 +90,8 @@ public class DoubleAnchorTraversal extends AnchorGraphTraversal {
 
     private void firstConcatenateDFS(int[] s, CustomObjStack<int[]> curStack, CustomObjStack<int[]>newAnchorPaths){
         if(isAnchor[s[s.length - 1]] || graph.endContains(s[s.length - 1])) {
-            System.out.println("met " + (s.length - 1));
-            System.out.println((Arrays.toString(s)));
 
             newAnchorPaths.push(getPathSeq(curStack));
-            System.out.println(Arrays.toString(getPathSeq(curStack)));
             return;
         }
 
