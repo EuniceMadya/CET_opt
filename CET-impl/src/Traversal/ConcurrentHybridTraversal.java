@@ -15,7 +15,7 @@ public class ConcurrentHybridTraversal extends HybridGraphTraversal {
 
     public ConcurrentHybridTraversal(CompressedGraph graph, boolean saveToMem, int[] anchorNodes, TraversalType type) {
         super(graph, saveToMem, anchorNodes, type);
-        pool = Executors.newFixedThreadPool(10);
+        pool = Executors.newFixedThreadPool(20);
     }
 
     @Override
@@ -33,7 +33,12 @@ public class ConcurrentHybridTraversal extends HybridGraphTraversal {
         long startTime = System.nanoTime();
         Collection<Callable<Object>> traversalTasks = new ArrayList<>();
 
-        for(int anchor: getAnchorNodes()) traversalTasks.add(new AnchorTraversal(anchor));
+        for(int anchor: getAnchorNodes()) {
+            traversalTasks.add(new AnchorTraversal(anchor));
+            if (graph.getNumVertex() > 5000)
+                System.out.println(new Time(System.currentTimeMillis()).toString() + " - start on: " + anchor +
+                        " with degree " + graph.getNumDegree(anchor));
+        }
 
         try {
             pool.invokeAll(traversalTasks);
