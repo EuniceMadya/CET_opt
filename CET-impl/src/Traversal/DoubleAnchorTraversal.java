@@ -22,6 +22,7 @@ public class DoubleAnchorTraversal extends AnchorGraphTraversal {
     @Override
     public void execute(){
         clearAll();
+        System.gc();
         long startTime = System.nanoTime();
         for (int start : getAnchorNodes()) {
             if (graph.getNumVertex() > 5000)
@@ -30,10 +31,7 @@ public class DoubleAnchorTraversal extends AnchorGraphTraversal {
             traversal(start);
         }
         System.out.println("finished traversal");
-
         concatenate();
-
-
         long endTime = System.nanoTime();
         timeElapsed = endTime - startTime;
         System.out.println(new Time(System.currentTimeMillis()).toString() + " - finished double leveling - -!");
@@ -47,19 +45,11 @@ public class DoubleAnchorTraversal extends AnchorGraphTraversal {
             isAnchor[anchorNodes[i]] = false;
         }
 
-        for(int i: anchorNodes){
-            System.out.print(i + " ");
-        }
-    System.out.println("");
-        for(int i: anchorNodes){
-            if(isAnchor[i])  System.out.print(i + " ");
-        }
-
         for(int i : graph.getStartPoints()){
             CustomObjStack <int[]>newAnchorPaths = firstConcatenate(i);
             newAnchorPathMap.put(i, newAnchorPaths);
         }
-//        anchorPaths.clear();
+        anchorPaths.clear();
         anchorPaths = newAnchorPathMap;
         System.out.println(anchorPaths.size());
         for(int i : graph.getStartPoints()){
