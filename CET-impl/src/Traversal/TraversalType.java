@@ -5,7 +5,6 @@ public enum TraversalType {
     DFS,
     T_CET,
     M_CET,
-    SeqHybridDFSBFS,
-    SeqHybridDFSDFS
+    Anchor
 
 }

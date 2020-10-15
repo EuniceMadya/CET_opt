@@ -28,9 +28,9 @@ public class RunExperiment {
         String type = System.getProperty("type", "Single");
         if (type == null) {
             System.out.println("Which one to run?(Single/Double)");
-
             type = new Scanner(System.in).nextLine();
         }
+
         System.out.println("Running: type " + type);
 
         long startTime = System.nanoTime();

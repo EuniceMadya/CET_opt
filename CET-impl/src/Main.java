@@ -136,10 +136,11 @@ public class Main {
                     " -   0. Finish choosing (exit program)\n" +
                     " -   1. Normal BFS\n" +
                     " -   2. Normal DFS\n" +
-                    " -   3. Hybrid (DFS concatenate)\n" +
-                    " -   4. Hybrid (BFS concatenate)\n" +
+                    " -   3. Anchor (DFS concatenate)\n" +
+                    " -   4. Anchor (BFS concatenate)\n" +
                     " -   5. M_CET\n" +
-                    " -   6. T_CET\n");
+                    " -   6. T_CET\n" +
+                    " -   7. Anchor (Double leveling)\n");
 
             input = sc.nextLine();
 

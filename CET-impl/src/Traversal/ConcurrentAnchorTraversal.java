@@ -1,6 +1,7 @@
 package Traversal;
 
 import Components.CompressedGraph;
+import SimpleExperiment.Concatenate;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -9,11 +10,11 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ConcurrentHybridTraversal extends HybridGraphTraversal {
+public class ConcurrentAnchorTraversal extends AnchorGraphTraversal {
 
     public  ExecutorService pool;
 
-    public ConcurrentHybridTraversal(CompressedGraph graph, boolean saveToMem, int[] anchorNodes, TraversalType type) {
+    public ConcurrentAnchorTraversal(CompressedGraph graph, boolean saveToMem, int[] anchorNodes, ConcatenateType type) {
         super(graph, saveToMem, anchorNodes, type);
         pool = Executors.newFixedThreadPool(20);
     }
@@ -22,7 +23,7 @@ public class ConcurrentHybridTraversal extends HybridGraphTraversal {
     public void saveResults() {
         String fileName = String.format("%s-anchor%d-concurrent",
                 traversalType.toString(),
-                getAnchorNodes().length - graph.getStartPointNum());
+                anchorNodes.length - graph.getStartPointNum());
         saveResults(fileName);
     }
 
@@ -33,7 +34,7 @@ public class ConcurrentHybridTraversal extends HybridGraphTraversal {
         long startTime = System.nanoTime();
         Collection<Callable<Object>> traversalTasks = new ArrayList<>();
 
-        for(int anchor: getAnchorNodes()) {
+        for(int anchor: anchorNodes) {
             traversalTasks.add(new AnchorTraversal(anchor));
             if (graph.getNumVertex() > 5000)
                 System.out.println(new Time(System.currentTimeMillis()).toString() + " - start on: " + anchor +

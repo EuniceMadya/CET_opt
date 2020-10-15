@@ -1,4 +1,5 @@
 import Components.CompressedGraph;
+import SimpleExperiment.Concatenate;
 import Traversal.*;
 import util.AnchorProcessor;
 import util.AnchorType;
@@ -51,11 +52,11 @@ class AlgoExecutor {
                 break;
 
             case 3:
-                addSeqHybrid(graph, TraversalType.SeqHybridDFSDFS);
+                addSeqHybrid(graph, ConcatenateType.DFS);
                 break;
 
             case 4:
-                addSeqHybrid(graph, TraversalType.SeqHybridDFSBFS);
+                addSeqHybrid(graph, ConcatenateType.BFS);
                 break;
 
             case 5:
@@ -64,6 +65,10 @@ class AlgoExecutor {
 
             case 6:
                 algo = new T_CETGraphTraversal(graph, savePathInMem);
+                break;
+
+            case 7:
+                addDoubleSeqHybrid(graph);
                 break;
 
             default:
@@ -76,15 +81,35 @@ class AlgoExecutor {
         savePathInMem = set;
     }
 
-    private void addSeqHybrid(CompressedGraph graph, TraversalType traversalType) {
+    private void addDoubleSeqHybrid(CompressedGraph graph){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\n" +
+                "First level concatenation: 1. BFS   2. DFS");
+        ConcatenateType firstConcatenate = sc.nextLine().equals("1") ? ConcatenateType.BFS : ConcatenateType.DFS;
+
+        System.out.println("\n" +
+                "Second level concatenation: 1. BFS   2. DFS");
+        ConcatenateType secondConcatenate = sc.nextLine().equals("1") ? ConcatenateType.BFS : ConcatenateType.DFS;
+
+        algo = new DoubleAnchorTraversal(graph, savePathInMem, null, firstConcatenate, secondConcatenate);
+        selectAnchorType(graph);
+
+    }
+
+    private void addSeqHybrid(CompressedGraph graph, ConcatenateType concatenateType) {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("\n" +
                 "Do you want to run it concurrently?(y/n)");
         String input = sc.nextLine();
-        if(input.equals("y")) algo = new ConcurrentHybridTraversal(graph, savePathInMem, null, traversalType);
-        else algo = new HybridGraphTraversal(graph, savePathInMem, null,traversalType );
+        if(input.equals("y")) algo = new ConcurrentAnchorTraversal(graph, savePathInMem, null, concatenateType);
+        else algo = new AnchorGraphTraversal(graph, savePathInMem, null,concatenateType );
 
+        selectAnchorType(graph);
+    }
+
+    private void selectAnchorType(CompressedGraph graph){
+        Scanner sc = new Scanner(System.in);
 
         System.out.println("\n\n-----\n" +
                 "- As you selected hybrid type, \n" +
@@ -92,7 +117,7 @@ class AlgoExecutor {
                 "-   1. Random selection\n" +
                 "-   2. Largest degree nodes\n" +
                 "-   3. Equally distributed nodes");
-        input = sc.nextLine();
+        String input = sc.nextLine();
         selection = input.equals("1") ? AnchorType.RANDOM : input.equals("2") ? AnchorType.LARGEST_DEGREE : AnchorType.EQUAL_DISTRIBUTE;
 
         while (true) {
@@ -102,7 +127,7 @@ class AlgoExecutor {
             System.out.println("WARNING: The number of anchor nodes is larger than the number of nodes in graph, try again.\n\n");
         }
 
-        ((HybridGraphTraversal) algo).setAnchorNodes(
+        ((AnchorGraphTraversal) algo).setAnchorNodes(
                 findAnchor(algo.getGraph(), selection));
     }
 
@@ -156,7 +181,7 @@ class AlgoExecutor {
                 for (int i = numAnchor; i < upper; i += 5) {
                     // set new Anchor num
                     numAnchor = i;
-                    ((HybridGraphTraversal) algo).setAnchorNodes(
+                    ((AnchorGraphTraversal) algo).setAnchorNodes(
                             findAnchor(algo.getGraph(), selection));
                     runOneAlgo();
                     writeTimeResult(fileName);
@@ -176,7 +201,7 @@ class AlgoExecutor {
     public void cleanGarbage(){
         System.gc();
         if(algo.getClass().getName().contains("Concurrent"))
-            ((ConcurrentHybridTraversal)algo).pool.shutdownNow();
+            ((ConcurrentAnchorTraversal)algo).pool.shutdownNow();
 
     }
 

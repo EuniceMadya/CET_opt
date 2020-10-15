@@ -35,6 +35,10 @@ public class CustomObjStack<E> {
 
     }
 
+    public int size(){
+        return top+1;
+    }
+
     public E pop() {
         if (top < 0)
             throw new NumberFormatException();

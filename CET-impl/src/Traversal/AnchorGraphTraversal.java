@@ -1,6 +1,7 @@
 package Traversal;
 
 import Components.CompressedGraph;
+import SimpleExperiment.Concatenate;
 import util.CustomDS.ArrayQueue;
 import util.CustomDS.CustomIntStack;
 import util.CustomDS.CustomObjStack;
@@ -10,16 +11,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class HybridGraphTraversal extends GraphTraversal {
+public class AnchorGraphTraversal extends GraphTraversal {
 
-    private int[] anchorNodes;
-    private boolean[] isAnchor;
-    private HashMap<Integer, CustomObjStack<int[]>> anchorPaths;
+    int[] anchorNodes;
+    boolean[] isAnchor;
+    HashMap<Integer, CustomObjStack<int[]>> anchorPaths;
+    ConcatenateType concatenateType;
 
-    public HybridGraphTraversal(CompressedGraph graph, boolean saveToMem, int[] anchorNodes, TraversalType type) {
+    public AnchorGraphTraversal(CompressedGraph graph, boolean saveToMem, int[] anchorNodes, ConcatenateType type) {
         super(graph, saveToMem);
-        System.out.println("Traversal type: " + type);
-        this.traversalType = type;
+        this.traversalType = TraversalType.Anchor;
+        this.concatenateType = type;
         this.anchorNodes = anchorNodes;
         anchorPaths = new HashMap<>();
         isAnchor = new boolean[graph.getNumVertex()];
@@ -119,8 +121,8 @@ public class HybridGraphTraversal extends GraphTraversal {
 
 
     void concatenate(int start){
-        if(traversalType.equals(TraversalType.SeqHybridDFSBFS)) BFSsubConcatenate(start);
-        if(traversalType.equals(TraversalType.SeqHybridDFSDFS)){
+        if(concatenateType.equals(ConcatenateType.BFS)) BFSsubConcatenate(start);
+        if(concatenateType.equals(ConcatenateType.DFS)){
             for (Object obj : anchorPaths.get(start).getAllElements()) {
                 int[] startPath = (int[]) obj;
                 CustomObjStack<int[]> stack = new CustomObjStack<>();
@@ -131,7 +133,7 @@ public class HybridGraphTraversal extends GraphTraversal {
     }
 
 
-    private void BFSsubConcatenate(int start) {
+     void BFSsubConcatenate(int start) {
         ArrayQueue<CustomObjStack<int[]>> queue = new ArrayQueue<>(graph.getStartPointNum());
 
         queue.offer(anchorPaths.get(start));
@@ -147,6 +149,7 @@ public class HybridGraphTraversal extends GraphTraversal {
                 }
 
                 CustomObjStack<int[]> combo = new CustomObjStack<>();
+                System.out.println("end point of the subpath here being: " + subPath[subPath.length - 1]);
                 for (Object object : anchorPaths.get(subPath[subPath.length - 1]).getAllElements()) {
                     int[] nextList = (int[]) object;
                     int[] newPath = new int[subPath.length - 1 + nextList.length];
@@ -162,7 +165,7 @@ public class HybridGraphTraversal extends GraphTraversal {
     }
 
 
-    private void DFSsubConcatenate(int[] s, CustomObjStack<int[]> curStack) {
+     void DFSsubConcatenate(int[] s, CustomObjStack<int[]> curStack) {
 
         if (graph.endContains(s[s.length - 1])) {
             if (saveToMem) validPaths.add(getPathSeq(curStack));
@@ -179,7 +182,7 @@ public class HybridGraphTraversal extends GraphTraversal {
 
     }
 
-    private int[] getPathSeq(CustomObjStack<int[]> stack) {
+    int[] getPathSeq(CustomObjStack<int[]> stack) {
         int length = 0;
         for (Object object : stack.getAllElements()) {
             int[] s = (int[]) object;
