@@ -32,13 +32,12 @@ public class DoubleLeveling extends Concatenate {
             secondHalf = inter;
         }
 
-
     }
 
     @Override
     public int[] concatenate() {
 
-        int[] result = new int[5000];
+        int[] result = new int[firstHalf.length + secondHalf.length];
         System.arraycopy(firstHalf, 0, result, 0, firstHalf.length);
         System.arraycopy(secondHalf, 0, result, firstHalf.length, secondHalf.length);
 
