@@ -8,8 +8,11 @@ public class RunExperiment {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
+        System.out.println("numElements"); // 100
 
         int numElements = Integer.parseInt(scanner.nextLine());
+        System.out.println("individualSize"); // 50
+
         int individualSize = Integer.parseInt(scanner.nextLine());
 
         ArrayList<int[]> elements = new ArrayList<>();
