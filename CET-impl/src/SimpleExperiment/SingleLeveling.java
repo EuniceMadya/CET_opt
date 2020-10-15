@@ -10,7 +10,7 @@ public class SingleLeveling extends Concatenate {
     @Override
     public int[] concatenate() {
         int []result = new int[100];
-        System.arraycopy(elements.get(0), 0, result,  100, 100);
+        System.arraycopy(elements.get(0), 0, result,  0, 100);
         for (int[] element : elements) {
             int[] inter = new int[element.length + result.length];
             System.arraycopy(result, 0, inter, 0, result.length);
