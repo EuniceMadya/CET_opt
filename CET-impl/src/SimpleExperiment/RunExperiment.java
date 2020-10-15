@@ -37,7 +37,9 @@ public class RunExperiment {
         if (type.equals("Single")) concatenate = new SingleLeveling(elements);
         else concatenate = new DoubleLeveling(elements);
 
-        concatenate.run();
+        System.out.println("Num to run");
+        int numRun = Integer.parseInt(scanner.nextLine());
+        concatenate.run(numRun);
         long endTime = System.nanoTime();
         System.out.println((endTime - startTime) / Math.pow(10, 9));
 
