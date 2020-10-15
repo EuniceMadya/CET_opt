@@ -71,7 +71,7 @@ public class ConcurrentHybridTraversal extends HybridGraphTraversal {
 
 
         @Override
-        public Object call() throws Exception {
+        public Object call() {
             traversal(start);
             return null;
         }
@@ -85,7 +85,7 @@ public class ConcurrentHybridTraversal extends HybridGraphTraversal {
         }
 
         @Override
-        public Object call() throws Exception {
+        public Object call() {
             concatenate(start);
             return null;
         }
