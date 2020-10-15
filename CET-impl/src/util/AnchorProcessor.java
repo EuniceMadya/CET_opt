@@ -43,6 +43,8 @@ public class AnchorProcessor {
     }
 
     private int[] findLargestDegreeAnchors(int anchorNum) {
+
+        // only put start points into it, not end points
         int[] anchorList = new int[graph.getStartPointNum() + anchorNum];
 
         for (int i = 0; i < graph.getStartPointNum(); i++) anchorList[i] = graph.getStartPoints().get(i);

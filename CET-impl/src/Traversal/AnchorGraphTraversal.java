@@ -29,6 +29,7 @@ public class AnchorGraphTraversal extends GraphTraversal {
 
     private void initMap() {
         for (Integer anchorNode : anchorNodes) {
+            System.out.print (anchorNode + " ");
             anchorPaths.put(anchorNode, new CustomObjStack<>());
         }
     }
@@ -149,7 +150,7 @@ public class AnchorGraphTraversal extends GraphTraversal {
                 }
 
                 CustomObjStack<int[]> combo = new CustomObjStack<>();
-                System.out.println("end point of the subpath here being: " + subPath[subPath.length - 1]);
+
                 for (Object object : anchorPaths.get(subPath[subPath.length - 1]).getAllElements()) {
                     int[] nextList = (int[]) object;
                     int[] newPath = new int[subPath.length - 1 + nextList.length];
@@ -184,10 +185,15 @@ public class AnchorGraphTraversal extends GraphTraversal {
 
     int[] getPathSeq(CustomObjStack<int[]> stack) {
         int length = 0;
+
+        int counter = 0;
+
         for (Object object : stack.getAllElements()) {
             int[] s = (int[]) object;
-            if (!graph.endContains(s[s.length - 1]))
+            if (counter < stack.size() - 1){
                 length += s.length - 1;
+                counter ++;
+            }
             else length += s.length;
         }
 

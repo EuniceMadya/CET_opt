@@ -5,7 +5,8 @@ import util.CustomDS.ArrayQueue;
 import util.CustomDS.CustomObjStack;
 
 import java.sql.Time;
-import java.util.HashMap;
+import java.util.Arrays;
+
 
 public class DoubleAnchorTraversal extends AnchorGraphTraversal {
 
@@ -30,7 +31,7 @@ public class DoubleAnchorTraversal extends AnchorGraphTraversal {
                         " with degree " + graph.getNumDegree(start));
             traversal(start);
         }
-        System.out.println("finished traversal");
+
         concatenate();
         long endTime = System.nanoTime();
         timeElapsed = endTime - startTime;
@@ -39,26 +40,32 @@ public class DoubleAnchorTraversal extends AnchorGraphTraversal {
     }
 
     private void concatenate(){
-        HashMap<Integer, CustomObjStack<int[]>> newAnchorPathMap = new HashMap<>();
         // set the smallest half to be the
-        for(int i = anchorNodes.length/2; i < getAnchorNodes().length; i ++){
-            isAnchor[anchorNodes[i]] = false;
+        for(int i = anchorNodes.length - 1;
+            i >anchorNodes.length -
+                    (anchorNodes.length - graph.getStartPointNum())/2; i --){
+            if(!graph.startContains(anchorNodes[i]))
+                isAnchor[anchorNodes[i]] = false;
         }
 
-        for(int i : graph.getStartPoints()){
+
+        for(int i : anchorNodes){
             CustomObjStack <int[]>newAnchorPaths = firstConcatenate(i);
-            newAnchorPathMap.put(i, newAnchorPaths);
+            anchorPaths.replace(i, newAnchorPaths);
         }
-        anchorPaths.clear();
-        anchorPaths = newAnchorPathMap;
-        System.out.println(anchorPaths.size());
+
+
+        for(int i: anchorNodes){
+            if(!isAnchor[i]) anchorPaths.remove(i);
+        }
+
+
         for(int i : graph.getStartPoints()){
             secondConcatenate(i);
         }
     }
 
     private CustomObjStack <int[]> firstConcatenate(int start){
-
 
         CustomObjStack<int[]>newAnchorPaths = new CustomObjStack<>();
 
@@ -78,13 +85,7 @@ public class DoubleAnchorTraversal extends AnchorGraphTraversal {
 
 
     private void firstConcatenateDFS(int[] s, CustomObjStack<int[]> curStack, CustomObjStack<int[]>newAnchorPaths){
-        if (graph.endContains(s[s.length - 1])) {
-            if (saveToMem) validPaths.add(getPathSeq(curStack));
-            pathNum++;
-            return;
-        }
-
-        if(isAnchor[s[s.length - 1]]) {
+        if(isAnchor[s[s.length - 1]] || graph.endContains(s[s.length - 1])) {
             newAnchorPaths.push(getPathSeq(curStack));
             return;
         }
@@ -106,12 +107,9 @@ public class DoubleAnchorTraversal extends AnchorGraphTraversal {
             CustomObjStack<int[]> currentPaths = queue.poll();
             for (Object obj : currentPaths.getAllElements()) {
                 int[] subPath = (int[]) obj;
-                if (graph.endContains(subPath[subPath.length - 1])) { // probs could optimize here
-                    if (saveToMem) validPaths.add(subPath);
-                    pathNum++;
-                    continue;
-                }
-                if(isAnchor[subPath[subPath.length - 1]]) {
+
+                if(isAnchor[subPath[subPath.length - 1]]
+                        || graph.endContains(subPath[subPath.length - 1])) {
                     customObjStack.push(subPath);
                     continue;
                 }

@@ -135,7 +135,7 @@ class AlgoExecutor {
         AnchorProcessor anchorProcessor = new AnchorProcessor(graph);
         int[] anchor = anchorProcessor.findAnchors(selection, numAnchor);
 
-        System.out.println("Starting nodes: \n");
+        System.out.println("\nSource nodes:");
 
         for (int i = 0; i < graph.getStartPointNum(); i++) {
             System.out.print(String.format("[%d, %d] ",
