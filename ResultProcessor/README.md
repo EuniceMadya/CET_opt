@@ -20,3 +20,14 @@ Algo: algo name
 Anchor Num, Selection Method,Time(s), Memory saved?
 ```
 
+One traversal + one concatenate
+
+- DD means  -- DFS + DFS
+- DB means  -- DFS + BFS
+
+
+One traversal + two concatenate:
+
+- DBB means -- DFS + BFS BFS
+- DDD means -- DFS + DFS DFS
+

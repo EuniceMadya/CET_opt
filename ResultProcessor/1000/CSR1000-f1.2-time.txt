@@ -5,7 +5,7 @@ Algo:BFS
 66.805991008,No
 
 Algo:DFS
-23.557389686,No
+7.385523858,No
 
 Algo:Sequential Hybrid
 LD
