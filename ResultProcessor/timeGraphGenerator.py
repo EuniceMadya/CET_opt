@@ -65,7 +65,7 @@ MIN_ANCHOR_NUM = int(content[1])
 MAX_ANCHOR_NUM = int(content[2])
 
 for i in range(3, len(content)):
-    if "BFS" in content[i] or "DFS" in content[i]:
+    if "BFS" in content[i] or "600-f1.0-DFS.txt" in content[i]:
         add_algo(content[i].replace("Algo:", ""), content[i + 1: i + 2])
         i = i + 1
     if "Hybrid" in content[i]:
