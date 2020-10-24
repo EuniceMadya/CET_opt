@@ -101,28 +101,31 @@ public class AnchorProcessor {
             if (!visited[i])
                 topologicalSort(i, visited, topStack);
         }
-        ArrayList<Integer> results = new ArrayList<>(graph.getStartPoints());
 
         // Customized topological order of the graph
         // with all start points at the front
+
+        ArrayList<Integer> results = new ArrayList<>(graph.getStartPoints());
+
         while (!topStack.empty()) {
             int r = topStack.pop();
-            if (!results.contains(r))
+            if (!results.contains(r) && !graph.getEndPoints().contains(r))
                 results.add(r);
         }
-
+        // And all the end points at the end
+        results.addAll(graph.getEndPoints());
 
         int[] anchorList = new int[graph.getStartPointNum() + anchorNum];
 
         for (int i = 0; i < graph.getStartPointNum(); i++) anchorList[i] = graph.getStartPoints().get(i);
 
         // limit the number of anchor if it's too many
-        if ((graph.getNumVertex() - graph.getStartPointNum() + 1) / (anchorNum + 1) < 2) {
+        if ((graph.getNumVertex() - graph.getStartPointNum() - graph.getEndPointNum() + 1) / (anchorNum + 1) < 2) {
             System.out.println("Anchor num too large! Reducing to " + (graph.getNumVertex() - graph.getStartPointNum() + 1) / 2);
             anchorNum = (graph.getNumVertex() - graph.getStartPointNum() + 1) / 2 - 1;
         }
 
-        int spacing = (graph.getNumVertex() - graph.getStartPointNum()) / anchorNum;
+        int spacing = (graph.getNumVertex() - graph.getStartPointNum() - graph.getEndPointNum()) / anchorNum;
 
         for (int i = 0; i < anchorNum; i++) {
             anchorList[i + graph.getStartPointNum()] = results.get((i + 1) * spacing);

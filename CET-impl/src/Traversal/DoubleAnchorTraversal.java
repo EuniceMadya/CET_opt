@@ -5,7 +5,6 @@ import util.CustomDS.ArrayQueue;
 import util.CustomDS.CustomObjStack;
 
 import java.sql.Time;
-import java.util.Arrays;
 
 
 public class DoubleAnchorTraversal extends AnchorGraphTraversal {
