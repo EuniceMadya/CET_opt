@@ -179,9 +179,9 @@ class AlgoExecutor {
 
         String fileName = "OutputFiles/result/timeResults/" + "graph-" +
                 algo.getGraph().getNumVertex() + "-" +
-                algo.traversalType + "-" +
+                algo.traversalType +
                doublePrefix   + concurrentPrefix +
-                new Date().toString() + selection + concatenatePrefix +  ".txt";
+                selection + "-" + concatenatePrefix + new Date().toString() +  ".txt";
 
         if (selection!= null && algo.getGraph().getNumVertex() > 100) {
             System.out.println("Do you want to run range of anchor node num?(y/n)");
