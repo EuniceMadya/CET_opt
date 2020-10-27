@@ -169,13 +169,19 @@ class AlgoExecutor {
                 "-"+((DoubleAnchorTraversal)algo).secondLevel+ "-":"")
                 .replaceAll("AnchorType.", "");
 
+        String concatenatePrefix = "";
+        if(selection != null){
+            if(isDoubleConcatenate) concatenatePrefix ="-" +  ((ConcurrentDoubleAnchorTraversal)algo).firstLevel + "" +  ((ConcurrentDoubleAnchorTraversal)algo).secondLevel;
+            else concatenatePrefix = "-" + ((ConcurrentAnchorTraversal)algo).concatenateType;
+            concatenatePrefix.replace("ConcatenateType.", "");
+        }
 
 
         String fileName = "OutputFiles/result/timeResults/" + "graph-" +
                 algo.getGraph().getNumVertex() + "-" +
                 algo.traversalType + "-" +
                doublePrefix   + concurrentPrefix +
-                new Date().toString() + selection + ".txt";
+                new Date().toString() + selection + concatenatePrefix +  ".txt";
 
         if (selection!= null && algo.getGraph().getNumVertex() > 100) {
             System.out.println("Do you want to run range of anchor node num?(y/n)");

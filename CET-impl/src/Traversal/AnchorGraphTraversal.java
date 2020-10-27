@@ -16,7 +16,7 @@ public class AnchorGraphTraversal extends GraphTraversal {
     int[] anchorNodes;
     boolean[] isAnchor;
     HashMap<Integer, CustomObjStack<int[]>> anchorPaths;
-    ConcatenateType concatenateType;
+    public ConcatenateType concatenateType;
 
     public AnchorGraphTraversal(CompressedGraph graph, boolean saveToMem, int[] anchorNodes, ConcatenateType type) {
         super(graph, saveToMem);
