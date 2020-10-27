@@ -66,14 +66,17 @@ public class ConcurrentDoubleAnchorTraversal extends DoubleAnchorTraversal {
             e.printStackTrace();
         }
         if(operation.equalsIgnoreCase("first")){
+            for(int i: anchorNodes){
+                if(!isAnchor[i]) anchorPaths.remove(i);
+            }
             for(Future<Object> future: results){
                 try {
                     CustomObjStack<int[]> newAnchorPaths = (CustomObjStack<int[]>) future.get();
-                    anchorPaths.replace(newAnchorPaths.peek()[0], newAnchorPaths);
+                    if(newAnchorPaths.size() > 0)
+                        anchorPaths.replace(newAnchorPaths.peek()[0], newAnchorPaths);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
         }
 

@@ -49,7 +49,7 @@ public class CustomObjStack<E> {
 
     public E peek() {
         if (top < 0)
-            throw new NumberFormatException();
+            throw new ArrayIndexOutOfBoundsException();
 
         return (E) stack[top];
 

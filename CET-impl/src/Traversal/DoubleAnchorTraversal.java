@@ -41,13 +41,15 @@ public class DoubleAnchorTraversal extends AnchorGraphTraversal {
     }
 
     void reduceAnchorNodes(){
-        // set the smallest half to be the
+        // set the smallest half to be non-anchor
         for(int i = anchorNodes.length - 1;
             i >anchorNodes.length -
                     (anchorNodes.length - graph.getStartPointNum())/2; i --){
-            if(!graph.startContains(anchorNodes[i]))
+            if(!graph.startContains(anchorNodes[i])){
                 isAnchor[anchorNodes[i]] = false;
+            }
         }
+
     }
 
      void concatenate(){
@@ -55,7 +57,6 @@ public class DoubleAnchorTraversal extends AnchorGraphTraversal {
 
         for(int i : anchorNodes){
             CustomObjStack <int[]>newAnchorPaths = firstConcatenate(i);
-            System.out.println("replacing " + i + " size: " + newAnchorPaths.size());
             anchorPaths.replace(i, newAnchorPaths);
         }
 
