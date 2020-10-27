@@ -48,7 +48,7 @@ public class ConcurrentAnchorTraversal extends AnchorGraphTraversal {
         for(int node: nodes) {
             tasks.add(new AnchorTask(node, operation));
             if (operation.equalsIgnoreCase("traversal"))
-//                if (graph.getNumVertex() > 5000)
+                if (graph.getNumVertex() > 5000)
                 System.out.println(new Time(System.currentTimeMillis()).toString() + " - put in: " + node +
                         " with degree " + graph.getNumDegree(node));
         }
@@ -57,7 +57,6 @@ public class ConcurrentAnchorTraversal extends AnchorGraphTraversal {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("done one boot");
 
     }
 
