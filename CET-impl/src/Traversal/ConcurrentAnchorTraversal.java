@@ -45,20 +45,20 @@ public class ConcurrentAnchorTraversal extends AnchorGraphTraversal {
 
     private void bootTasks(int[] nodes, String operation){
         Collection<Callable<Object>> tasks = new ArrayList<>();
-        for(int node: nodes){
+        for(int node: nodes) {
             tasks.add(new AnchorTask(node, operation));
-            if(operation.equalsIgnoreCase("traversal"))
+            if (operation.equalsIgnoreCase("traversal"))
 //                if (graph.getNumVertex() > 5000)
-                    System.out.println(new Time(System.currentTimeMillis()).toString() + " - put in: " + node +
-                            " with degree " + graph.getNumDegree(node));
-
-            try {
-                pool.invokeAll(tasks);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println("done one boot");
+                System.out.println(new Time(System.currentTimeMillis()).toString() + " - put in: " + node +
+                        " with degree " + graph.getNumDegree(node));
         }
+        try {
+            pool.invokeAll(tasks);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("done one boot");
+
     }
 
     class AnchorTask implements Callable<Object> {
