@@ -57,6 +57,7 @@ public class ConcurrentAnchorTraversal extends AnchorGraphTraversal {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        tasks = null;
 
     }
 

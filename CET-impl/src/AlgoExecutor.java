@@ -171,8 +171,8 @@ class AlgoExecutor {
 
         String concatenatePrefix = "";
         if(selection != null){
-            if(isDoubleConcatenate) concatenatePrefix ="-" +  ((ConcurrentDoubleAnchorTraversal)algo).firstLevel + "" +  ((ConcurrentDoubleAnchorTraversal)algo).secondLevel;
-            else concatenatePrefix = "-" + ((ConcurrentAnchorTraversal)algo).concatenateType;
+            if(isDoubleConcatenate) concatenatePrefix ="-" +  ((DoubleAnchorTraversal)algo).firstLevel + "" +  ((DoubleAnchorTraversal)algo).secondLevel;
+            else concatenatePrefix = "-" + ((AnchorGraphTraversal)algo).concatenateType;
             concatenatePrefix.replace("ConcatenateType.", "");
         }
 
