@@ -181,7 +181,7 @@ class AlgoExecutor {
                 algo.getGraph().getNumVertex() + "-" +
                 algo.traversalType +
                doublePrefix   + concurrentPrefix +
-                selection + "-" + concatenatePrefix + new Date().toString() +  ".txt";
+                selection +concatenatePrefix +  "-" + new Date().toString() +  ".txt";
 
         if (selection!= null && algo.getGraph().getNumVertex() > 100) {
             System.out.println("Do you want to run range of anchor node num?(y/n)");
@@ -201,7 +201,7 @@ class AlgoExecutor {
                 numAnchor = numAnchor / 5 * 5;
                 if (upper < numAnchor) upper = algo.getGraph().getNumVertex() / 10 + 10;
 
-                for (int i = numAnchor; i < upper; i += 5) {
+                for (int i = numAnchor; i <= upper; i += 5) {
                     // set new Anchor num
                     numAnchor = i;
                     ((AnchorGraphTraversal) algo).setAnchorNodes(
