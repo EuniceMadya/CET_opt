@@ -32,62 +32,49 @@ public class ConcurrentAnchorTraversal extends AnchorGraphTraversal {
     public void execute()  {
         clearAll();
         long startTime = System.nanoTime();
-        Collection<Callable<Object>> traversalTasks = new ArrayList<>();
 
-        for(int anchor: anchorNodes) {
-            traversalTasks.add(new AnchorTraversal(anchor));
-            if (graph.getNumVertex() > 5000)
-                System.out.println(new Time(System.currentTimeMillis()).toString() + " - start on: " + anchor +
-                        " with degree " + graph.getNumDegree(anchor));
-        }
+        bootTasks(anchorNodes, "traversal");
+        bootTasks(graph.getStartPoints().stream().mapToInt(i->i).toArray(), "concatenate");
 
-        try {
-            pool.invokeAll(traversalTasks);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-
-        Collection<Callable<Object>> concatenateTasks = new ArrayList<>();
-        for (int start : graph.getStartPoints()) concatenateTasks.add(new AnchorConcatenate(start));
-        try {
-            pool.invokeAll(concatenateTasks);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         long endTime = System.nanoTime();
         timeElapsed = endTime - startTime;
         System.out.println(new Time(System.currentTimeMillis()).toString() + " - finished sub concatenate!");
 
-
     }
 
-    class AnchorTraversal implements Callable<Object> {
+    private void bootTasks(int[] nodes, String operation){
+        Collection<Callable<Object>> tasks = new ArrayList<>();
+        for(int node: nodes){
+            tasks.add(new AnchorTask(node, operation));
+            if(operation.equalsIgnoreCase("traversal"))
+                if (graph.getNumVertex() > 5000)
+                    System.out.println(new Time(System.currentTimeMillis()).toString() + " - start on: " + node +
+                            " with degree " + graph.getNumDegree(node));
+
+            try {
+                pool.invokeAll(tasks);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    class AnchorTask implements Callable<Object> {
 
         int start;
-        AnchorTraversal(int i){
+        String operation;
+        AnchorTask(int i, String operation){
+            this.operation = operation;
             start = i;
         }
 
-
         @Override
         public Object call() {
-            traversal(start);
-            return null;
-        }
-    }
-
-    class AnchorConcatenate implements Callable<Object>{
-        int start;
-
-        AnchorConcatenate(int i){
-            start = i;
-        }
-
-        @Override
-        public Object call() {
-            concatenate(start);
+            if(operation.equalsIgnoreCase("traversal"))
+                traversal(start);
+            else concatenate(start);
             return null;
         }
     }

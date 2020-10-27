@@ -52,11 +52,11 @@ class AlgoExecutor {
                 break;
 
             case 3:
-                addSeqHybrid(graph, ConcatenateType.DFS);
+                addHybrid(graph, ConcatenateType.DFS);
                 break;
 
             case 4:
-                addSeqHybrid(graph, ConcatenateType.BFS);
+                addHybrid(graph, ConcatenateType.BFS);
                 break;
 
             case 5:
@@ -90,13 +90,16 @@ class AlgoExecutor {
         System.out.println("\n" +
                 "Second level concatenation: 1. BFS   2. DFS");
         ConcatenateType secondConcatenate = sc.nextLine().equals("1") ? ConcatenateType.BFS : ConcatenateType.DFS;
-
-        algo = new DoubleAnchorTraversal(graph, savePathInMem, null, firstConcatenate, secondConcatenate);
+        System.out.println("\n" +
+                "Do you want to run it concurrently?(y/n)");
+        String input = sc.nextLine();
+        if(input.equalsIgnoreCase("y")) algo = new ConcurrentDoubleAnchorTraversal(graph, savePathInMem, null, firstConcatenate, secondConcatenate);
+        else algo = new DoubleAnchorTraversal(graph, savePathInMem, null, firstConcatenate, secondConcatenate);
         selectAnchorType(graph);
 
     }
 
-    private void addSeqHybrid(CompressedGraph graph, ConcatenateType concatenateType) {
+    private void addHybrid(CompressedGraph graph, ConcatenateType concatenateType) {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("\n" +
@@ -108,6 +111,8 @@ class AlgoExecutor {
         selectAnchorType(graph);
     }
 
+
+    // Add anchor nodes to algorithm
     private void selectAnchorType(CompressedGraph graph){
         Scanner sc = new Scanner(System.in);
 
@@ -212,9 +217,10 @@ class AlgoExecutor {
 
     public void cleanGarbage(){
         System.gc();
-        if(algo.getClass().getName().contains("Concurrent"))
+        if(algo.getClass().getName().contains("ConcurrentDouble"))
+            ((ConcurrentDoubleAnchorTraversal)algo).pool.shutdownNow();
+        else if(algo.getClass().getName().contains("ConcurrentAnchor"))
             ((ConcurrentAnchorTraversal)algo).pool.shutdownNow();
-
     }
 
     private void runOneAlgo() {

@@ -40,7 +40,7 @@ public class DoubleAnchorTraversal extends AnchorGraphTraversal {
         System.out.println("path num: " + pathNum);
     }
 
-    private void concatenate(){
+    void reduceAnchorNodes(){
         // set the smallest half to be the
         for(int i = anchorNodes.length - 1;
             i >anchorNodes.length -
@@ -48,10 +48,14 @@ public class DoubleAnchorTraversal extends AnchorGraphTraversal {
             if(!graph.startContains(anchorNodes[i]))
                 isAnchor[anchorNodes[i]] = false;
         }
+    }
 
+     void concatenate(){
+        reduceAnchorNodes();
 
         for(int i : anchorNodes){
             CustomObjStack <int[]>newAnchorPaths = firstConcatenate(i);
+            System.out.println("replacing " + i + " size: " + newAnchorPaths.size());
             anchorPaths.replace(i, newAnchorPaths);
         }
 
@@ -62,13 +66,12 @@ public class DoubleAnchorTraversal extends AnchorGraphTraversal {
         }
 
 
-
         for(int i : graph.getStartPoints()){
             secondConcatenate(i);
         }
     }
 
-    private CustomObjStack <int[]> firstConcatenate(int start){
+    CustomObjStack <int[]> firstConcatenate(int start){
 
         CustomObjStack<int[]>newAnchorPaths = new CustomObjStack<>();
 
@@ -89,7 +92,6 @@ public class DoubleAnchorTraversal extends AnchorGraphTraversal {
 
     private void firstConcatenateDFS(int[] s, CustomObjStack<int[]> curStack, CustomObjStack<int[]>newAnchorPaths){
         if(isAnchor[s[s.length - 1]] || graph.endContains(s[s.length - 1])) {
-
             newAnchorPaths.push(getPathSeq(curStack));
             return;
         }
@@ -134,7 +136,7 @@ public class DoubleAnchorTraversal extends AnchorGraphTraversal {
     }
 
 
-    private  void secondConcatenate(int start){
+    void secondConcatenate(int start){
         // second level concatenate
         if(secondLevel.equals(ConcatenateType.DFS) ){
             for (Object obj : anchorPaths.get(start).getAllElements()) {
