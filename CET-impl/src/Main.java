@@ -195,13 +195,32 @@ public class Main {
             else degreeNum.replace(degree, degreeNum.get(degree) + 1);
         }
         Set set = degreeNum.entrySet();
-        Iterator i = set.iterator();
+        Iterator iterator = set.iterator();
 
         while (i.hasNext()) {
             Map.Entry me = (Map.Entry)i.next();
             System.out.print(me.getKey() + ": ");
             System.out.println(me.getValue());
         }
+
+        TreeMap<Integer, Integer> interDegreeNum = new TreeMap<>(Collections.reverseOrder());
+
+        for(int i = 0; i < graph.getNumVertex(); i ++){
+            int degree = graph.getNumDegree(i);
+            if(!graph.startContains(i) && !graph.endContains(i))
+                if(interDegreeNum.get(degree) == null) interDegreeNum.put(degree, 1);
+                else interDegreeNum.replace(degree, interDegreeNum.get(degree) + 1);
+        }
+        set = interDegreeNum.entrySet();
+        iterator = set.iterator();
+
+        System.out.println("\n\n\nnot source or sink: ");
+        while (iterator.hasNext()) {
+            Map.Entry me = (Map.Entry)i.next();
+            System.out.print(me.getKey() + ": ");
+            System.out.println(me.getValue());
+        }
+
 
     }
 
