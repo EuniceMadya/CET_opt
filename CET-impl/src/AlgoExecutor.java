@@ -90,11 +90,19 @@ class AlgoExecutor {
         System.out.println("\n" +
                 "Second level concatenation: 1. BFS   2. DFS");
         ConcatenateType secondConcatenate = sc.nextLine().equals("1") ? ConcatenateType.BFS : ConcatenateType.DFS;
+
+        System.out.println("\n" +
+                "Reduce Anchor type: 1. Half   2. Keep largest degree");
+        String reduceType = sc.nextLine().equals("1") ? "Half" : "largest";
+
         System.out.println("\n" +
                 "Do you want to run it concurrently?(y/n)");
         String input = sc.nextLine();
-        if(input.equalsIgnoreCase("y")) algo = new ConcurrentDoubleAnchorTraversal(graph, savePathInMem, null, firstConcatenate, secondConcatenate);
-        else algo = new DoubleAnchorTraversal(graph, savePathInMem, null, firstConcatenate, secondConcatenate);
+        if(input.equalsIgnoreCase("y"))
+            algo = new ConcurrentDoubleAnchorTraversal(graph, savePathInMem, null, firstConcatenate, secondConcatenate, reduceType);
+        else
+            algo = new DoubleAnchorTraversal(graph, savePathInMem, null, firstConcatenate, secondConcatenate, reduceType);
+
         selectAnchorType(graph);
 
     }

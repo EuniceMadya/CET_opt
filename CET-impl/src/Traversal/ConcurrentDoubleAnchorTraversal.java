@@ -18,8 +18,8 @@ public class ConcurrentDoubleAnchorTraversal extends DoubleAnchorTraversal {
 
 
     public ConcurrentDoubleAnchorTraversal(CompressedGraph graph, boolean saveToMem, int[] anchorNodes,
-                                           ConcatenateType firstLevel, ConcatenateType secondLevel) {
-        super(graph, saveToMem, anchorNodes, firstLevel, secondLevel);
+                                           ConcatenateType firstLevel, ConcatenateType secondLevel, String doubleType) {
+        super(graph, saveToMem, anchorNodes, firstLevel, secondLevel, doubleType);
         pool = Executors.newFixedThreadPool(20);
 
     }

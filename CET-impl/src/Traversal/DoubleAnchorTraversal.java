@@ -11,12 +11,14 @@ public class DoubleAnchorTraversal extends AnchorGraphTraversal {
 
     public ConcatenateType firstLevel;
     public ConcatenateType secondLevel;
+    String reduceAnchorType;
     public DoubleAnchorTraversal(CompressedGraph graph, boolean saveToMem, int[] anchorNodes,
-                                 ConcatenateType firstLevel, ConcatenateType secondLevel) {
+                                 ConcatenateType firstLevel, ConcatenateType secondLevel, String doubleType) {
         super(graph, saveToMem, anchorNodes, firstLevel);
         this.firstLevel = firstLevel;
         this.secondLevel = secondLevel;
         traversalType = TraversalType.DoubleAnchor;
+        reduceAnchorType = doubleType;
     }
 
 
@@ -40,7 +42,7 @@ public class DoubleAnchorTraversal extends AnchorGraphTraversal {
         System.out.println("path num: " + pathNum);
     }
 
-    void reduceAnchorNodes(){
+    void reduceHalfAnchorNodes(){
         // set the smallest half to be non-anchor
         for(int i = anchorNodes.length - 1;
             i >anchorNodes.length -
@@ -50,6 +52,25 @@ public class DoubleAnchorTraversal extends AnchorGraphTraversal {
             }
         }
 
+    }
+
+
+    void reduceMostAnchorNodes(){
+        // set it to remain only the largest one
+        int largestDegree = 0;
+        for(int i : anchorNodes){
+            if(graph.startContains(i)) continue;
+            if(largestDegree < graph.getNumDegree(i))
+                largestDegree = graph.getNumDegree(i);
+            if (graph.getNumDegree(i) < largestDegree)
+                isAnchor[i] = false;
+        }
+
+    }
+
+    void reduceAnchorNodes(){
+        if(reduceAnchorType.contains("largest")) reduceMostAnchorNodes();
+        else reduceHalfAnchorNodes();
     }
 
      void concatenate(){
