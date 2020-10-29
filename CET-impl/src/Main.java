@@ -197,8 +197,8 @@ public class Main {
         Set set = degreeNum.entrySet();
         Iterator iterator = set.iterator();
 
-        while (i.hasNext()) {
-            Map.Entry me = (Map.Entry)i.next();
+        while (iterator.hasNext()) {
+            Map.Entry me = (Map.Entry)iterator.next();
             System.out.print(me.getKey() + ": ");
             System.out.println(me.getValue());
         }
@@ -216,7 +216,7 @@ public class Main {
 
         System.out.println("\n\n\nnot source or sink: ");
         while (iterator.hasNext()) {
-            Map.Entry me = (Map.Entry)i.next();
+            Map.Entry me = (Map.Entry)iterator.next();
             System.out.print(me.getKey() + ": ");
             System.out.println(me.getValue());
         }
