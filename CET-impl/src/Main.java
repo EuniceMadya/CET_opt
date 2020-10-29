@@ -5,8 +5,7 @@ import util.GraphType;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -106,6 +105,8 @@ public class Main {
 
         System.out.println("Graph has total of " + graph.getTotalNumEdges() + " edges");
 
+        printDegreeNumVSNode(graph);
+
         // Create output dir
         if (!new File("OutputFiles/result/timeResults").exists())
             new File("OutputFiles/result/timeResults").mkdirs();
@@ -181,6 +182,26 @@ public class Main {
         } else
             System.out.println("Warning: No results saved.\n");
 
+
+    }
+
+
+    private static void printDegreeNumVSNode(CompressedGraph graph){
+        TreeMap<Integer, Integer> degreeNum = new TreeMap<>(Collections.reverseOrder());
+
+        for(int i = 0; i < graph.getNumVertex(); i ++){
+            int degree = graph.getNumDegree(i);
+            if(degreeNum.get(degree) == null) degreeNum.put(degree, 1);
+            else degreeNum.replace(degree, degreeNum.get(degree) + 1);
+        }
+        Set set = degreeNum.entrySet();
+        Iterator i = set.iterator();
+
+        while (i.hasNext()) {
+            Map.Entry me = (Map.Entry)i.next();
+            System.out.print(me.getKey() + ": ");
+            System.out.println(me.getValue());
+        }
 
     }
 
