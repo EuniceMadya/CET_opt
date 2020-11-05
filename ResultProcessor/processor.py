@@ -131,7 +131,6 @@ def add_anchor(algo: str, data: list):
 def get_common_prefix(selections: list):
     print("selections", selections)
     res = ''.join(c[0] for c in takewhile(lambda x: all(x[0] == y for y in x), zip(*selections)))
-    print("啊啊啊啊啊", res)
     common_attrs = ""
     if "-" in res:
         common_attrs = res[:res.rindex("-")]
@@ -144,6 +143,13 @@ list_options(TOTAL_NODE_NUM)
 if(MIN_ANCHOR_NUM > MAX_ANCHOR_NUM):
     MAX_ANCHOR_NUM = TOTAL_NODE_NUM
     MIN_ANCHOR_NUM = 0
+
+min_anchor = int(input("min anchor num to show"))
+max_anchor = int(input("max anchor num to show"))
+
+MIN_ANCHOR_NUM = max(min_anchor, MIN_ANCHOR_NUM)
+MAX_ANCHOR_NUM = min(max_anchor, MAX_ANCHOR_NUM)
+
 
 plt.axis([MIN_ANCHOR_NUM - 5, MAX_ANCHOR_NUM + 5, 0, MAX_TIME + MAX_TIME/10])
 plt.grid(linestyle='--')
