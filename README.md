@@ -32,13 +32,9 @@ The graph to traverse can either be random or read from existing file. The progr
 
 ## File intake format:
 
-### Input config
 
-*TODO: Intake config*
-
-
-
-### Graph format
+### Graph format 
+*Note: this is when you choose to run execution a graph stored in an existing file.*
 
 | Type                                                         | Format                                                    |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
