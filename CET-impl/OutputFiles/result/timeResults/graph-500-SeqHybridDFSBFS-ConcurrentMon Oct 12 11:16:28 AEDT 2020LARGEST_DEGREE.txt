@@ -1,0 +1,2 @@
+Average time(s) running 3 times: 0.005840967
+5,0.00219834
