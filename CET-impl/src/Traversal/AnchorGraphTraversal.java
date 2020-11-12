@@ -104,7 +104,13 @@ public class AnchorGraphTraversal extends GraphTraversal {
 
     private void DFSsubTraversal(int s, CustomIntStack curStack) {
 
+        if(graph.startContains(curStack.firstElement()) && graph.endContains(s)){
+            if (saveToMem) validPaths.add(curStack.getAllElements());
+            return;
+        }
+
         if (isAnchor[s] && curStack.size() > 1 || graph.endContains(s)) {
+
             anchorPaths.get(curStack.firstElement()).push(curStack.getAllElements());
             return;
         }

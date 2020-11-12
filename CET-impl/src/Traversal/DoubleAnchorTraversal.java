@@ -113,6 +113,12 @@ public class DoubleAnchorTraversal extends AnchorGraphTraversal {
 
 
     private void firstConcatenateDFS(int[] s, CustomObjStack<int[]> curStack, CustomObjStack<int[]>newAnchorPaths){
+
+        if(graph.startContains(((int[])curStack.firstElement())[0]) && graph.endContains(s[s.length - 1])) {
+            if (saveToMem) validPaths.add(getPathSeq(curStack));
+            return;
+        }
+
         if(isAnchor[s[s.length - 1]] || graph.endContains(s[s.length - 1])) {
             newAnchorPaths.push(getPathSeq(curStack));
             return;
@@ -136,6 +142,10 @@ public class DoubleAnchorTraversal extends AnchorGraphTraversal {
             for (Object obj : currentPaths.getAllElements()) {
                 int[] subPath = (int[]) obj;
 
+                if(graph.startContains(subPath[0]) && graph.endContains(subPath[subPath.length - 1])) {
+                    if (saveToMem) validPaths.add(subPath);
+                    continue;
+                }
                 if(isAnchor[subPath[subPath.length - 1]]
                         || graph.endContains(subPath[subPath.length - 1])) {
                     customObjStack.push(subPath);
