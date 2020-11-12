@@ -2,6 +2,7 @@ package Components;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class CompressedGraph{
@@ -10,6 +11,8 @@ public class CompressedGraph{
 
     private boolean[] isEndPoints;
     private boolean[] isStartPoints;
+
+    private int [] inDegrees;
 
     private int numOfStartPoint;
     private int numOfEndPoint;
@@ -58,6 +61,26 @@ public class CompressedGraph{
         return isEndPoints[i];
     }
 
+    public int[] getInDegrees(){
+        if(inDegrees != null) return inDegrees;
+
+        HashMap<Integer, Integer> vertexInDegree = new HashMap<>();
+        for (int i = 0; i < getNumVertex(); i++) vertexInDegree.put(i, 0);
+
+        for (int i : rowIndex) vertexInDegree.put(i, vertexInDegree.get(i) + 1);
+
+        inDegrees = new int[getNumVertex()];
+
+        for (int i = 0; i < getNumVertex(); i++) inDegrees[i] = vertexInDegree.get(i);
+
+        vertexInDegree = null;
+
+        return inDegrees;
+    }
+
+    public int getIndegree(int i){
+        return inDegrees[i];
+    }
 
     public List<Integer> getStartPoints() {
         if(startPoints.size() == 0) loadStartPoints();
