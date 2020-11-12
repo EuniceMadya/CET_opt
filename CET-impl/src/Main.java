@@ -194,15 +194,10 @@ public class Main {
             if(degreeNum.get(degree) == null) degreeNum.put(degree, 1);
             else degreeNum.replace(degree, degreeNum.get(degree) + 1);
         }
-        Set set = degreeNum.entrySet();
-        Iterator iterator = set.iterator();
+        printDegrees(degreeNum);
 
-        while (iterator.hasNext()) {
-            Map.Entry me = (Map.Entry)iterator.next();
-            System.out.print(me.getKey() + ": ");
-            System.out.println(me.getValue());
-        }
 
+        System.out.println("\n\n\nnot source or sink: ");
         TreeMap<Integer, Integer> interDegreeNum = new TreeMap<>(Collections.reverseOrder());
 
         for(int i = 0; i < graph.getNumVertex(); i ++){
@@ -211,17 +206,43 @@ public class Main {
                 if(interDegreeNum.get(degree) == null) interDegreeNum.put(degree, 1);
                 else interDegreeNum.replace(degree, interDegreeNum.get(degree) + 1);
         }
+        printDegrees(interDegreeNum);
+        System.out.println("-------------------------------------------------------------");
+
+        System.out.println("\n\n\nIncoming degree nodes: ");
+        degreeNum.clear();
+
+        for(int i = 0; i < graph.getNumVertex(); i ++){
+            int degree = graph.getIndegree(i);
+            if(degreeNum.get(degree) == null) degreeNum.put(degree, 1);
+            else degreeNum.replace(degree, degreeNum.get(degree) + 1);
+        }
+        printDegrees(degreeNum);
+
+        System.out.println("\n\n\nIncoming degree nodes: ");
+        interDegreeNum.clear();
+
+        for(int i = 0; i < graph.getNumVertex(); i ++){
+            int degree = graph.getIndegree(i);
+            if(!graph.startContains(i) && !graph.endContains(i))
+            if(interDegreeNum.get(degree) == null) interDegreeNum.put(degree, 1);
+            else interDegreeNum.replace(degree, interDegreeNum.get(degree) + 1);
+        }
+        printDegrees(degreeNum);
+
+    }
+
+    private static void printDegrees(TreeMap<Integer, Integer> interDegreeNum) {
+        Set set;
+        Iterator iterator;
         set = interDegreeNum.entrySet();
         iterator = set.iterator();
 
-        System.out.println("\n\n\nnot source or sink: ");
         while (iterator.hasNext()) {
             Map.Entry me = (Map.Entry)iterator.next();
             System.out.print(me.getKey() + ": ");
             System.out.println(me.getValue());
         }
-
-
     }
 
 
