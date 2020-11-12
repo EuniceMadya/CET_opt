@@ -50,15 +50,18 @@ public class AnchorProcessor {
         for (int i = 0; i < graph.getStartPointNum(); i++) anchorList[i] = graph.getStartPoints().get(i);
 
         HashMap<Integer, Integer> vertexDegrees = new HashMap<>();
+        int[] inDegrees = findInDegrees();
+
         for (int i = 0; i < graph.getNumVertex(); i++) {
             if (graph.startContains(i)
                     || graph.endContains(i))
                 continue;
             //put degree with node num
-            vertexDegrees.put(i, graph.getNumDegree(i));
+            vertexDegrees.put(i, graph.getNumDegree(i) + inDegrees[i]);
         }
 
         TreeMap<Integer, List<Integer>> degreeVertex = sortMap(vertexDegrees);
+
 
         int start = graph.getStartPointNum();
 
@@ -91,6 +94,25 @@ public class AnchorProcessor {
         }
         return temp;
     }
+
+    private int[] findInDegrees() {
+
+        HashMap<Integer, Integer> vertexInDegree = new HashMap<>();
+        for (int i = 0; i < graph.getNumVertex(); i++) vertexInDegree.put(i, 0);
+
+        for (int i : graph.getRowIndex()) vertexInDegree.put(i, vertexInDegree.get(i) + 1);
+
+        int[] inDegrees = new int[graph.getNumVertex()];
+
+        for (int i = 0; i < graph.getNumVertex(); i++) inDegrees[i] = vertexInDegree.get(i);
+
+        vertexInDegree = null;
+
+        return inDegrees;
+
+
+    }
+
 
     private int[] findEquallyDistributedAnchors(int anchorNum) {
         Stack<Integer> topStack = new Stack<>();
