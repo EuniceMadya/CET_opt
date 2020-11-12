@@ -83,7 +83,7 @@ public class CompressedGraph{
     }
 
     public int getIndegree(int i){
-        if(inDegrees != null) loadInDegrees();
+        if(inDegrees == null) loadInDegrees();
 
         assert inDegrees != null;
 
