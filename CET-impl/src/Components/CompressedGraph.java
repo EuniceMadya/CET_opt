@@ -72,7 +72,7 @@ public class CompressedGraph{
         HashMap<Integer, Integer> vertexInDegree = new HashMap<>();
         for (int i = 0; i < getNumVertex(); i++) vertexInDegree.put(i, 0);
 
-        for (int i : rowIndex) vertexInDegree.put(i, vertexInDegree.get(i) + 1);
+        for (int i : colIndex) vertexInDegree.put(i, vertexInDegree.get(i) + 1);
 
         inDegrees = new int[getNumVertex()];
 
