@@ -62,8 +62,13 @@ public class CompressedGraph{
     }
 
     public int[] getInDegrees(){
-        if(inDegrees != null) return inDegrees;
+        if(inDegrees != null) loadInDegrees();
 
+
+        return inDegrees;
+    }
+
+    private void loadInDegrees(){
         HashMap<Integer, Integer> vertexInDegree = new HashMap<>();
         for (int i = 0; i < getNumVertex(); i++) vertexInDegree.put(i, 0);
 
@@ -75,10 +80,13 @@ public class CompressedGraph{
 
         vertexInDegree = null;
 
-        return inDegrees;
     }
 
     public int getIndegree(int i){
+        if(inDegrees != null) loadInDegrees();
+
+        assert inDegrees != null;
+
         return inDegrees[i];
     }
 
