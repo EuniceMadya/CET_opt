@@ -55,6 +55,12 @@ public class CustomObjStack<E> {
 
     }
 
+    public Object firstElement() {
+        if (top < 0)
+            throw new NumberFormatException();
+        return stack[0];
+    }
+
     public Object[] getAllElements() {
         return Arrays.copyOfRange(stack, 0, top + 1);
     }
