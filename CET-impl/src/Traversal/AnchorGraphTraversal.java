@@ -131,6 +131,8 @@ public class AnchorGraphTraversal extends GraphTraversal {
     void concatenate(int start){
         if(concatenateType.equals(ConcatenateType.BFS)) BFSsubConcatenate(start);
         if(concatenateType.equals(ConcatenateType.DFS)){
+            System.out.println("concatenate " + start);
+
             for (Object obj : anchorPaths.get(start).getAllElements()) {
                 int[] startPath = (int[]) obj;
                 CustomObjStack<int[]> stack = new CustomObjStack<>();
