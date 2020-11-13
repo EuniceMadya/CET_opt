@@ -5,6 +5,7 @@ import Components.CompressedGraph;
 
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -45,21 +46,19 @@ public class ConcurrentAnchorTraversal extends AnchorGraphTraversal {
 
     private void bootTasks(int[] nodes, String operation){
         Collection<Callable<Object>> tasks = new ArrayList<>();
-        System.out.println("Start tasks");
+        System.out.println("Start tasks " + operation);
+        System.out.println(Arrays.toString(nodes));
         for(int node: nodes) {
             tasks.add(new AnchorTask(node, operation));
-            if (operation.equalsIgnoreCase("traversal"))
-                if (graph.getNumVertex() > 5000)
-                System.out.println(new Time(System.currentTimeMillis()).toString() + " - put in: " + node +
-                        " with degree " + graph.getNumDegree(node));
         }
+        System.out.println("Put into the pool for: " + operation);
         try {
             pool.invokeAll(tasks);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("Done all tasks");
-        tasks = null;
+        System.out.println("Done all tasks for " + operation);
+        tasks.clear();
 
     }
 

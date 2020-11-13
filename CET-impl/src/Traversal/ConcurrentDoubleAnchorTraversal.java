@@ -53,12 +53,14 @@ public class ConcurrentDoubleAnchorTraversal extends DoubleAnchorTraversal {
 
 
     private void bootTasks(int[] nodes, String operation){
-        System.out.println("Start all tasks");
+        System.out.println("Start all tasks" + operation);
         Collection<Callable<Object>> tasks = new ArrayList<>();
         for(int node: nodes) {
             tasks.add(new AnchorTask(node, operation));
 
         }
+        System.out.println("Put into the pool for: " + operation);
+
         List<Future<Object>> results = new ArrayList<>();
         try {
              results = pool.invokeAll(tasks);
@@ -66,7 +68,7 @@ public class ConcurrentDoubleAnchorTraversal extends DoubleAnchorTraversal {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("Done all tasks");
+        System.out.println("Done all tasks " + operation);
 
         if(operation.equalsIgnoreCase("first")){
             for(int i: anchorNodes){
@@ -82,6 +84,7 @@ public class ConcurrentDoubleAnchorTraversal extends DoubleAnchorTraversal {
                 }
             }
         }
+        tasks.clear();
 
 
 
