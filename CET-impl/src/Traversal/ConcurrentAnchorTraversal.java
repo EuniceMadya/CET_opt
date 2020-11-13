@@ -16,7 +16,7 @@ public class ConcurrentAnchorTraversal extends AnchorGraphTraversal {
 
     public ConcurrentAnchorTraversal(CompressedGraph graph, boolean saveToMem, int[] anchorNodes, ConcatenateType type) {
         super(graph, saveToMem, anchorNodes, type);
-        pool = Executors.newFixedThreadPool(20);
+        pool = Executors.newFixedThreadPool(40);
     }
 
     @Override
