@@ -129,9 +129,12 @@ class AlgoExecutor {
                 "- please specify the anchor nodes selection strategy:\n" +
                 "-   1. Random selection\n" +
                 "-   2. Largest degree nodes\n" +
-                "-   3. Equally distributed nodes");
+                "-   3. Equally distributed nodes\n" +
+                "-   4. Smallest degree nodes");
         String input = sc.nextLine();
         selection = input.equals("1") ? AnchorType.RANDOM : input.equals("2") ? AnchorType.LARGEST_DEGREE : AnchorType.EQUAL_DISTRIBUTE;
+        if(input.equals("4")) selection = AnchorType.SMALLEST_DEGREE;
+
 
         while (true) {
             System.out.println("\n- Please enter the number of anchors in between:");

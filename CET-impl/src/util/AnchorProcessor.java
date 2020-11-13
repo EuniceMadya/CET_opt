@@ -17,8 +17,10 @@ public class AnchorProcessor {
         System.out.println("  - Find anchor points for this graph...");
 
         if (type.equals(AnchorType.RANDOM)) return findRandomAnchors(anchorNum);
-        if (type.equals(AnchorType.LARGEST_DEGREE)) return findLargestDegreeAnchors(anchorNum);
+        if (type.equals(AnchorType.LARGEST_DEGREE)) return findDegreeAnchors(anchorNum, "L");
         if (type.equals(AnchorType.EQUAL_DISTRIBUTE)) return findEquallyDistributedAnchors(anchorNum);
+        if (type.equals(AnchorType.SMALLEST_DEGREE)) return findDegreeAnchors(anchorNum, "S");
+
 
         System.out.println("WARNING: Anchor Type unknown!");
         return null;
@@ -28,7 +30,6 @@ public class AnchorProcessor {
         int[] anchorList = new int[graph.getStartPointNum() + anchorNum];
 
         for (int i = 0; i < graph.getStartPointNum(); i++) anchorList[i] = graph.getStartPoints().get(i);
-//        anchorList.addAll(graph.getEndPoints());
         Random random = new Random();
         int counter = 0;
         while (counter < anchorNum) {
@@ -42,8 +43,7 @@ public class AnchorProcessor {
         return anchorList;
     }
 
-    private int[] findLargestDegreeAnchors(int anchorNum) {
-
+    private int[] findDegreeAnchors(int anchorNum, String anchorType){
         // only put start points into it, not end points
         int[] anchorList = new int[graph.getStartPointNum() + anchorNum];
 
@@ -55,10 +55,19 @@ public class AnchorProcessor {
                     || graph.endContains(i))
                 continue;
             //put degree with node num
-            vertexDegrees.put(i, graph.getNumDegree(i) + graph.getIndegree(i));
+            vertexDegrees.put(i, graph.getNumDegree(i) ); // TODO: compare performance later
         }
 
         TreeMap<Integer, List<Integer>> degreeVertex = sortMap(vertexDegrees);
+        if(anchorType.equalsIgnoreCase("L")) anchorList = findLargestDegreeAnchors(anchorNum, degreeVertex, anchorList);
+        else anchorList = findSmallestDegreeAnchors(anchorNum, degreeVertex, anchorList);
+
+        return anchorList;
+
+
+    }
+
+    private int[] findLargestDegreeAnchors(int anchorNum, TreeMap<Integer, List<Integer>> degreeVertex, int[] anchorList) {
 
         int start = graph.getStartPointNum();
 
@@ -71,7 +80,20 @@ public class AnchorProcessor {
 
             anchorNum -= entry.getValue().size();
         }
+        return anchorList;
+    }
 
+    private int [] findSmallestDegreeAnchors(int anchorNum, TreeMap<Integer, List<Integer>> degreeVertex, int[] anchorList) {
+
+        int start = graph.getStartPointNum();
+
+        for (Map.Entry<Integer, List<Integer>> entry : degreeVertex.entrySet()) {
+            if (anchorNum <= 0) break;
+            for (int i : entry.getValue())
+                if (start < anchorList.length)
+                    anchorList[start++] = i;
+            anchorNum -= entry.getValue().size();
+        }
         return anchorList;
     }
 

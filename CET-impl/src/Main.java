@@ -115,6 +115,9 @@ public class Main {
                 "      ...\n" +
                 "\n\n");
 
+        System.out.println(Arrays.toString(graph.getColIndex()));
+        System.out.println(Arrays.toString(graph.getRowIndex()));
+
 
         System.out.print("Please enter number of run you want for the algorithm: \n");
 
