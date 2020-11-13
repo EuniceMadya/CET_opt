@@ -36,7 +36,7 @@ public class ConcurrentAnchorTraversal extends AnchorGraphTraversal {
         bootTasks(anchorNodes, "traversal");
         bootTasks(graph.getStartPoints().stream().mapToInt(i->i).toArray(), "concatenate");
 
-
+        System.out.println("Start thread pool");
         long endTime = System.nanoTime();
         timeElapsed = endTime - startTime;
         System.out.println(new Time(System.currentTimeMillis()).toString() + " - finished sub concatenate!");
@@ -45,6 +45,7 @@ public class ConcurrentAnchorTraversal extends AnchorGraphTraversal {
 
     private void bootTasks(int[] nodes, String operation){
         Collection<Callable<Object>> tasks = new ArrayList<>();
+        System.out.println("Start tasks");
         for(int node: nodes) {
             tasks.add(new AnchorTask(node, operation));
             if (operation.equalsIgnoreCase("traversal"))
@@ -57,6 +58,7 @@ public class ConcurrentAnchorTraversal extends AnchorGraphTraversal {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        System.out.println("Done all tasks");
         tasks = null;
 
     }

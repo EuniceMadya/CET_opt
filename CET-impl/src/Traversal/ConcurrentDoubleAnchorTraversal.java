@@ -20,7 +20,7 @@ public class ConcurrentDoubleAnchorTraversal extends DoubleAnchorTraversal {
     public ConcurrentDoubleAnchorTraversal(CompressedGraph graph, boolean saveToMem, int[] anchorNodes,
                                            ConcatenateType firstLevel, ConcatenateType secondLevel, String doubleType) {
         super(graph, saveToMem, anchorNodes, firstLevel, secondLevel, doubleType);
-        pool = Executors.newFixedThreadPool(10);
+        pool = Executors.newFixedThreadPool(14);
 
     }
 
@@ -53,6 +53,7 @@ public class ConcurrentDoubleAnchorTraversal extends DoubleAnchorTraversal {
 
 
     private void bootTasks(int[] nodes, String operation){
+        System.out.println("Start all tasks");
         Collection<Callable<Object>> tasks = new ArrayList<>();
         for(int node: nodes) {
             tasks.add(new AnchorTask(node, operation));
@@ -65,6 +66,8 @@ public class ConcurrentDoubleAnchorTraversal extends DoubleAnchorTraversal {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("Done all tasks");
+
         if(operation.equalsIgnoreCase("first")){
             for(int i: anchorNodes){
                 if(!isAnchor[i]) anchorPaths.remove(i);
