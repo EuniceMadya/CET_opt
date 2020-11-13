@@ -28,9 +28,9 @@ public class DoubleAnchorTraversal extends AnchorGraphTraversal {
         System.gc();
         long startTime = System.nanoTime();
         for (int start : getAnchorNodes()) {
-            if (graph.getNumVertex() > 5000)
-                System.out.println(new Time(System.currentTimeMillis()).toString() + " - start on: " + start +
-                        " with degree " + graph.getNumDegree(start));
+//            if (graph.getNumVertex() > 5000)
+//                System.out.println(new Time(System.currentTimeMillis()).toString() + " - start on: " + start +
+//                        " with degree " + graph.getNumDegree(start));
             traversal(start);
         }
 
