@@ -53,7 +53,7 @@ public class ConcurrentDoubleAnchorTraversal extends DoubleAnchorTraversal {
 
 
     private void bootTasks(int[] nodes, String operation){
-        System.out.println("Start all tasks" + operation);
+        System.out.println("Start all tasks: " + operation);
         Collection<Callable<Object>> tasks = new ArrayList<>();
         for(int node: nodes) {
             tasks.add(new AnchorTask(node, operation));

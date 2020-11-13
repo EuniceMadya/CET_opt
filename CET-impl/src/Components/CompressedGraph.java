@@ -105,6 +105,7 @@ public class CompressedGraph{
                 startPoints.add(i);
                 numOfStartPoint ++;
             }
+        System.out.println(numOfStartPoint + "\n\n\n\n\n\n");
     }
 
     public List<Integer> getEndPoints() {

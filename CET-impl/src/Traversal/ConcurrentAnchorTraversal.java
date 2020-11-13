@@ -52,6 +52,7 @@ public class ConcurrentAnchorTraversal extends AnchorGraphTraversal {
             tasks.add(new AnchorTask(node, operation));
         }
         System.out.println("Put into the pool for: " + operation);
+
         try {
             pool.invokeAll(tasks);
         } catch (InterruptedException e) {
