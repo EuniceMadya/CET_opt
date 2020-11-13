@@ -144,6 +144,7 @@ public class DoubleAnchorTraversal extends AnchorGraphTraversal {
 
                 if(graph.startContains(subPath[0]) && graph.endContains(subPath[subPath.length - 1])) {
                     if (saveToMem) validPaths.add(subPath);
+                    pathNum ++;
                     continue;
                 }
                 if(isAnchor[subPath[subPath.length - 1]]

@@ -114,9 +114,9 @@ public class Main {
         System.out.println("- Output folders created\n" +
                 "      ...\n" +
                 "\n\n");
-
-        System.out.println(Arrays.toString(graph.getColIndex()));
-        System.out.println(Arrays.toString(graph.getRowIndex()));
+//
+//        System.out.println(Arrays.toString(graph.getColIndex()));
+//        System.out.println(Arrays.toString(graph.getRowIndex()));
 
 
         System.out.print("Please enter number of run you want for the algorithm: \n");
