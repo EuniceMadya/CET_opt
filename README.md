@@ -1,9 +1,5 @@
 # CET
 
-## Implementation
-
-Right now, it has implemented BFS and DFS traversal using stack. Furthermore, the hybrid one is almost done. 
-
 ## Usage
 
 1. Compile and run the project by executing below:
